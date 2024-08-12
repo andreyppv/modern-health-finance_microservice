@@ -1,0 +1,94 @@
+<section class="content-header">
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/admin/dashboard']"
+          ><i class="fa fa-dashboard"></i> Dashboard</a
+        >
+      </li>
+      <li class="active">Milestone Fund(%)</li>
+    </ol>
+  </section>
+
+  <div class="displayFlex spaceBetween mainTitle">
+    <div>
+      <div class="">Milestone Fund(%)</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="p10px">
+        <form name="form" (ngSubmit)="f.form.valid && updateMilestoneFundPer()" #f="ngForm" novalidate>
+            <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Milestone</th>
+                <th scope="col">Value(%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Milestone 1 Fund %</th>
+                    <td>
+                        <input 
+                            type="text" name="milestone1fundper" 
+                            class="form-control" placeholder="%"
+                            (input)="setMilestoneForm.milestone1fundper = number($event)" 
+                            [(ngModel)]="setMilestoneForm.milestone1fundper" #milestone1fundper="ngModel"
+                            required 
+                            [ngClass]="{ 'is-invalid': f.submitted && milestone1fundper.invalid }"
+                        >
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Milestone 2 Fund %</th>
+                    <td>
+                        <input 
+                            type="text" name="milestone2fundper" 
+                            class="form-control" placeholder="%"
+                            (input)="setMilestoneForm.milestone2fundper = number($event)" 
+                            [(ngModel)]="setMilestoneForm.milestone2fundper" #milestone2fundper="ngModel"
+                            required 
+                            [ngClass]="{ 'is-invalid': f.submitted && milestone2fundper.invalid }"
+                        >
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Milestone 3 Fund %</th>
+                    <td>
+                        <input 
+                            type="text" name="milestone3fundper" 
+                            class="form-control" placeholder="%"
+                            (input)="setMilestoneForm.milestone3fundper = number($event)" 
+                            [(ngModel)]="setMilestoneForm.milestone3fundper" #milestone3fundper="ngModel"
+                            required 
+                            [ngClass]="{ 'is-invalid': f.submitted && milestone3fundper.invalid }"
+                        >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </form>
+      </div>
+    </div>
+</div>
+
+<ng-template #messagebox>
+    <div class="modal-body text-center">
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">Message</p>
+      <p *ngFor="let m of message">{{ m }}</p>
+    </div>
+  </ng-template>

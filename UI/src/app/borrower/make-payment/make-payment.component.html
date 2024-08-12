@@ -1,0 +1,219 @@
+<div class="body_content">
+  <h4  class="SemiBold_14 mb_16">To Make a Payment</h4>
+
+  <a class="btn btnGreen mb_30" target="_blank" href="http://modernhealthfinance.com/manage-account/"
+    >Click here to manage Your account</a
+  >
+  <p class="para_text pb_15">
+    You can also
+    <a href="http://www.paymhf.com/" target="_blank">click here </a>to
+    have your payment instructions.
+  </p>
+  <p class="para_text">
+    You can also contact customer service to make your payments, Customer
+    Service: 888-585-8319
+  </p>
+  <!-- <div class="content_box">
+    <div>
+      <div class="fs16px fontWeight pb20">Select Payment Method</div>
+    </div>
+
+    <tabset>
+      <tab heading="Bank Account">
+        <div class="bank_icon"></div>
+
+        <div *ngIf="activeBankDetail.length > 0">
+          <div class="displayFlex spaceBetween pb20">
+            <div>
+              {{ activeBankDetail[0].bankname }} (******{{
+                activeBankDetail[0].accountnumber.substring(
+                  activeBankDetail[0].accountnumber.length - 4
+                )
+              }})
+            </div>
+            <div
+              class="greenColor cursorpointer"
+              (click)="changeBankAcct(changeBankAcctTemp)"
+            >
+              change
+            </div>
+          </div>
+
+          <div class="pb20">
+            By making this payment I agree to the terms & conditions
+          </div>
+
+          <p></p>
+          <button
+            class="btn main_btn width100per"
+            (click)="pay(paymentSuccess)"
+            disabled
+          >
+            Pay with Bank Account
+          </button>
+        </div>
+      </tab>
+      <tab heading="Debit Card">
+        <div class="withbank_icon"></div>
+
+        <div *ngIf="activeCardDetail.length > 0">
+          <div class="displayFlex spaceBetween pb20">
+            <div>
+              {{ activeCardDetail[0].fullname }} (******{{
+                activeCardDetail[0].cardnumber.substring(
+                  activeCardDetail[0].cardnumber.length - 4
+                )
+              }})
+            </div>
+            <div
+              class="greenColor cursorpointer"
+              (click)="changeCard(changeCardTemp)"
+            >
+              change
+            </div>
+          </div>
+
+          <div class="pb20">
+            By making this payment I agree to the terms & conditions
+          </div>
+
+          <p></p>
+          <button
+            class="btn main_btn width100per"
+            (click)="paycard(paymentSuccess)"
+          >
+            Pay with Debit Card
+          </button>
+        </div>
+      </tab>
+    </tabset>
+  </div> -->
+  <!-- <div class="content_box">
+    <div>
+      <div class="fs14px fontWeight pb20">Remaining balance</div>
+      <div class="fs22px greenColor pb20">${{ remainingBalance }}</div>
+    </div> -->
+
+  <!-- <div class="displayFlex spaceBetween pb20">
+      <div>Minimum payment</div>
+      <div>${{ monthDue }}</div>
+    </div> -->
+  <!-- <div class="displayFlex spaceBetween pb20">
+      <div>6 months payoff</div>
+      <div>${{payOff | number}}</div>
+    </div> -->
+  <!-- <div class="displayFlex spaceBetween pb20">
+      <div>Next payment due</div>
+      <div>{{ datePipe.transform(nextDuedate, "MMMM dd yyyy") }}</div>
+    </div> -->
+  <!-- <div class="displayFlex spaceBetween pb20">
+      <div>Custom</div>
+      <div class="greenColor">
+        Enter amount <i class="fa fa-chevron-right"></i>
+      </div>
+    </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+
+  <ng-template #paymentSuccess>
+    <div class="modal-body text-center">
+      <button
+        type="button"
+        class="btn main_hover_btn pull-right"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div>
+        <div class="success_icon" align="center"></div>
+        <div class="fs22px pb20">Payment {{ paymentstatus["status"] }}!</div>
+        <div class="fs22px pb20">
+          transactionid: {{ paymentstatus["transactionid"] }}
+        </div>
+        <div class="fs22px pb20">Amount: ${{ paymentstatus["amount"] }}</div>
+        <!-- <div class="fontWeight pb20 grayColor fs12px">Go to the main page</div> -->
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #changeBankAcctTemp>
+    <div class="modal-body">
+      <h5 class="pb20">Choose your active bank account</h5>
+      <form
+        id="bankChooseForm"
+        name="bankChooseForm"
+        (ngSubmit)="f.form.valid && bankChoose()"
+        #f="ngForm"
+        novalidate
+      >
+        <div
+          *ngFor="let b of data1.bankDetails"
+          class="displayFlex AlignItemCenter spaceBetween pb20"
+        >
+          <div>
+            {{ b.bankname }} (******{{
+              b.accountnumber.substring(b.accountnumber.length - 4)
+            }})
+          </div>
+          <input
+            type="radio"
+            name="chooseBank"
+            checked="checked"
+            value="{{ b.id }}"
+            [(ngModel)]="activeBank"
+          />
+        </div>
+        <div class="mtb10">
+          <button
+            type="button"
+            class="btn main_hover_btn mr30px w200px"
+            (click)="close()"
+          >
+            Close</button
+          ><button type="submit" class="btn main_btn w200px">Apply</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #changeCardTemp>
+    <div class="modal-body">
+      <h5 class="pb20">Choose your active debit card</h5>
+      <form
+        id="cardChooseForm"
+        name="cardChooseForm"
+        (ngSubmit)="f.form.valid && cardChoose()"
+        #f="ngForm"
+        novalidate
+      >
+        <div
+          *ngFor="let c of data1.cardDetails"
+          class="displayFlex AlignItemCenter spaceBetween pb20"
+        >
+          <div>
+            {{ c.fullname }} (******{{
+              c.cardnumber.substring(c.cardnumber.length - 4)
+            }})
+          </div>
+          <input
+            type="radio"
+            name="chooseCrd"
+            checked="checked"
+            value="{{ c.id }}"
+            [(ngModel)]="activeCard"
+          />
+        </div>
+        <div class="mtb10">
+          <button
+            type="button"
+            class="btn main_hover_btn mr30px"
+            (click)="close()"
+          >
+            Close</button
+          ><button type="submit" class="btn main_btn upperCase">Apply</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

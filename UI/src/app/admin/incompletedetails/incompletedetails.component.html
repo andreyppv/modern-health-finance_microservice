@@ -1,0 +1,976 @@
+<section class="content-header">
+  <ol class="breadcrumb">
+    <li class="current">
+      <a [routerLink]="['/admin/dashboard']"
+        ><img src="../../assets/new/dashboard.svg" /> Dashboard
+        <i class="fal fa-angle-right"></i
+      ></a>
+    </li>
+    <li class="current">
+      <a [routerLink]="['/admin/incomplete']"
+        ><img src="../../assets/new/current_incomplete.svg" /> Incomplete
+        Application Details</a
+      >
+    </li>
+    <li class="active">
+      <img src="../../assets/new/visibility.svg" /> View Application Details
+    </li>
+  </ol>
+  <h1>View Application Details</h1>
+</section>
+
+<div class="content_part">
+  <div class="mainTitle">
+    <div>View Application Details</div>
+    <div>
+      <button
+        type="button"
+        class="btn btn-danger btn-user-control"
+        (click)="delete()"
+      >
+        <i class="fa fa-trash" aria-hidden="true"></i> Delete
+      </button>
+    </div>
+  </div>
+  <div class="view_content_part">
+    <div class="view_content_part_header">
+      <div>
+        <h4><i class="far fa-chevron-left"></i> Temeka Adams</h4>
+      </div>
+      <div>
+        <button class="btn main_hover_btn">Start Application</button>
+      </div>
+    </div>
+    <div class="pendingTab" *ngIf="viewApp">
+      <tabset>
+        <tab
+          heading="User Information"
+          *ngIf="data.from_details[0] && tabs['User Information']"
+        >
+          <div
+            class="displayFlex AlignItemCenter spaceBetween p10px frameshadow"
+          >
+            <div
+              class="fs22px displayFlex AlignItemCenter spaceBetween flexDirection mr30px"
+            >
+              <div class="profilePhoto">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </div>
+              <div class="nowrap">
+                {{ data.from_details[0]["firstname"] }}
+                {{ data.from_details[0]["lastname"] }}
+              </div>
+            </div>
+          </div>
+          <div>
+            <form
+              autocomplete="on"
+              [formGroup]="apForm"
+              (ngSubmit)="sendForm()"
+              class="loan_updates"
+            >
+              <div class="row">
+                <div class="col-md-6 float-label">
+                  <label>Loan Amount</label>
+                  <input
+                    class="form-control form-application"
+                    id="loanamount"
+                    formControlName="LoanAmount"
+                    [ngClass]="{
+                      'is-invalid': apibtn && apForm.controls.LoanAmount.errors
+                    }"
+                    (input)="findPaymentAmount()"
+                  />
+                  <div
+                    *ngIf="apibtn && apForm.controls.LoanAmount.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="apForm.controls.LoanAmount.errors.required">
+                      Loan Amount is required
+                    </div>
+                    <div *ngIf="apForm.controls.LoanAmount.errors.pattern">
+                      This is not Vaild number
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 float-label">
+                  <label>APR</label>
+                  <input
+                    class="form-control form-application"
+                    id="apr"
+                    formControlName="APR"
+                    [ngClass]="{
+                      'is-invalid': apibtn && apForm.controls.APR.errors
+                    }"
+                    (input)="findPaymentAmount()"
+                  />
+                  <div
+                    *ngIf="apibtn && apForm.controls.APR.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="apForm.controls.APR.errors.required">
+                      APR is required
+                    </div>
+                    <div *ngIf="apForm.controls.APR.errors.pattern">
+                      This is not Vaild number
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 float-label">
+                  <label>Duration (Months)</label>
+                  <select
+                    class="form-control form-application"
+                    id="duration"
+                    formControlName="Duration"
+                    [ngClass]="{
+                      'is-invalid': apibtn && apForm.controls.Duration.errors
+                    }"
+                    (change)="findPaymentAmount()"
+                  >
+                    <option
+                      *ngFor="let month of durationMonths"
+                      [value]="month"
+                    >
+                      {{ month }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="apibtn && apForm.controls.Duration.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="apForm.controls.Duration.errors.required">
+                      Duration is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 float-label">
+                  <label>Payment Amount</label>
+                  <input
+                    class="form-control form-application"
+                    id="paymentAmount"
+                    formControlName="PaymentAmount"
+                  />
+                </div>
+              </div>
+              <button
+                data-toggle="pill"
+                class="btn main_btn mr-2"
+                type="submit"
+                style="margin-right: 20px"
+              >
+                Save
+              </button>
+              <button
+                data-toggle="pill"
+                class="btn main_btn mr-2"
+                id="invite"
+                (click)="inviteUser()"
+                type="button"
+              >
+                Invite
+              </button>
+              <button
+                data-toggle="pill"
+                class="btn main_btn mr-2"
+                id="inviteEmailTest"
+                (click)="inviteTest()"
+                type="button"
+              >
+                Send Test Email
+              </button>
+            </form>
+          </div>
+
+          <ul class="userinformation">
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>User Reference</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    <a
+                      routerLink="/admin/users/{{
+                        data.from_details[0]['user_id']
+                      }}"
+                    >
+                      USR_{{ data.from_details[0]["user_ref"] }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Name</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{ data.from_details[0]["firstname"] }}
+                    {{ data.from_details[0]["lastname"] }}
+                    <span class="text-danger cursorpointer"
+                      ><i class="fa fa-edit" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Email Address</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{ data.from_details[0]["email"] }}
+                    <i
+                      class="fa fa-bell text-danger cursorpointer"
+                      aria-hidden="true"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Phone Number</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{ data.from_details[0]["phone"] }}
+                    <i
+                      class="fa fa-bell text-danger cursorpointer"
+                      aria-hidden="true"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Date of Birth</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{ data.from_details[0]["birthday"] | date }}
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- <li>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <h3>Latitude</h3></div>
+                    <div class="col-md-7">
+                      <div class="info_value">--</div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <h3>Longitude</h3>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="info_value">--</div>
+                    </div>
+                  </div>
+                </li> -->
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Address</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value" style="height: auto">
+                    <h4>
+                      {{ data.from_details[0]["streetaddress"] }},
+                      <i
+                        class="fa fa-edit text-danger cursorpointer"
+                        aria-hidden="true"
+                      ></i>
+                    </h4>
+                    <h4>
+                      {{ data.from_details[0]["city"] }}
+                      <i
+                        class="fa fa-edit text-danger cursorpointer"
+                        aria-hidden="true"
+                      ></i>
+                    </h4>
+                    <h4>
+                      {{ data.from_details[0]["zipcode"] }}
+                      <i
+                        class="fa fa-edit text-danger cursorpointer"
+                        aria-hidden="true"
+                      ></i>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>State</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{ data.from_details[0]["state"] }}
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Financing Exist</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    Yes
+                    <i
+                      class="fa fa-bell text-success cursorpointer"
+                      aria-hidden="true"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Bank Added</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    <i
+                      class="fa fa-bell text-success cursorpointer"
+                      aria-hidden="true"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Registered Date</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{ data.from_details[0]["createdat"] | date }}
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Last Profile Update Date</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{ data.from_details[0]["updatedat"] | date }}
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Annual Income</h3>
+                </div>
+                <div class="col-md-7">
+                  <div
+                    class="info_value"
+                    *ngIf="data.from_details[0]['annualincome']"
+                  >
+                    {{
+                      data.from_details[0]["annualincome"]
+                        | currency: "USD":"symbol"
+                    }}
+                  </div>
+                  <div
+                    class="info_value"
+                    *ngIf="!data.from_details[0]['annualincome']"
+                  >
+                    {{
+                      data.from_details[0]["netmonthlyincome"] * 12
+                        | currency: "USD":"symbol"
+                    }}
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Monthly Income</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{
+                      data.from_details[0]["netmonthlyincome"]
+                        | currency: "USD":"symbol"
+                    }}
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Anticipated Financed Amount</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    {{
+                      data.from_details[0]["loanamount"]
+                        | currency: "USD":"symbol"
+                    }}
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="displayNone">
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>PreDTI Debt</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">--</div>
+                </div>
+              </div>
+            </li>
+            <li class="displayNone">
+              <div class="row">
+                <div class="col-md-5"><h3>Funding Tier</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value">--</div>
+                </div>
+              </div>
+            </li>
+            <li class="displayNone">
+              <div class="row">
+                <div class="col-md-5"><h3>PreDTI Debt(%)</h3></div>
+                <div class="col-md-7"><div class="info_value">--</div></div>
+              </div>
+            </li>
+            <li class="displayNone">
+              <div class="row">
+                <div class="col-md-5"><h3>PreDTI Debt(%)</h3></div>
+                <div class="col-md-7"><div class="info_value">--</div></div>
+              </div>
+            </li>
+            <li class="displayNone">
+              <div class="row">
+                <div class="col-md-5"><h3>Payroll Detected Income</h3></div>
+                <div class="col-md-7"><div class="info_value">$0.00</div></div>
+              </div>
+            </li>
+            <li class="displayNone">
+              <div class="row">
+                <div class="col-md-5"><h3>Housing Expense</h3></div>
+                <div class="col-md-7"><div class="info_value">$0.00</div></div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Income Type</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value">Modified by admin</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Underwriting Rules</h3></div>
+                <div class="col-md-7"><div class="info_value">--</div></div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>Application Reference Number</h3>
+                </div>
+                <div class="col-md-7">
+                  <div class="info_value">
+                    APP_{{ data.from_details[0]["ref_no"] }}
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Financing Status</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value text-success">Pending</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Denied Reason</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value text-success">--</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Counter offered</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value text-success">--</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Application Created By</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value text-success">User</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Plaid Re-sent By</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value text-success">--</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-5"><h3>Offer Link Send By</h3></div>
+                <div class="col-md-7">
+                  <div class="info_value text-success">--</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </tab>
+
+        <tab
+          heading="Bank Accounts"
+          *ngIf="data.from_details.length > 0 && tabs['Bank Accounts']"
+        >
+          <div id="userbankinfo">
+            <div
+              class="bankaccount-btns-wrapper displayFlex flexEnd"
+              style="margin: 10px"
+            >
+              <button
+                type="button"
+                class="btn main_hover_btn"
+                id="sendaddbankinvitation"
+                data-toggle="modal"
+                data-target="#sendaddbankinvitationModal"
+              >
+                Send Bank Login
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                class="btn main_hover_btn"
+                (click)="modelopen(manualBankAddTemp)"
+              >
+                Add Bank Manually
+              </button>
+            </div>
+            <accordion class="p10 cardSection">
+              <accordion-group heading="Static Header">
+                This content is straight in the template.
+              </accordion-group>
+              <accordion-group heading="Another group">
+                <p>Some content</p>
+              </accordion-group>
+              <accordion-group heading="Another group">
+                <p>Some content</p>
+              </accordion-group>
+              <accordion-group heading="Another group">
+                <p>Some content</p>
+              </accordion-group>
+            </accordion>
+          </div>
+        </tab>
+
+        <tab
+          heading="Document Center"
+          *ngIf="data.document && tabs['Document Center']"
+        >
+          <div class="document_center">
+            <div class="frameshadow mb20px">
+              <div>
+                <div class="mainTitle">Financing Agreement Documents</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 50px">#</th>
+                    <th>Documents</th>
+                    <th>PDF,JPG,JPEG,PNG</th>
+                  </tr>
+                  <tbody *ngIf="data.document">
+                    <tr *ngFor="let d of data.document; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ d.name }}</td>
+                      <td>
+                        <a (click)="view(d.filepath)" href="javascript:void(0)"
+                          >View Document</a
+                        >
+                      </td>
+                    </tr>
+                    <tr
+                      class="text-center"
+                      *ngIf="!data.document || data.document.length == 0"
+                    >
+                      <td colspan="3">No records</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="mb20px">
+              <div class="frameshadow">
+                <div>
+                  <div class="mainTitle">Uploaded Documents</div>
+                </div>
+                <div class=" ">
+                  <div
+                    class="displayFlex listdetails AlignItemCenter flexStart"
+                  >
+                    <div class="fontWeight w200px">Document Type</div>
+                    <div>
+                      <select
+                        name="docutype"
+                        [formControl]="formControls.type"
+                        class="form-control"
+                      >
+                        <option value="">Select Document Type</option>
+                        <option
+                          *ngFor="let doc of documentsTypes"
+                          [value]="doc.documenttype"
+                        >
+                          {{ doc.documenttype }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          !formControls.type.valid && formControls.type.errors
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="formControls.type.errors.required">
+                          Document Type is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex listdetails AlignItemCenter flexStart"
+                  >
+                    <div class="fontWeight w200px">Document</div>
+                    <div>
+                      <ngx-file-drag-drop
+                        [formControl]="formControls.docFile"
+                        activeBorderColor="#3F51B5"
+                        accept="image/png, image/jpeg, application/pdf"
+                      >
+                      </ngx-file-drag-drop>
+                      <div
+                        *ngIf="
+                          !formControls.docFile.valid &&
+                          formControls.docFile.errors
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="formControls.docFile.errors.required">
+                          File is required.
+                        </div>
+                        <div *ngIf="formControls.docFile.errors.fileExtension">
+                          Unsupported file format.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p10px">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="updocs"
+                      (click)="uploadDoc()"
+                    >
+                      Submit
+                    </button>
+                  </div>
+
+                  <div class="p10px">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th style="width: 50px">#</th>
+                        <th>Documents</th>
+                        <th>Document Type</th>
+                        <th>PDF,JPG,JPEG,PNG</th>
+                      </tr>
+                      <tbody>
+                        <tr *ngFor="let d of data.userDocument; let i = index">
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ d.orginalfileName }}</td>
+                          <td>{{ d.type }}</td>
+                          <td>
+                            <a
+                              (click)="view(d.fileName)"
+                              href="javascript:void(0)"
+                              >View Document</a
+                            >
+                          </td>
+                        </tr>
+                        <tr
+                          class="text-center"
+                          *ngIf="
+                            !data.userDocument || data.userDocument.length == 0
+                          "
+                        >
+                          <td colspan="4">No records</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab
+          heading="Comments"
+          *ngIf="data.from_details.length > 0 && tabs['Comments']"
+        >
+          <div class="Comments_sec">
+            <h5>Comments</h5>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Subject</th>
+                  <th>Comments</th>
+                  <th>Created By</th>
+                  <th>Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of res_comments; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ c.subject }}</td>
+                  <td>{{ c.comments }}</td>
+                  <td>{{ c.role }}:{{ c.firstname }} {{ c.lastname }}</td>
+                  <td>{{ c.createdat }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button
+              class="brn main_hover_btn"
+              (click)="modelopen(comment_modal)"
+            >
+              Add Comment
+            </button>
+          </div>
+        </tab>
+
+        <tab heading="Log" *ngIf="data.from_details.length > 0 && tabs['Log']">
+          <div class="log_sec">
+            <h5>Log Activity Details</h5>
+            <table id="achlogactivity_table" class="table dataTable">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Log Reference</th>
+                  <th>Module Name</th>
+                  <th>User</th>
+                  <th>Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let d of screenlogs; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ d.id }}</td>
+                  <td>{{ d.module }}</td>
+                  <td>
+                    {{ d.user }}
+                  </td>
+                  <td>{{ d.createdat }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>
+<!-- Manual Bank Account Modal -->
+<ng-template #manualBankAddTemp>
+  <div class="modal-body">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5>Bank Account Information For Auto-Pay</h5>
+
+    <form
+      id="manualBankAddForm"
+      name="manualBankAddForm"
+      (ngSubmit)="f.form.valid && manualBankAdd()"
+      #f="ngForm"
+      novalidate
+    >
+      <label>Bank Name</label><br />
+      <input
+        type="text"
+        name="bankname"
+        [(ngModel)]="manualBankAddFields.bankname"
+        class="form-control"
+      /><br />
+      <label>Primary Account Holder</label><br />
+      <input
+        type="text"
+        name="holdername"
+        [(ngModel)]="manualBankAddFields.holdername"
+        class="form-control"
+      /><br />
+      <label>Routing Number</label><br />
+      <input
+        type="number"
+        name="routingnumber"
+        [(ngModel)]="manualBankAddFields.routingnumber"
+        class="form-control"
+      /><br />
+      <label>Account Number</label><br />
+      <input
+        type="number"
+        name="accountnumber"
+        [(ngModel)]="manualBankAddFields.accountnumber"
+        class="form-control"
+      /><br />
+      <label>Confirm Account Number</label><br />
+      <input
+        type="number"
+        name="confmAccountNumber"
+        [(ngModel)]="manualBankAddFields.confmAccountNumber"
+        class="form-control"
+      /><br />
+      <button
+        type="button"
+        class="brw-btn closebutton mr30px w200px"
+        (click)="close()"
+      >
+        CANCEL
+      </button>
+      <button type="submit" class="greenbutton upperCase w200px">Save</button>
+    </form>
+  </div>
+</ng-template>
+
+<!-- comment popup Modal -->
+<ng-template #comment_modal>
+  <div class="commemt_box modal-body">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5>Add Comment</h5>
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && addcomments(messagebox)"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="row">
+        <div class="col-md-4">
+          <label>Subject</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            name="subject"
+            placeholder="Title"
+            [(ngModel)]="cm.subject"
+            #subject="ngModel"
+            required
+            class="form-control"
+            [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Comments</label>
+        </div>
+        <div class="col-md-8">
+          <textarea
+            class="form-control"
+            placeholder="Comment"
+            name="comments"
+            [(ngModel)]="cm.comments"
+            #comments="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"
+          ></textarea>
+        </div>
+      </div>
+      <!-- <div class="p10px">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="updocs"
+              value="Validate"
+            >
+              Submit
+            </button>
+          </div> -->
+      <!-- </div> -->
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div style="float: right">
+      <button
+        type="button"
+        class="btn main_hover_btn"
+        (click)="close()"
+        style="margin-right: 20px"
+      >
+        CANCEL
+      </button>
+      <button type="submit" id="updocs" value="Validate" class="btn main_btn">
+        Add Comment
+      </button>
+    </div>
+  </div>
+</ng-template>

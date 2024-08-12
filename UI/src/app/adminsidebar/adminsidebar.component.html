@@ -1,0 +1,288 @@
+<!-- Navigation-->
+
+<!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <img src="../../assets/new/responsive_toggle.svg" />
+      </button> -->
+
+<div class="AdminSidemenu">
+  <div class="displayFlex AlignItemCenter spaceBetween">
+    <a class="admin_logo" [routerLink]="['/admin/dashboard']">
+      <img src="../../assets/new/logo.svg"
+    /></a>
+    <div id="sidenavToggler " class="cursorpointer sidenavToggler">
+      <i class="far fa-chevron-left" (click)="switchsidenavtoggled()"></i>
+    </div>
+  </div>
+
+  <ul class="mb_89">
+    <li class="nav-item mb_8">
+      <h4>MAIN</h4>
+      <img
+        class="mob_horizontal_border"
+        src="../../../assets/new/horizontal_border.svg"
+      />
+    </li>
+
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Dashboard"
+      [routerLink]="['/admin/dashboard']"
+    >
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/dashboard.svg" />
+        <span class="nav-link-text">Dashboard</span>
+      </a>
+    </li>
+
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Incomplete Applications"
+      [routerLink]="['/admin/loan-stages/waiting']"
+    >
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/incomplete.svg" />
+        <span class="nav-link-text">Incomplete Applications</span>
+      </a>
+    </li>
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Pending Applications"
+      [routerLink]="['/admin/loan-stages/pending']"
+    >
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/pending.svg" />
+        <span class="nav-link-text">Pending Applications</span>
+      </a>
+    </li>
+
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Approved Applications"
+      [routerLink]="['/admin/loan-stages/approved']"
+    >
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/approved.svg" />
+        <span class="nav-link-text">Approved Contracts</span>
+      </a>
+    </li>
+
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Funding Contracts"
+      [routerLink]="['/admin/loan-stages/fundingcontract']"
+    >
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/funted_con.svg" />
+        <span class="nav-link-text">Funded Contracts</span>
+      </a>
+    </li>
+    <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Performing Contracts" [routerLink]="['/admin/loan-stages/performingcontract']">
+        <a class="nav-link" [routerLinkActive]="['active']">
+            <img class="sidebar_icon" src="../../assets/new/performing.svg" />
+            <span class="nav-link-text">Performing Contracts</span>
+        </a>
+    </li> -->
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Archived Open Applications"
+      [routerLink]="['/admin/loan-stages/archived']"
+    >
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/archived.svg" />
+        <span class="nav-link-text">Archived Contracts</span>
+      </a>
+    </li>
+
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Denied Applications"
+      [routerLink]="['/admin/loan-stages/denied']"
+    >
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/denied.svg" />
+        <span class="nav-link-text">Denied Applications</span>
+      </a>
+    </li>
+
+    <li class="nav-item mb_8 mt_48">
+      <h4>OTHER</h4>
+      <img
+        class="mob_horizontal_border"
+        src="../../../assets/new/horizontal_border.svg"
+      />
+    </li>
+
+    <li class="nav-item" [routerLink]="['/admin/users']">
+      <a class="nav-link" [routerLinkActive]="['active']">
+        <img class="sidebar_icon" src="../../assets/new/all_customer.svg" />
+        <span class="nav-link-text"> Users</span>
+      </a>
+    </li>
+    <!-- <li class="nav-item" [routerLink]="['/admin/login-log']">
+                            <a class="nav-link" [routerLinkActive]="['active']">
+                                <i class="fal fa-user-circle sidebar_icon"></i>
+                                <span class="nav-link-text"> Login Log</span>
+                            </a>
+                        </li> -->
+
+    <li class="nav-item" [routerLink]="['/admin/patient-list']">
+      <a
+        class="nav-link"
+        [routerLinkActive]="['active']"
+      >
+        <img class="sidebar_icon" src="../../assets/new/all_customer.svg" />
+        <span class="nav-link-text">All Patients</span>
+      </a>
+    </li>
+    <li class="nav-item" [routerLink]="['/admin/practice-management']">
+      <a
+        class="nav-link"
+        [routerLinkActive]="['active']"
+      >
+        <img class="sidebar_icon" src="../../assets/new/practices_icon.svg" />
+        <span class="nav-link-text">Practice Management</span>
+      </a>
+    </li>
+    <li class="nav-item" [routerLink]="['/admin/practice-rules']">
+      <a
+        class="nav-link"
+        [routerLinkActive]="['active']"
+      >
+        <img class="sidebar_icon" src="../../assets/new/all_customer.svg" />
+        <span class="nav-link-text">Practice Rules</span>
+      </a>
+    </li>
+    <!-- <li class="nav-item" [routerLink]="['/admin/practice-settings']">
+                            <a class="nav-link" [routerLinkActive]="['active']" *ngIf="pages['Users']">
+                                <img class="sidebar_icon" src="../../assets/new/all_customer.svg" />
+                                <span class="nav-link-text">Practice Settings</span>
+                            </a>
+                        </li> -->
+    <li class="nav-item" [routerLink]="['/admin/practice-admin']">
+      <a
+        class="nav-link"
+        [routerLinkActive]="['active']"
+      >
+        <img class="sidebar_icon" src="../../assets/new/practices_admin.svg" />
+        <span class="nav-link-text">Practice Admin</span>
+      </a>
+    </li>
+
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Components"
+    >
+      <a
+        class="nav-link nav-link-collapse collapsed"
+        [routerLinkActive]="['active']"
+        (click)="switchSettings()"
+        [class.collapsed]="!Settings"
+        data-toggle="collapse"
+        data-parent="#exampleAccordion"
+      >
+        <img class="sidebar_icon" src="../../assets/new/setting_icon.svg" />
+        <span class="nav-link-text">Settings</span>
+        <!-- <i class="fal fa-angle-down"></i> -->
+      </a>
+    </li>
+
+    <ul
+      class="sidenav-second-level collapse"
+      [class.show]="Settings"
+      id="collapseComponents"
+    >
+      <li
+        class="nav-item"
+        [routerLink]="['/admin/settings/auditlog']"
+      >
+        <a class="nav-link">
+          <img class="sidebar_icon" src="../../assets/new/Audit_Log.svg" />
+          <span class="nav-link-text"> Audit Log</span></a
+        >
+      </li>
+
+      <li
+        class="nav-item"
+        [routerLink]="['/admin/settings/admin-security']"
+      >
+        <a class="nav-link" [routerLinkActive]="['active']">
+          <i class="fal fa-key"></i>
+          <span class="nav-link-text"> Admin Security</span></a
+        >
+      </li>
+      <li
+        class="nav-item"
+        [routerLink]="['/admin/settings/roles']"
+      >
+        <a class="nav-link" [routerLinkActive]="['active']">
+          <i class="fal fa-user-tag"></i>
+          <span class="nav-link-text"> Roles</span></a
+        >
+      </li>
+      <li
+        class="nav-item"
+        [routerLink]="['/admin/settings/decisionengine']"
+      >
+        <a class="nav-link" [routerLinkActive]="['active']">
+          <i class="fal fa-users-cog"></i>
+          <span class="nav-link-text"> Decision Engine</span></a
+        >
+      </li>
+    </ul>
+  </ul>
+
+  <ol class="mobile_usersetting">
+    <li
+      class="nav-item"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Start Applications"
+      [routerLink]="['/admin/start-application']"
+    >
+      <a class="btn mobile_startbtn" [routerLinkActive]="['active']">
+        <img src="../../assets/new/create_plus.svg" />
+      </a>
+    </li>
+    <li>
+      <a class="notification_icon"
+        ><img src="../../../assets/new/notification.svg"
+      /></a>
+    </li>
+    <li>
+      <a class="notification_icon"
+        ><img src="../../../assets/new/settings.svg"
+      /></a>
+    </li>
+    <li>
+      <a><img src="../../../assets/new/horizontal_border.svg" /></a>
+    </li>
+    <li>
+      <a
+        class="logOut_btn"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        (click)="logout()"
+      >
+        <img src="../../../assets/new/dp.jpg"
+      /></a>
+    </li>
+  </ol>
+
+  <div style="clear: both"></div>
+</div>

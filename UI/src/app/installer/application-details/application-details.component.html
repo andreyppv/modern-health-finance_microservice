@@ -1,0 +1,1153 @@
+<section class="application_detail">
+  <div class="m50px">
+    <div class="fs22px pb20 textAlignCenter">Application Details</div>
+
+    <div
+      class="app_detail displayFlex AlignItemCenter spaceBetween mb50px stretch"
+    >
+      <div class="grayBox w48per">
+        <div
+          class="AlignItemCenter displayFlex justifycontencenter greenColor pb20"
+        >
+          Customer
+        </div>
+
+        <div *ngIf="data.applicationDetails.length > 0" class="plr50">
+          <div class="wordbreak">
+            <div class="displayFlex ptb20 AlignItemCenter pt0">
+              <div class="iconBlock">
+                <div class="overview_profile_icon"></div>
+              </div>
+              <div>
+                {{ data.applicationDetails[0].firstname }}
+                {{ data.applicationDetails[0].lastname }}
+              </div>
+            </div>
+            <div class="displayFlex ptb20 AlignItemCenter">
+              <div class="iconBlock">
+                <div class="overview_contact_icon"></div>
+              </div>
+              <div>{{ data.applicationDetails[0].phone }}</div>
+            </div>
+            <div class="displayFlex ptb20 AlignItemCenter">
+              <div class="iconBlock">
+                <div class="overview_mail_icon"></div>
+              </div>
+              <div>{{ data.applicationDetails[0].email }}</div>
+            </div> 
+
+            <div class="displayFlex ptb20 AlignItemCenter pb0">
+              <div class="iconBlock">
+                <div class="overview_home_icon"></div>
+              </div>
+              <div>
+                {{ data.applicationDetails[0].unit }}
+                {{ data.applicationDetails[0].streetaddress }},
+                {{ data.applicationDetails[0].city }},
+                {{ data.applicationDetails[0].state }},
+                {{ data.applicationDetails[0].zipcode }}
+              </div>
+            </div>
+          </div>
+          <div
+            class="AlignItemCenter displayFlex justifycontencenter greenColor ptopBottom"
+          >
+            Application Info
+          </div>
+
+          <div class="AlignItemCenter displayFlex">
+            <div class="w200px fontWeight">Application ID:</div>
+            <div>APP_{{ data.applicationDetails[0].ref_no }}</div>
+          </div>
+          <div class="AlignItemCenter displayFlex ptb20">
+            <div class="w200px fontWeight">Application Status:</div>
+            <div>
+              <a
+                *ngIf="applicationStatus; else approveStatus"
+                routerLink="/installer/main/applicationdetails/{{
+                  data.applicationDetails[0].loan_id
+                }}/i_info"
+              >
+                {{ applicationStatus }}
+              </a>
+              <ng-template #approveStatus> APPROVED </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grayBox w48per" style="margin-right: 0">
+        <div
+          class="AlignItemCenter displayFlex justifycontencenter greenColor pb20"
+        >
+          Loan Info
+        </div>
+
+        <div *ngIf="data.applicationDetails.length > 0" class="plr50">
+          <div>
+            <div class="AlignItemCenter displayFlex">
+              <div class="w200px fontWeight">Product Type:</div>
+              <div>{{ title }}</div>
+            </div>
+            <div class="AlignItemCenter displayFlex ptb20">
+              <div class="w200px fontWeight">System Price:</div>
+              <div>${{ data.applicationDetails[0].loanamount }}</div>
+            </div>
+            <div class="AlignItemCenter displayFlex">
+              <div class="w200px fontWeight">Loan Selected:</div>
+              <div>{{ data.applicationDetails[0].loanterm }} months</div>
+            </div>
+            <div class="AlignItemCenter displayFlex ptb20">
+              <div class="w200px fontWeight"></div>
+              <div>{{ data.applicationDetails[0].apr }}% (Autopay)</div>
+            </div>
+            <div class="AlignItemCenter displayFlex ptb20">
+              <div class="w200px fontWeight"></div>
+              <div>{{ data.applicationDetails[0].apr }}% (without Autopay)</div>
+            </div>
+          </div>
+          <div
+            class="AlignItemCenter displayFlex justifycontencenter greenColor ptopBottom"
+          >
+            Payment Info
+          </div>
+          <div *ngIf="data.creditedPaymentDetails.length > 0">
+            <div class="AlignItemCenter displayFlex">
+              <div class="w200px fontWeight">Autopay:</div>
+              <!-- <div *ngIf="data.applicationDetails[0].autopayment=='N'">No</div>
+            <div *ngIf="data.applicationDetails[0].autopayment=='Y'">Yes</div> -->
+            </div>
+
+            <div
+              *ngFor="let payment of data.creditedPaymentDetails; let i = index"
+              class="AlignItemCenter displayFlex ptb20"
+            >
+              <div class="w200px fontWeight">Milestone{{ i + 1 }} Payment:</div>
+              <div>
+                ${{ payment.fundedAmount }} &nbsp;&nbsp;&nbsp;&nbsp;
+                {{ datePipe.transform(payment.createdat, "dd/MM/yyyy") }}
+              </div>
+            </div>
+
+            <div class="AlignItemCenter displayFlex ptb20">
+              <div class="w200px fontWeight">Total of Loan Payments:</div>
+              <div>
+                ${{ data.totalCreditedPayment[0].totalloanpayment.toFixed(2) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="data.applicationDetails.length > 0"
+      class="displayFlex justifycontencenter flexDirection"
+    >
+      <div class="progressBarcontainer justifycontencenter probar scrool">
+        <div class="displayFlex AlignItemCenter justifycontencenter probar">
+          <div class="displayFlex AlignItemCenter">
+            <div
+              class="progressBarcircle"
+              [class.circleBorderActive]="applicationStatus == null"
+              [class.circleActive]="
+                applicationStatus == 'documentsUploaded' ||
+                applicationStatus == 'verifiedAndApproved' ||
+                applicationStatus == 'milestone1Completed' ||
+                applicationStatus == 'milestone2Completed' ||
+                applicationStatus == 'milestone3Completed' ||
+                applicationStatus == 'projectCompleted'
+              "
+            >
+              1
+            </div>
+            <div
+              style="margin-top: 119px; margin-left: -20px"
+              class="fs20px fontWeight textAlignCenter steptext"
+            >
+              Application <br />
+              File Upload
+            </div>
+          </div>
+          <div class="displayFlex AlignItemCenter">
+            <div
+              class="grayLine"
+              [class.lineActive]="
+                applicationStatus == 'documentsUploaded' ||
+                applicationStatus == 'verifiedAndApproved' ||
+                applicationStatus == 'milestone1Completed' ||
+                applicationStatus == 'milestone2Completed' ||
+                applicationStatus == 'milestone3Completed' ||
+                applicationStatus == 'projectCompleted'
+              "
+            ></div>
+            <div class="displayFlex">
+              <div
+                class="progressBarcircle"
+                [class.circleBorderActive]="
+                  applicationStatus == 'documentsUploaded'
+                "
+                [class.circleActive]="
+                  applicationStatus == 'verifiedAndApproved' ||
+                  applicationStatus == 'milestone1Completed' ||
+                  applicationStatus == 'milestone2Completed' ||
+                  applicationStatus == 'milestone3Completed' ||
+                  applicationStatus == 'projectCompleted'
+                "
+              >
+                2
+              </div>
+              <div
+                style="margin-left: -50px"
+                class="fs20px fontWeight textAlignCenter steptext"
+              >
+                Verify and Approve <br />
+                Application
+              </div>
+            </div>
+          </div>
+          <div class="displayFlex AlignItemCenter">
+            <div
+              class="grayLine"
+              [class.lineActive]="
+                applicationStatus == 'verifiedAndApproved' ||
+                applicationStatus == 'milestone1Completed' ||
+                applicationStatus == 'milestone2Completed' ||
+                applicationStatus == 'milestone3Completed' ||
+                applicationStatus == 'projectCompleted'
+              "
+            ></div>
+            <div class="displayFlex">
+              <div
+                class="progressBarcircle"
+                [class.circleBorderActive]="
+                  applicationStatus == 'verifiedAndApproved' ||
+                  applicationStatus == 'milestone1Completed' ||
+                  applicationStatus == 'milestone2Completed'
+                "
+                [class.circleActive]="
+                  applicationStatus == 'milestone3Completed' ||
+                  applicationStatus == 'projectCompleted'
+                "
+              >
+                3
+              </div>
+              <div
+                style="margin-left: -50px"
+                class="fs20px fontWeight textAlignCenter steptext"
+              >
+                Approve <br />
+                Milestone Funding
+              </div>
+            </div>
+          </div>
+          <div class="displayFlex AlignItemCenter">
+            <div
+              class="grayLine"
+              [class.lineActive]="
+                applicationStatus == 'milestone3Completed' ||
+                applicationStatus == 'projectCompleted'
+              "
+            ></div>
+
+            <div class="displayFlex">
+              <div
+                class="progressBarcircle"
+                [class.circleBorderActive]="
+                  applicationStatus == 'milestone3Completed'
+                "
+                [class.circleActive]="applicationStatus == 'projectCompleted'"
+              >
+                <div class="steptick"></div>
+              </div>
+              <div
+                style="margin-left: -20px"
+                class="fs20px fontWeight textAlignCenter steptext"
+              >
+                Project <br />
+                Completed
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="applicationStatus == null"
+        class="grayBox mb20px"
+      >
+        <div class="fs20px fontWeight pb20">
+          Please upload your proof of ownership
+        </div>
+        <div class="textAlignCenter pb20">
+          (the Land Use Right Certificate, Real Property Certificate, Other
+          Right Certificate and other any agreement or document relating to the
+          Buildings or the land under the Buildings)
+        </div>
+
+        <ngx-file-drop
+          dropZoneLabel="Drop files here"
+          (onFileDrop)="dropped($event)"
+          (onFileOver)="fileOver($event)"
+          (onFileLeave)="fileLeave($event)"
+        >
+          <ng-template
+            ngx-file-drop-content-tmp
+            let-openFileSelector="openFileSelector"
+          >
+            <div class="dragdropBlock AlignItemCenter">
+              <div
+                (click)="openFileSelector()"
+                class="displayFlex AlignItemCenter flexDirection"
+              >
+                <div class="dropfolder"></div>
+                <div class="pt30px">Drag and Drop your files here</div>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-file-drop>
+
+        <div *ngIf="listfiles.length > 0 && fileitems.length > 0">
+          <div class="fs22px pb20">Uploaded documents</div>
+
+          <div
+            *ngFor="let file of fileitems; let i = index"
+            class="whiteBox displayFlex AlignItemCenter mb20px"
+          >
+            <div class="displayFlex AlignItemCenter w30per">
+              <div class="greenfolder"></div>
+              <div>{{ file.name.split(".")[0] }}</div>
+            </div>
+            <div class="w15per">
+              <button class="fileextension">
+                {{ file.name.split(".")[1] | uppercase }}
+              </button>
+            </div>
+            <div class="w15per">{{ (file.size / 1024).toFixed(2) }} KB</div>
+            <div class="w15per">{{ today }}</div>
+            <div>
+              {{file['documenttype']}}
+            </div>
+            <div class="displayFlex w10per flexEnd">
+              <div
+                class="delete_icon cursorpointer"
+                (click)="deleteFileSelected(file)"
+              ></div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="p-3 mt-3 text-center" *ngIf="listfiles.length > 0 && fileitems.length > 0">
+          <button type="button" class="btn btn-sales" (click)="uploadFiles()">
+            Upload
+          </button>
+        </div>
+
+        <div class="p10px" *ngIf="data.files.length>0">       
+          <div class="frameshadow mb20px">
+            <div>
+              <div class="mainTitle">Proof Of Ownership Documents</div>
+            </div>
+            <div class="p10px">
+              <table class="table table-bordered">
+                <tr>
+                  <th style="width: 50px">#</th>
+                  <th>Documents</th>
+                  <th>PDF,JPG,JPEG,PNG</th>
+                  <th>Verify</th>
+                </tr>
+                <tbody>
+                  <tr *ngFor="let d of data.files; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ d.originalname }}</td>
+                    <td (click)="view(d.filename)"><a class="cursorpointer">View Document</a></td>
+                    <td><button type="button" class="btn btn-sales" (click)="Verify_files(d.id,i)" [disabled]="d.verify_flag=='Y'">
+                      Verify
+                    </button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="p-3 mt-3 text-center" >
+            <button type="button" class="btn btn-sales" (click)="Nextstep()">
+              Next
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        *ngIf="applicationStatus == 'documentsUploaded'"
+        class="grayBox p50 mb20px"
+      >
+        <div class="fs20px fontWeight pb20">Verify System Info</div>
+        <form
+          name="form"
+          (ngSubmit)="
+            systemSize.valid && estAnnualProduction.valid && systemInfo()
+          "
+          #f="ngForm"
+          novalidate
+        >
+          <div class="pb20">
+            <label>Manufacturer of Modules </label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              name="moduleManufacturer"
+              [(ngModel)]="f1.moduleManufacturer"
+            >
+              <option value="REC">REC</option>
+            </select>
+          </div>
+          <div class="pb20">
+            <label>Manufacturer of Inverters </label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              name="inverterManufacturer"
+              [(ngModel)]="f1.inverterManufacturer"
+            >
+              <option value="Enphase">Enphase</option>
+            </select>
+          </div>
+
+          <div class="pb20">
+            <label>Manufacturer of Battery </label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              name="batteryManufacturer"
+              [(ngModel)]="f1.batteryManufacturer"
+            >
+              <option value="No Battery">No Battery</option>
+            </select>
+          </div>
+          <div class="pb20">
+            <label>System Size (kW) </label>
+            <input
+              type="text"
+              name="systemSize"
+              class="form-control"
+              placeholder="Enter system size"
+              [(ngModel)]="f1.systemSize"
+              #systemSize="ngModel"
+              (input)="f1.systemSize = number($event)"
+              required
+              [ngClass]="{ 'is-invalid': f.submitted && systemSize.invalid }"
+            />
+          </div>
+          <div class="pb20">
+            <label>Estimated Annual Production</label>
+            <input
+              type="text"
+              name="estAnnualProduction"
+              class="form-control"
+              placeholder="Enter system size"
+              [(ngModel)]="f1.estAnnualProduction"
+              #estAnnualProduction="ngModel"
+              (input)="f1.estAnnualProduction = number($event)"
+              required
+              [ngClass]="{
+                'is-invalid': f.submitted && estAnnualProduction.invalid
+              }"
+            />
+          </div>
+
+          <div class="pb20">
+            <input
+              class=" "
+              name="agree"
+              type="checkbox"
+              id="flexCheckDefault"
+              style="margin-right: 10px"
+              [(ngModel)]="agree"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              Please check to confirm System Information is correct
+            </label>
+          </div>
+
+          <div class="pb20 displayFlex AlignItemCenter spaceBetween row">
+            <div class="w48per col-6">
+              <div
+                class="sig-container"
+                #sigContainer1
+                (window:resize)="beResponsive()"
+              >
+                <button
+                  type="button"
+                  (click)="clear(verifySystemInfoSignature)"
+                  class="clearButton"
+                >
+                  <i class="fas fa-eraser"></i>
+                </button>
+                <signature-field
+                  name="signature"
+                  [(ngModel)]="f1.signature"
+                  #verifySystemInfoSignature
+                ></signature-field>
+              </div>
+            </div>
+            <div class="w48per col-6">
+              <button type="submit" class="greenbutton width100per upperCase">
+                CONTINUE
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div
+        *ngIf="applicationStatus == 'verifiedAndApproved'"
+        class="grayBox p50 mb20px"
+      >
+        <div class="fs20px fontWeight pb20">1 out of 3 milestones</div>
+
+        <div *ngIf="!show">
+          <div class="displayFlex AlignItemCenter mb20px">
+            <div class="fs30px greenColor pr20">20%</div>
+            <div class="fs16px">Funding Complete</div>
+          </div>
+          <div class="stepProgressBarBlock mb20px">
+            <div class="stepProgressBar">
+              <div class="stepProgressBarIndicator" style="width: 20%"></div>
+            </div>
+            <div></div>
+          </div>
+
+          <div class="fs20px fontWeight pb20">
+            Please upload the proof of initial funding to get the project
+            started
+          </div>
+
+          <ngx-file-drop
+            dropZoneLabel="Drop files here"
+            (onFileDrop)="dropped($event)"
+            (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)"
+          >
+            <ng-template
+              ngx-file-drop-content-tmp
+              let-openFileSelector="openFileSelector"
+            >
+              <div class="dragdropBlock AlignItemCenter">
+                <div
+                  (click)="openFileSelector()"
+                  class="displayFlex AlignItemCenter flexDirection"
+                >
+                  <div class="dropfolder"></div>
+                  <div class="pt30px">Drag and Drop your files here</div>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-file-drop>
+
+          <div *ngIf="listfiles.length > 0 && fileitems.length > 0" class="fs22px pb20">
+            Uploaded documents
+          </div>
+
+          <div *ngIf="listfiles.length > 0 && fileitems.length > 0">
+            <div
+              *ngFor="let file of fileitems"
+              class="whiteBox displayFlex AlignItemCenter mb20px"
+            >
+              <div class="displayFlex AlignItemCenter w50per">
+                <div class="greenfolder"></div>
+                <div>{{ file.name.split(".")[0] }}</div>
+              </div>
+
+              <div class="w15per">
+                <button class="fileextension">
+                  {{ file.name.split(".")[1] | uppercase }}
+                </button>
+              </div>
+              <div class="w15per">{{ (file.size / 1024).toFixed(2) }} KB</div>
+              <div class="w15per">{{ today }}</div>
+              <div class="displayFlex w10per flexEnd">
+                <!-- <div class="upload_icon"></div> -->
+                <div
+                  class="delete_icon cursorpointer"
+                  (click)="deleteFileSelected(file)"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <form
+            name="form"
+            (ngSubmit)="milestone1ReqAmount.valid && milestone1Req()"
+            #f="ngForm"
+            novalidate
+          >
+            <div class="fs20px fontWeight pb20">Request 20% of funding</div>
+
+            <div class="w48per pb20">
+              {{ f1.milestone1ReqAmount }}
+              <input
+                type="text"
+                name="milestone1ReqAmount"
+                class="form-control"
+                placeholder="Enter the amount"
+                (input)="f1.milestone1ReqAmount = number($event)"
+                (blur)="f1.milestone1ReqAmount = transformAmount($event)"
+                [(ngModel)]="f1.milestone1ReqAmount"
+                #milestone1ReqAmount="ngModel"
+                [ngClass]="{
+                  'is-invalid': f.submitted && milestone1ReqAmount.invalid
+                }"
+                hidden
+              />
+            </div>
+            <div class="pb20 displayFlex AlignItemCenter spaceBetween">
+              <div class="w48per col-6">
+                <div
+                  class="sig-container"
+                  #sigContainer1
+                  (window:resize)="beResponsive()"
+                >
+                  <button
+                    type="button"
+                    (click)="clear(milestone1Signature)"
+                    class="clearButton"
+                  >
+                    <i class="fas fa-eraser"></i>
+                  </button>
+                  <signature-field
+                    name="signature"
+                    [(ngModel)]="f1.signature"
+                    #milestone1Signature
+                  ></signature-field>
+                </div>
+              </div>
+              <div class="w48per col-6">
+                <button type="submit" class="greenbutton width100per upperCase">
+                  REQUEST
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="show">
+          <div class="fs20px fontWeight pb20 text-center">
+            <div class="card">
+              <div class="card-body">Waiting For {{ show }} Approval</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="applicationStatus == 'milestone1Completed'"
+        class="grayBox p50 mb20px"
+      >
+        <div class="fs20px fontWeight pb20">2 out of 3 milestones</div>
+        <form
+          name="form"
+          (ngSubmit)="milestone2ReqAmount.valid && milestone2Req()"
+          #f="ngForm"
+          novalidate
+          *ngIf="!show"
+        >
+          <div>
+            <div class="displayFlex AlignItemCenter mb20px">
+              <div class="fs30px greenColor pr20">40%</div>
+              <div class="fs16px">Install Complete</div>
+            </div>
+            <div class="stepProgressBarBlock mb20px">
+              <div class="stepProgressBar">
+                <div class="stepProgressBarIndicator" style="width: 40%"></div>
+              </div>
+              <div></div>
+            </div>
+
+            <div class="pb20">
+              Fully installed is defined as:
+              <ul>
+                <li>All permits and HQA approvals have been granted</li>
+                <li>
+                  Installation of the project, including panels, inverters, and
+                  all electrical items is fully complete
+                </li>
+                <li>Fully installed is defined as:</li>
+              </ul>
+            </div>
+
+            <div class="fs20px fontWeight pb20">
+              Date project was fully installed/completed
+            </div>
+
+            <div class="w48per pb20">
+              <input
+                type="date"
+                name="income"
+                class="form-control"
+                placeholder="Enter the amount"
+                [(ngModel)]="today"
+              />
+            </div>
+            <div class="fs20px fontWeight pb20">
+              Verify Installation address
+            </div>
+
+            <div class="pb20">
+              <input
+                class=" "
+                name="agree"
+                type="checkbox"
+                id="flexCheckDefault"
+                style="margin-right: 10px"
+                [(ngModel)]="agree"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                {{ data.applicationDetails[0].unit }}
+                {{ data.applicationDetails[0].streetaddress }},
+                {{ data.applicationDetails[0].city }},
+                {{ data.applicationDetails[0].zipcode }}
+              </label>
+            </div>
+            <div class="fs20px fontWeight pb20">
+              Please upload the proof of initial funding to get the project
+              started
+            </div>
+            <ngx-file-drop
+              dropZoneLabel="Drop files here"
+              (onFileDrop)="dropped($event)"
+              (onFileOver)="fileOver($event)"
+              (onFileLeave)="fileLeave($event)"
+            >
+              <ng-template
+                ngx-file-drop-content-tmp
+                let-openFileSelector="openFileSelector"
+              >
+                <div class="dragdropBlock AlignItemCenter">
+                  <div
+                    (click)="openFileSelector()"
+                    class="displayFlex AlignItemCenter flexDirection"
+                  >
+                    <div class="dropfolder"></div>
+                    <div class="pt30px">Drag and Drop your files here</div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-file-drop>
+
+            <div *ngIf="listfiles.length > 0 && fileitems.length > 0" class="fs22px pb20">
+              Uploaded documents
+            </div>
+
+            <div *ngIf="listfiles.length > 0 && fileitems.length > 0">
+              <div
+                *ngFor="let file of fileitems"
+                class="whiteBox displayFlex AlignItemCenter mb20px"
+              >
+                <div class="displayFlex AlignItemCenter w50per">
+                  <div class="greenfolder"></div>
+                  <div>{{ file.name.split(".")[0] }}</div>
+                </div>
+
+                <div class="w15per">
+                  <button class="fileextension">
+                    {{ file.name.split(".")[1] | uppercase }}
+                  </button>
+                </div>
+                <div class="w15per">{{ (file.size / 1024).toFixed(2) }} KB</div>
+                <div class="w15per">{{ today }}</div>
+                <div class="displayFlex w10per flexEnd">
+                  <!-- <div class="upload_icon"></div> -->
+                  <div
+                    class="delete_icon cursorpointer"
+                    (click)="deleteFileSelected(file)"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fs20px fontWeight pb20">Request 20% of funding</div>
+
+            <div class="w48per pb20">
+              {{ f1.milestone2ReqAmount }}
+              <input
+                type="text"
+                name="milestone2ReqAmount"
+                class="form-control"
+                placeholder="Enter the amount"
+                (input)="f1.milestone2ReqAmount = number($event)"
+                (blur)="f1.milestone2ReqAmount = transformAmount($event)"
+                [(ngModel)]="f1.milestone2ReqAmount"
+                #milestone2ReqAmount="ngModel"
+                required
+                [ngClass]="{
+                  'is-invalid': f.submitted && milestone2ReqAmount.invalid
+                }"
+                hidden
+              />
+            </div>
+            <div class="pb20 displayFlex AlignItemCenter spaceBetween">
+              <div class="w48per col-6">
+                <div
+                  class="sig-container"
+                  #sigContainer1
+                  (window:resize)="beResponsive()"
+                >
+                  <button
+                    type="button"
+                    (click)="clear(milestone2Signature)"
+                    class="clearButton"
+                  >
+                    <i class="fas fa-eraser"></i>
+                  </button>
+                  <signature-field
+                    name="signature"
+                    [(ngModel)]="f1.signature"
+                    #milestone2Signature
+                  ></signature-field>
+                </div>
+              </div>
+              <div class="w48per col-6">
+                <button type="submit" class="greenbutton width100per upperCase">
+                  REQUEST
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div *ngIf="show">
+          <div class="fs20px fontWeight pb20 text-center">
+            <div class="card">
+              <div class="card-body">Waiting For {{ show }} Approval</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="applicationStatus == 'milestone2Completed'"
+        class="grayBox p50 mb20px"
+      >
+        <div class="fs20px fontWeight pb20">3 out of 3 milestones</div>
+
+        <div *ngIf="!show">
+          <div class="displayFlex AlignItemCenter mb20px">
+            <div class="fs30px greenColor pr20">60%</div>
+            <div class="fs16px">Project Complete</div>
+          </div>
+          <div class="stepProgressBarBlock mb20px">
+            <div class="stepProgressBar">
+              <div class="stepProgressBarIndicator" style="width: 60%"></div>
+            </div>
+            <div></div>
+          </div>
+
+          <div class="fs20px fontWeight pb20">Upload evidence of PTO</div>
+          <ngx-file-drop
+            dropZoneLabel="Drop files here"
+            (onFileDrop)="dropped($event)"
+            (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)"
+          >
+            <ng-template
+              ngx-file-drop-content-tmp
+              let-openFileSelector="openFileSelector"
+            >
+              <div class="dragdropBlock AlignItemCenter">
+                <div
+                  (click)="openFileSelector()"
+                  class="displayFlex AlignItemCenter flexDirection"
+                >
+                  <div class="dropfolder"></div>
+                  <div class="pt30px">Drag and Drop your files here</div>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-file-drop>
+
+          <div *ngIf="listfiles.length > 0 && fileitems.length > 0" class="fs22px pb20">
+            Uploaded documents
+          </div>
+
+          <div *ngIf="listfiles.length > 0 && fileitems.length > 0">
+            <div
+              *ngFor="let file of fileitems"
+              class="whiteBox displayFlex AlignItemCenter mb20px"
+            >
+              <div class="displayFlex AlignItemCenter w50per">
+                <div class="greenfolder"></div>
+                <div>{{ file.name.split(".")[0] }}</div>
+              </div>
+
+              <div class="w15per">
+                <button class="fileextension">
+                  {{ file.name.split(".")[1] | uppercase }}
+                </button>
+              </div>
+              <div class="w15per">{{ (file.size / 1024).toFixed(2) }} KB</div>
+              <div class="w15per">{{ today }}</div>
+              <div class="displayFlex w10per flexEnd">
+                <!-- <div class="upload_icon"></div> -->
+                <div
+                  class="delete_icon cursorpointer"
+                  (click)="deleteFileSelected(file)"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <form
+            name="form"
+            (ngSubmit)="milestone3ReqAmount.valid && milestone3Req()"
+            #f="ngForm"
+            novalidate
+          >
+            <div class="fs20px fontWeight pb20">Request 60% of funding</div>
+
+            <div class="w48per pb20">
+              {{ f1.milestone3ReqAmount }}
+              <input
+                type="text"
+                name="milestone3ReqAmount"
+                class="form-control"
+                placeholder="Enter the amount"
+                (input)="f1.milestone3ReqAmount = number($event)"
+                (blur)="f1.milestone3ReqAmount = transformAmount($event)"
+                [(ngModel)]="f1.milestone3ReqAmount"
+                #milestone3ReqAmount="ngModel"
+                required
+                [ngClass]="{
+                  'is-invalid': f.submitted && milestone3ReqAmount.invalid
+                }"
+                hidden
+              />
+            </div>
+            <div class="pb20 displayFlex AlignItemCenter spaceBetween">
+              <div class="w48per col-6">
+                <div
+                  class="sig-container"
+                  #sigContainer1
+                  (window:resize)="beResponsive()"
+                >
+                  <button
+                    type="button"
+                    (click)="clear(milestone3Signature)"
+                    class="clearButton"
+                  >
+                    <i class="fas fa-eraser"></i>
+                  </button>
+                  <signature-field
+                    name="signature"
+                    [(ngModel)]="f1.signature"
+                    #milestone3Signature
+                  ></signature-field>
+                </div>
+              </div>
+              <div class="w48per col-6">
+                <button type="submit" class="greenbutton width100per upperCase">
+                  REQUEST
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="show">
+          <div class="fs20px fontWeight pb20 text-center">
+            <div class="card">
+              <div class="card-body">Waiting For {{ show }} Approval</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="applicationStatus == 'milestone3Completed'" class="stepthree">
+        <div class="mb50px">
+          <div class="grayBox displayFlex AlignItemCenter mb20px">
+            <div class="displayFlex AlignItemCenter w50per">
+              <div class=" ">
+                <label class="optionButton"
+                  >System info Verified
+                  <input type="checkbox" checked="checked" />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div></div>
+            </div>
+
+            <div class="w15per"></div>
+            <div class="w15per"></div>
+            <div class="w15per">
+              {{
+                datePipe.transform(
+                  lastdata.systemInfoVerified.createdat,
+                  "dd/MM/yyyy"
+                )
+              }}
+            </div>
+            <!-- <div class="displayFlex w10per flexEnd"></div> -->
+          </div>
+          <div
+            class="grayBox displayFlex AlignItemCenter mb20px"
+            *ngFor="let file of lastdata['projectDocuments']"
+          >
+            <div class="displayFlex AlignItemCenter w50per">
+              <div class="greenfolder"></div>
+              <div>{{ file.originalname.split(".")[0] }}</div>
+            </div>
+
+            <div class="w15per">
+              <button class="fileextension whiteBg">
+                {{ file.originalname.split(".")[1] | uppercase }}
+              </button>
+            </div>
+            <div class="w15per"></div>
+            <div class="w15per">
+              {{ datePipe.transform(file.createdat, "dd/MM/yyyy") }}
+            </div>
+            <!-- <div class="displayFlex w10per flexEnd">
+            <div class="upload_icon" (click)="download(file.originalname)"></div>
+            <div class="delete_icon"></div>
+          </div> -->
+          </div>
+        </div>
+        <div class="grayBox p20 mb20px w50per m0auto">
+          <div
+            class="displayFlex AlignItemCenter justifycontencenter flexDirection"
+          >
+            <div class="tickmark"></div>
+            <div class="textAlignCenter pb20">
+              System Info is verified <br />Documents are uploaded
+            </div>
+
+            <div class="fs20px textAlignCenter">
+              Please, approve the application
+            </div>
+            <div class="pb20">
+              <input
+                class=" "
+                name="agree"
+                type="checkbox"
+                id="flexCheckDefault"
+                style="margin-right: 10px"
+                #approveAgree
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Please check to confirm System Information is correct
+              </label>
+            </div>
+
+            <div class="pb20 displayFlex AlignItemCenter spaceBetween">
+              <!-- <div class="w48per">
+              <button type="button" class="closebutton mr30px width100per">
+                Close
+              </button>
+            </div> -->
+              <div>
+                <button
+                  class="greenbutton width100per upperCase"
+                  (click)="approveApplication(approveAgree.checked)"
+                >
+                  APPROVE
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #messagebox>
+    <div class="modal-body modal-body_messagebox text-center">
+      <div class="msgLogo"><img src="../../../assets/msg_logo.png" /></div>
+
+      <!-- <p class="headtext">message</p> -->
+      <div *ngFor="let m of message" class="messageBlock">{{ m }}</div>
+
+      <div>
+        <button
+          type="button"
+          class="btn orangeButton"
+          aria-label="Close"
+          (click)="close()"
+        >
+          Ok
+        </button>
+      </div>
+    </div>
+    <br />
+  </ng-template>
+
+  <!--
+<div class="part2 p-3 mt-3" *ngFor="let file of fileitems">
+    <div class="row align-items-center">
+        <div class="col-1">
+            <i-bs name="file-earmark-fill" width="25px" height="25px" class="text-sales">
+            </i-bs>
+        </div>
+        <div class="col-5">
+            {{file.name.split('.')[0]}}
+        </div>
+        <div class="col-1">
+            <span class="bg-white p-1 rounded text-sales">{{file.name.split('.')[1] | uppercase }}</span>
+        </div>
+        <div class="col-1">
+            {{(file.size / 1024).toFixed(2)}} KB
+        </div>
+        <div class="col-2">
+            {{today}}
+        </div>
+
+    </div>
+</div> -->
+</section>
+<ng-template #filetypetemplate>
+  <div class="modal-body text-center">
+    <div class="msgLogo"><img src="../../../assets/msg_logo.png" /></div>
+
+
+    <div class="row m-3">
+      <div class="col-12 mb-3">
+        Filename: {{fileitems[index]['name']}}
+      </div>
+      <div class="col-12">
+          <div class="form-group">
+              <label for="ContactName">Document Type</label>
+          </div>
+              <select  class="form-control"
+                  [(ngModel)]="fileitems[index]['documenttype']"
+              >
+                  <option value="">Select Document Type</option>
+                  <option value="Government Issued ID">
+                      Government Issued ID
+                  </option>
+                  <option value="Paystub">Paystub</option>
+                  <option value="Income Document">Income Document</option>
+                  <option value="Driver License">Driver License</option>
+                  <option value="Bank Statement">Bank Statement</option>
+                  <option value="Proof of Ownership">Proof of Ownership</option>
+                  <option value="Others">Others</option>
+              </select>
+           
+          
+      </div>
+      
+  </div>
+  <div class="row m-3">
+    <div class="col-6">
+      <button type="button" class="btn btn-lg btn-block orangeButton mb-3" aria-label="Close" (click)="onclose()">
+        Ok
+      </button>
+    </div>
+    <div class="col-6">
+      <button type="button" class="btn btn-lg btn-block btn-danger mb-3" aria-label="Close"
+        (click)="deleteFileSelectedclose(fileitems[index])">
+        Close
+      </button>
+    </div>
+
+  </div>
+
+    
+    
+  </div>
+</ng-template>

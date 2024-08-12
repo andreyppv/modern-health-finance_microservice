@@ -1,0 +1,92 @@
+<section class="content-header">
+  <div>
+    <h1>Denied Application Details</h1>
+
+    <ol class="breadcrumb">
+      <li class="current">
+        <a [routerLink]="['/admin/dashboard']"
+          ><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+          <i class="fal fa-angle-right"></i
+        ></a>
+      </li>
+      <li class="active">Denied Application Details</li>
+    </ol>
+  </div>
+  <div class="search_box">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="far fa-search"></i>
+        </span>
+      </div>
+      <input
+        type="text"
+        placeholder="Search"
+        aria-label="Search"
+        class="form-control"
+      />
+    </div>
+    <div>
+      <a><img src="../../assets/new/search.svg" /></a>
+    </div>
+    <button class="btn search">Search</button>
+  </div>
+</section>
+
+<div class="content_part">
+  <div class="p10">
+    <table *ngIf="data.length > 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Loan ref</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email Address</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Funding Tier</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Updated Date</th>
+          <th scope="col">ACH Application Status</th>
+          <th scope="col">Register Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of data; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <a routerLink="/admin/pendings/{{ d.loan_id }}"
+              >LON_{{ d.loan_ref }}</a
+            >
+          </td>
+          <td>
+            <a routerLink="/admin/users/{{ d.user_id }}"
+              >USR_{{ d.user_ref }}</a
+            >
+          </td>
+          <td>{{ d.email }}</td>
+          <td>{{ d.firstname }}</td>
+          <td>{{ d.lastname }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="data.length == 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Loan ref</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email Address</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Funding Tier</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Updated Date</th>
+          <th scope="col">ACH Application Status</th>
+          <th scope="col">Register Type</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

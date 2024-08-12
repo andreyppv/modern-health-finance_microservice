@@ -1,0 +1,188 @@
+<section class="content-header pt48_plrb_25">
+  <div class="displayFlex spaceBetween">
+    <div>
+      <h1>Users List</h1>
+
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']"
+            ><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">
+          <img src="../../assets/new/file_open_active.svg" /> Users List
+        </li>
+      </ol>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg" /></a>
+      </div>
+      <button class="btn search">Search</button>
+    </div>
+  </div>
+</section>
+
+<div class="content_part">
+  <div class="displayFlex flexEnd mb_30">
+    <button
+      type="button"
+      class="btn main_btn"
+      (click)="adduser(addusertemplate)"
+    >
+  Add Admin
+    </button>
+  </div>
+<div class="Table_wrapped table_responsive">
+  <table *ngIf="data.length > 0" datatable class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User ref</th>
+        <th scope="col">Email</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of data; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <a routerLink="/admin/users/{{ d._id }}">{{ d.userreference }}</a>
+        </td>
+        <td>{{ d.email }}</td>
+        <td>{{ d.firstname }}</td>
+        <td>{{ d.lastname }}</td>
+        <td>{{ d.role_name | titlecase }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table *ngIf="data.length == 0" datatable class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User ref</th>
+        <th scope="col">Email</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Role</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>
+
+<ng-template #addusertemplate>
+  <div class="modal-body commemt_box ">
+
+    
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="mb_24">Add Admin</h5>
+
+    <form
+      id="adduserform"
+      name="adduserform"
+      (ngSubmit)="f.form.valid && submit(messagebox)"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="row">
+        <div class="mb_24 col-md-6">
+          <!-- <label for="ContactName">First Name</label> -->
+          <input
+            type="text"
+            name="firstname"
+            class="adminInput "
+            placeholder="First Name"
+            (input)="f1.firstname = namedata($event)"
+            [(ngModel)]="f1.firstname"
+            #firstname="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }"
+          />
+        </div>
+        <div class="mb_24 col-md-6">
+          <!-- <label for="ContactName">Last name</label> -->
+          <input
+            type="text"
+            name="lastname"
+            class="adminInput"
+            placeholder="Last name"
+            (input)="f1.lastname = namedata($event)"
+            [(ngModel)]="f1.lastname"
+            #lastname="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb_24 col-md-6">
+          <!-- <label for="ContactEmail">Email</label> -->
+          <input
+            type="email"
+            name="email"
+            class="adminInput"
+            placeholder="Email"
+            [(ngModel)]="f1.email"
+            #email="ngModel"
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+          />
+        </div>
+        <div class="mb_24 col-md-6">
+          <!-- <label for="ContactEmail">Role</label> -->
+          <select name="role" [(ngModel)]="f1.role" class="adminInput">
+            <option value="-1">Select Role</option>
+            <option *ngFor="let r of roleList" [value]="r.id">
+              {{ r.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <button type="button" class="btn main_hover_btn mr30px" (click)="close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn main_btn">Add</button>
+    </form>
+  </div>
+</ng-template>

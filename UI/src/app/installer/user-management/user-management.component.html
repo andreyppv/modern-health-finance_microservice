@@ -1,0 +1,153 @@
+<div class="m50px user_management scroll">
+  <div class="fs22px pb20 textAlignCenter">User Managment</div>
+
+  <div class="displayFlex flexEnd">
+    <button
+      class="greenbutton displayFlex AlignItemCenter mb20px"
+      (click)="showAddUserModal(userAddTemp)"
+    >
+      <div class="adduser" style="margin-right: 10px"></div>
+      Add User
+    </button>
+  </div>
+
+  <div class="user_management displayFlex AlignItemCenter mb20px">
+    <div class="w20per textAlignCenter">Name</div>
+    <div class="w30per textAlignCenter">Email</div>
+    <div class="w20per textAlignCenter">Role</div>
+    <div class="w10per textAlignCenter">Status</div>
+    <div class="w10per textAlignCenter">Delete</div>
+  </div>
+
+  <div *ngIf="usersList.length > 0">
+    <div
+      *ngFor="let d of usersList; let i = index"
+      class="user_management displayFlex AlignItemCenter grayBox ptb20px mb20px"
+    >
+      <div class="w20per textAlignCenter">
+        {{ d.firstname }} {{ d.lastname }}
+      </div>
+      <div class="w30per textAlignCenter">{{ d.email }}</div>
+      <div class="w20per textAlignCenter">{{ d.role_name }}</div>
+      <div class="w10per textAlignCenter">
+        <button
+          type="button"
+          class="btn btn-success btn-user-control"
+          *ngIf="d.active_flag == 'Y'"
+          (click)="deactivateUser(d.id)"
+        >
+          Active
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-user-control"
+          *ngIf="d.active_flag == 'N'"
+          (click)="activateUser(d.id)"
+        >
+          Inactive
+        </button>
+      </div>
+      <div class="w10per textAlignCenter">
+        <button
+          type="button"
+          class="btn btn-danger btn-user-control"
+          (click)="delete(d.id)"
+        >
+          <i class="fa fa-trash" aria-hidden="true"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body modal-body_messagebox text-center">
+    <div class="msgLogo"><img src="../../../assets/msg_logo.png" /></div>
+
+    <!-- <p class="headtext">message</p> -->
+    <div *ngFor="let m of message" class="messageBlock">{{ m }}</div>
+
+    <div>
+      <button
+        type="button"
+        class="btn orangeButton"
+        aria-label="Close"
+        (click)="close()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+  <br />
+</ng-template>
+
+<!-- Add User Modal -->
+<ng-template #userAddTemp>
+  <div class="modal-body modal-body_messagebox text-center">
+    <div class="msgLogo"><img src="../../../assets/msg_logo.png" /></div>
+    <form (ngSubmit)="f.form.valid && addUser()" #f="ngForm" novalidate>
+      <div class="row m-3">
+<div class="col-12 mb-3 text-left">
+  <label>First Name</label><br />
+  <input
+    type="text"
+    name="firstname"
+    [(ngModel)]="userForm.firstname"
+    class="form-control"
+    placeholder="first name"
+    required
+    #firstname="ngModel"
+    [class.is-invalid]="f.submitted && firstname.invalid"
+  />
+</div>
+<div class="col-12 mb-3 text-left">
+  <label>Last Name</label><br />
+  <input
+    type="text"
+    name="lastname"
+    [(ngModel)]="userForm.lastname"
+    class="form-control"
+    placeholder="last name"
+    required
+    #lastname="ngModel"
+    [class.is-invalid]="f.submitted && lastname.invalid"
+  />
+</div>
+<div class="col-12 mb-3 text-left">
+  <label>Email</label><br />
+  <input
+    type="email"
+    class="form-control"
+    placeholder="Email Address"
+    name="email"
+    [(ngModel)]="userForm.email"
+    #email="ngModel"
+    required
+    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+    [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+  />
+</div>
+<div class="col-12 mb-3 text-left">
+  <label for="ContactEmail">Role</label>
+  <select name="role" [(ngModel)]="userForm.role" class="form-control">
+    <option value="-1">Select Role</option>
+    <option *ngFor="let r of roleList" [value]="r.id">{{ r.name }}</option>
+  </select>
+</div>
+<div class="col-6">
+  <button
+  type="button"
+  class="brw-btn closebutton mr30px w200px"
+  (click)="close()"
+>
+  CANCEL
+</button>
+</div>
+<div class="col-6">
+  <button type="submit" class="greenbutton upperCase w200px">Save</button>
+</div>
+      </div>
+      
+    </form>
+  </div>
+</ng-template>

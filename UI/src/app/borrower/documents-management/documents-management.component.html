@@ -1,0 +1,89 @@
+<section class="body_content">
+
+  <h4 class="SemiBold_14 mb_16">Financing agreement documents</h4>
+
+  <div *ngIf="listfiles.length > 0">
+    <div class="grayBoxcolor displayFlex AlignItemCenter spaceBetween mb20px"
+      *ngFor="let file of fileitems; let i = index">
+      <div class="displayFlex AlignItemCenter">
+        <div class="greenfolder"></div>
+        <div>{{ file.name.split(".")[0] }}</div>
+      </div>
+
+      <div class="extenType">{{ file.name.split(".")[1] | uppercase }}</div>
+      <div>{{ (file.size / 1024).toFixed(2) }} KB</div>
+      <div>{{ today }}</div>
+      <div>
+        <select class="form-control" (change)="selectDocType(i, $event)">
+          <option value="">Select Document Type</option>
+          <option value="Government Issued ID">Government Issued ID</option>
+          <option value="Paystub">Paystub</option>
+          <option value="Income Document">Income Document</option>
+          <option value="Driver License">Driver License</option>
+          <option value="Bank Statement">Bank Statement</option>
+          <option value="Proof of Ownership">Proof of Ownership</option>
+          <option value="Others">Others</option>
+        </select>
+        <input hidden (keyup)="docTypeComment(i, $event.target.value)" />
+      </div>
+    </div>
+
+    <div class="p-3 mt-3 text-center">
+      <button type="button" class="btn btn-sales" (click)="completed()">
+        Upload
+      </button>
+    </div>
+  </div>
+
+
+
+  <div class="row mb_8">
+    <div class="col-md-4 mb_16" *ngFor="let d of data.userConsentDoc; let i = index">
+      <div class="Agreementdocument">
+        <div class="media AlignItemCenter">
+          <img class="mr-3" src="../../../assets/new/Uploadpdf.svg">
+          <div class="media-body">
+            <div class="displayFlex AlignItemCenter spaceBetween">
+              <div>
+                <h5>{{d.name}}</h5>
+              </div>
+              <div><a (click)="viewdoc(d.filepath)" href="javascript:void(0)"><img
+                    src="../../../assets/new/Download_icon.svg"></a></div>
+            </div>
+            <!-- <p>0.12 Mb</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb_16" *ngFor="let d of data.userUploadedDoc; let j = index">
+      <div class="Agreementdocument">
+        <div class="media AlignItemCenter">
+          <span *ngIf="d.orginalfilename.substr(-3) == 'pdf' "><img class="mr-3"
+              src="../../../assets/new/Uploadpdf.svg"></span>
+          <span *ngIf="d.orginalfilename.substr(-3) != 'pdf' "><img class="mr-3"
+              src="../../../assets/new/upload_type_img.svg"></span>
+          <div class="media-body">
+            <div class="displayFlex AlignItemCenter spaceBetween">
+              <div>
+                <h5>{{d.orginalfilename}}</h5>
+              </div>
+              <div><a (click)="view(d.filename)" href="javascript:void(0)"><img
+                    src="../../../assets/new/Download_icon.svg"></a></div>
+            </div>
+            <!-- <p>0.12 Mb</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #messagebox>
+    <div class="modal-body text-center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">message</p>
+      <p *ngFor="let m of message">{{ m }}</p>
+    </div>
+  </ng-template>
+</section>

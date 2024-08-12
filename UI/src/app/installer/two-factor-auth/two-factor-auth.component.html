@@ -1,0 +1,67 @@
+<body>
+  <div class=" ">
+    <div class="loginSection">
+      <div class="login-form">
+        <div class="main-div">
+          <div class="panel">
+            <div>
+              <div class="logo"></div>
+            </div>
+
+            <p>A OTP has been sent to your email</p>
+            <p>Please enter the otp below to verify your login.If you cannot see the email from "{{title}}" in your inbox, make sure to check your spam folder.</p>
+            <p>*OTP will expire in 5 minutes</p>
+          </div>
+          <form
+            id="Login"
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit(template)"
+            #f="ngForm"
+            novalidate
+          >
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="otp"
+                placeholder="OTP"
+                name="otp"
+                (input)="f1.otp = number($event)"
+                [(ngModel)]="f1.otp"
+                #otp="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': f.submitted && otp.invalid }"
+              />
+            </div>
+
+            <button type="submit" class="button">
+              Verify
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+
+          </form>
+
+          <br>
+          <p><a href="installer/login">Click to go to login</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">Message</p>
+      <p *ngFor="let m of message">{{ m }}</p>
+    </div>
+  </ng-template>
+</body>

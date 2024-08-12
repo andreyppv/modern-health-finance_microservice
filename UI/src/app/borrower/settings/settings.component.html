@@ -1,0 +1,88 @@
+<div class="body_content">
+  <!-- [ngStyle]="{'border-color': secondaryColor}" -->
+  <h4  class="SemiBold_14 mb_16">Change password</h4>
+  <div class="content_box">
+    <form [formGroup]="changepwForm" (ngSubmit)="changePassword()">
+      <div class="form-group">
+      <!-- <label for="currentpw">Current Password</label><br /> -->
+      <input
+        type="password"
+        placeholder="Current Password"
+        id="currentpw"
+        formControlName="currentpw"
+        class="adminInput"
+        [class.is-invalid]="
+          f.currentpw.invalid && (f.currentpw.touched || fSubmitted)
+        "
+      />
+      <small
+        *ngIf="f.currentpw.invalid && (f.currentpw.touched || fSubmitted)"
+        class="text-danger"
+        >Current Password is required</small
+      >
+      </div>
+<div class="form-group">
+      <!-- <label for="newpw">New Password</label><br /> -->
+      <input
+        type="password"
+        id="newpw"
+        formControlName="newpw"
+        class="adminInput"
+        placeholder="New Password"
+        [class.is-invalid]="f.newpw.invalid && (f.newpw.touched || fSubmitted)"
+      />
+      <small
+        *ngIf="f.newpw.hasError('required') && (f.newpw.touched || fSubmitted)"
+        class="text-danger"
+      >
+        New Password is required
+      </small>
+      <small
+        *ngIf="f.newpw.hasError('pattern') && (f.newpw.touched || fSubmitted)"
+        class="text-danger"
+      >
+        Password should be at least 8 characters long and should contain one
+        uppercase, one lowercase, one number and one special character
+      </small>
+      </div>
+      <div class="form-group">
+      <!-- <label for="cnewpw">Confirm New Password</label><br /> -->
+      <input
+        type="password"
+        id="cnewpw"
+        formControlName="cnewpw"
+        placeholder="Confirm New Password"
+        class="adminInput"
+        [class.is-invalid]="
+          f.cnewpw.invalid && (f.cnewpw.touched || fSubmitted)
+        "
+      />
+      </div>
+      <div *ngIf="f.cnewpw.touched || fSubmitted">
+        <small *ngIf="f.cnewpw.errors?.required" class="text-danger"
+          >Confirm password is required</small
+        >
+        <small *ngIf="changepwForm.errors?.misMatch" class="text-danger"
+          >Password not matched</small
+        >
+      </div>
+      <br />
+      <button type="submit" class="btn btnGreen">Save</button>
+    </form>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>

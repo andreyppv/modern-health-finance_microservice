@@ -1,0 +1,451 @@
+<div class="m50px">
+  <div class="fs22px pb20 textAlignCenter">Settings</div>
+
+  <div class="grayBox mb50px">
+    <div class="fs22px pb20">Account</div>
+    <div class="displayFlex AlignItemCenter">
+      <div class="profileIcon marginInherit">
+        <img src="{{ profileImgUrl }}" alt="profile Image" />
+      </div>
+      <div class="p10px">
+        <ngx-file-drop
+          dropZoneLabel="Drop files here"
+          (onFileDrop)="dropped($event)"
+          accept=".jpg,.jpeg,.png"
+          multiple="false"
+        >
+          <ng-template
+            ngx-file-drop-content-tmp
+            let-openFileSelector="openFileSelector"
+          >
+            <button
+              type="button"
+              class="uploadButton mb10px"
+              (click)="openFileSelector()"
+            >
+              Upload
+            </button>
+            <br />
+          </ng-template>
+        </ngx-file-drop>
+
+        <button
+          type="button"
+          class="removeButton"
+          (click)="removeProfileImage()"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+
+    <div class="ptop15" *ngIf="main_installer_id == 'null'">
+      <form
+        name="form"
+        (ngSubmit)="f.form.valid && installerEditSubmit()"
+        #f="ngForm"
+        novalidate
+      >
+        <div class="form-group">
+          <label for="ContactName">First Name</label>
+          <input
+            type="text"
+            name="firstname"
+            class="form-control"
+            placeholder="Enter First Name"
+            (input)="f1.firstname = namedata($event)"
+            [(ngModel)]="f1.firstname"
+            #firstname="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }"
+          />
+          <small
+            *ngIf="firstname.invalid && (firstname.touched || f.submitted)"
+            class="text-danger"
+            >First name is required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="ContactName">Last name</label>
+          <input
+            type="text"
+            name="lastname"
+            class="form-control"
+            placeholder="Enter Last name"
+            (input)="f1.lastname = namedata($event)"
+            [(ngModel)]="f1.lastname"
+            #lastname="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }"
+          />
+          <small
+            *ngIf="lastname.invalid && (lastname.touched || f.submitted)"
+            class="text-danger"
+            >Last name is required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="ContactEmail">Email</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter Email"
+            [(ngModel)]="f1.email"
+            #email="ngModel"
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+          />
+          <small
+            *ngIf="email.invalid && (email.touched || f.submitted)"
+            class="text-danger"
+            >Email is required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="ContactName">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            class="form-control"
+            placeholder="Enter Phone"
+            placeholder="(000) 000-0000"
+            mask="(000) 000-0000"
+            (input)="f1.phone = $event.target.value"
+            [(ngModel)]="f1.phone"
+            #phone="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
+          />
+          <small
+            *ngIf="phone.invalid && (phone.touched || f.submitted)"
+            class="text-danger"
+            >Phone is required</small
+          >
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="ContactName">Installation Street Address</label>
+              <input
+                type="text"
+                name="streetaddress"
+                class="form-control"
+                placeholder="Enter Installation Street Address"
+                [(ngModel)]="f1.streetaddress"
+                #streetaddress="ngModel"
+                required
+                [ngClass]="{
+                  'is-invalid': f.submitted && streetaddress.invalid
+                }"
+              />
+              <small
+                *ngIf="
+                  streetaddress.invalid &&
+                  (streetaddress.touched || f.submitted)
+                "
+                class="text-danger"
+                >Street address is required</small
+              >
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="ContactName">Unit</label>
+              <input
+                type="text"
+                name="unit"
+                class="form-control"
+                placeholder="Enter Unit"
+                [(ngModel)]="f1.unit"
+                #unit="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': f.submitted && unit.invalid }"
+              />
+              <small
+                *ngIf="unit.invalid && (unit.touched || f.submitted)"
+                class="text-danger"
+                >Unit is required</small
+              >
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="ContactName">City</label>
+              <input
+                type="text"
+                name="city"
+                class="form-control"
+                placeholder="Enter City"
+                [(ngModel)]="f1.city"
+                #city="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': f.submitted && city.invalid }"
+              />
+              <small
+                *ngIf="city.invalid && (city.touched || f.submitted)"
+                class="text-danger"
+                >City is required</small
+              >
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="ContactName">State</label>
+              <input
+                type="text"
+                name="state"
+                class="form-control"
+                placeholder="Enter State"
+                [(ngModel)]="f1.state"
+                #state="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': f.submitted && state.invalid }"
+              />
+              <small
+                *ngIf="state.invalid && (state.touched || f.submitted)"
+                class="text-danger"
+                >State is required</small
+              >
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="ContactName">Zip Code</label>
+              <input
+                type="text"
+                name="zipcode"
+                class="form-control"
+                placeholder="Enter Zip Code"
+                (input)="f1.zipcode = number($event)"
+                [(ngModel)]="f1.zipcode"
+                #zipcode="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': f.submitted && zipcode.invalid }"
+              />
+              <small
+                *ngIf="zipcode.invalid && (zipcode.touched || f.submitted)"
+                class="text-danger"
+                >Zip code is required</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">Offer Model</div>
+          <div class="col-4">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="offermodel1"
+                [(ngModel)]="offermodel1"
+                id="offermodel1"
+                (click)="changeoffermodel1()"
+              />
+              <label class="form-check-label" for="offermodel1"> Both </label>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="offermodel2"
+                [(ngModel)]="offermodel2"
+                id="offermodel2"
+                (click)="changeoffermodel2()"
+              />
+              <label class="form-check-label" for="offermodel2">
+                Binary Pricing
+              </label>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="offermodel3"
+                [(ngModel)]="offermodel3"
+                id="offermodel3"
+                (click)="changeoffermodel3()"
+              />
+              <label class="form-check-label" for="offermodel3">
+                Risk Based Pricing
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mt-5">
+          <button type="submit" class="greenbutton">Save</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="ptop15" *ngIf="main_installer_id != 'null'">
+      <form
+        name="form"
+        (ngSubmit)="sif.form.valid && subInstallerEditSubmit()"
+        #sif="ngForm"
+        novalidate
+      >
+        <div class="form-group">
+          <label for="ContactName">First Name</label>
+          <input
+            type="text"
+            name="firstname"
+            class="form-control"
+            placeholder="Enter First Name"
+            (input)="f2.firstname = namedata($event)"
+            [(ngModel)]="f2.firstname"
+            #firstname="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': sif.submitted && firstname.invalid }"
+          />
+          <small
+            *ngIf="firstname.invalid && (firstname.touched || sif.submitted)"
+            class="text-danger"
+            >First name is required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="ContactName">Last name</label>
+          <input
+            type="text"
+            name="lastname"
+            class="form-control"
+            placeholder="Enter Last name"
+            (input)="f2.lastname = namedata($event)"
+            [(ngModel)]="f2.lastname"
+            #lastname="ngModel"
+            required
+            [ngClass]="{ 'is-invalid': sif.submitted && lastname.invalid }"
+          />
+          <small
+            *ngIf="lastname.invalid && (lastname.touched || sif.submitted)"
+            class="text-danger"
+            >Last name is required</small
+          >
+        </div>
+
+        <div class="form-group mt-5">
+          <button type="submit" class="greenbutton">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="grayBox">
+    <div class="fs22px pb20">Change Password</div>
+
+    <form [formGroup]="changepwForm" (ngSubmit)="changePassword()">
+      <label for="currentpw">Current Password</label><br />
+      <input
+        type="password"
+        id="currentpw"
+        formControlName="currentpw"
+        class="form-control"
+        [class.is-invalid]="
+          cpf.currentpw.invalid && (cpf.currentpw.touched || fSubmitted)
+        "
+      />
+      <small
+        *ngIf="cpf.currentpw.invalid && (cpf.currentpw.touched || fSubmitted)"
+        class="text-danger"
+        >Current Password is required</small
+      >
+      <br />
+      <label for="newpw">New Password</label><br />
+      <input
+        type="password"
+        id="newpw"
+        formControlName="newpw"
+        class="form-control"
+        [class.is-invalid]="
+          cpf.newpw.invalid && (cpf.newpw.touched || fSubmitted)
+        "
+      />
+      <small
+        *ngIf="
+          cpf.newpw.hasError('required') && (cpf.newpw.touched || fSubmitted)
+        "
+        class="text-danger"
+      >
+        New Password is required
+      </small>
+      <small
+        *ngIf="
+          cpf.newpw.hasError('pattern') && (cpf.newpw.touched || fSubmitted)
+        "
+        class="text-danger"
+      >
+        Password should be at least 8 characters long and should contain one
+        uppercase, one lowercase, one number and one special character
+      </small>
+      <br />
+      <label for="cnewpw">Confirm New Password</label><br />
+      <input
+        type="password"
+        id="cnewpw"
+        formControlName="cnewpw"
+        class="form-control"
+        [class.is-invalid]="
+          cpf.cnewpw.invalid && (cpf.cnewpw.touched || fSubmitted)
+        "
+      />
+      <div *ngIf="cpf.cnewpw.touched || fSubmitted">
+        <small *ngIf="cpf.cnewpw.errors?.required" class="text-danger"
+          >Confirm password is required</small
+        >
+        <small *ngIf="changepwForm.errors?.misMatch" class="text-danger"
+          >Password not matched</small
+        >
+      </div>
+      <br />
+      <button type="submit" class="greenbutton upperCase w200px">Save</button>
+    </form>
+  </div>
+
+  <div class="grayBox">
+    <div class="fs22px pb20">Two factor Authentication</div>
+    <div class="displayFlex spaceBetween pb20">
+      <div>Enable Two factor Authentication</div>
+      <div class=" ">
+        <div class="switch">
+          <input
+            type="checkbox"
+            id="twofactorauth"
+            [checked]="lv_twoFactorAuth == 'Y'"
+            #twofactorauth
+            (change)="toggleTwoFactorAuth(twofactorauth.checked)"
+          />
+          <label for="twofactorauth"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body modal-body_messagebox text-center">
+    <div class="msgLogo"><img src="../../../assets/msg_logo.png" /></div>
+
+    <!-- <p class="headtext">message</p> -->
+    <div *ngFor="let m of message" class="messageBlock">{{ m }}</div>
+
+    <div>
+      <button
+        type="button"
+        class="btn orangeButton"
+        aria-label="Close"
+        (click)="close()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+  <br />
+</ng-template>

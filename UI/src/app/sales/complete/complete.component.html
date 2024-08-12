@@ -1,0 +1,30 @@
+<!-- <div class="content"> -->
+    <div class="p20 text-center ">
+        <div class="part1">
+            <i-bs name="check-circle-fill" class="text-sales" width="40px" height="40px"></i-bs>
+            <p class="headtext mt-4">Congratulations! You have been approved. </p>
+            <p>Please, check your email!  We sent a link to your email to sign the contract</p>
+        </div>
+        <div class="part2" *ngIf="data.loan.length>0">
+            <p class="headtext">MED Plan</p>
+            <p class="text-sales h2">${{monthDue}}</p>
+            <p>per month</p>
+            <p class="m-0">Loan Amount: ${{data.loan[0].loanamount}}</p>
+            <p class="m-0">Term: {{data.loan[0].loanterm}} months</p>
+            <p class="m-0"><span class="headtext">APR: </span>{{data.loan[0].apr}}%</p>
+        </div>
+        <!-- <div class="text-center mt-3">
+            <button type="button" class="btn btn-sales" (click)="restart()" ><i-bs name="arrow-clockwise" width="30px" height="30px"></i-bs> Restart</button>
+        </div> -->
+      </div>
+<!-- </div> -->
+
+<ng-template #messagebox>
+    <div class="modal-body text-center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">Message</p>
+      <p *ngFor="let m of message;">{{m}}</p>
+    </div>
+</ng-template>

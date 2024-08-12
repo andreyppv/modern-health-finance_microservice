@@ -1,0 +1,80 @@
+<body> 
+  <div class=" ">
+    <div class="loginSection">
+      <div class="login-form">
+        <div class="main-div">
+          <div class="panel">
+            <div>
+              <img src="../../assets/new/logo.svg" style="margin-bottom: 40px" />
+            </div>
+
+            <!-- <p>Please enter your email and password</p> -->
+          </div>
+          <form
+            id="Login"
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit(template)"
+            #f="ngForm"
+            novalidate
+          >
+            <div class="form-group">
+              <input
+                type="email"
+                class="form-control"
+                id="inputEmail"
+                placeholder="Email Address"
+                name="email"
+                [(ngModel)]="f1.email"
+                #email="ngModel"
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="inputPassword"
+                placeholder="password"
+                [(ngModel)]="f1.password"
+                #password="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+              />
+            </div>
+            <div class="forgot">
+              <a href="admin/forgot-password">Forgot password?</a>
+            </div>
+
+            <button class="button" type="submit">
+              Login
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+
+            <!-- <button type="submit" class="btn btn-primary">Login</button> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">Message</p>
+      <p *ngFor="let m of message">{{ m }}</p>
+    </div>
+  </ng-template>
+</body>

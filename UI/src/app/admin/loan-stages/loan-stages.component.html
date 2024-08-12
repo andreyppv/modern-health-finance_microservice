@@ -1,0 +1,111 @@
+<section class="content-header pt48_plrb_25" *ngIf="isListView">
+  <div class="displayFlex spaceBetween">
+    <div>
+      <h1>{{ pageTitle }}</h1>
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']"
+            ><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">
+          <img src="../../assets/new/folder.svg" />{{ pageTitle }}
+        </li>
+      </ol>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg" /></a>
+      </div>
+      <button class="btn search">Search</button>
+    </div>
+  </div>
+</section>
+
+<div class="content_part" *ngIf="isListView">
+  <div class="Table_wrapped table_responsive">
+    <table
+      *ngIf="data.length > 0"
+      datatable 
+      class="table"
+      >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Finance ref</th>
+          <th scope="col">User ref</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email Address</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Funding Tier</th>
+          <th scope="col">Financing Amount (USD)</th>
+          <th scope="col">APR(%)</th>
+          <th scope="col">Credit Score</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Updated Date</th>
+          <th scope="col">Register Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of data; let i = index">
+          <td scope="row">{{ i + 1 }}</td>
+          <td>
+            <a routerLink="/admin/loan-stages/{{ stage }}/{{ d.loan_id }}"
+              >{{ d.loan_ref }}</a
+            >
+          </td>
+          <td>
+            <a routerLink="/admin/users/{{ d.user_id }}">{{ d.ref_no }}</a>
+          </td>
+          <td>{{ d.firstname }}{{ d.lastname }}</td>
+          <td>{{ d.email }}</td>
+          <td>{{ d.phone | mask: "(000)-000-0000" }}</td>
+          <td>{{ d.practiceName }}</td>
+          <td></td>
+          <td>{{ d.payoffamount }}</td>
+          <td>{{ d.apr }}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="data.length == 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Loan ref</th>
+          <th scope="col">User ref</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email Address</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Funding Tier</th>
+          <th scope="col">Financing Amount (USD)</th>
+          <th scope="col">APR(%)</th>
+          <th scope="col">Credit Score</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Updated Date</th>
+          <!-- <th scope="col">Register Type</th> -->
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

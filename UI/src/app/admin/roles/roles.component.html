@@ -1,0 +1,157 @@
+  <section class="content-header" style="display: flex; padding: 30px;">
+    <div style="flex: 1">
+      <h1>Roles List</h1>
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']"><img src="../../assets/new/breadcrumb_dash.svg"> Dashboard <i
+              class="fal fa-angle-right"></i></a>
+        </li>
+        <li class="active">Roles List</li>
+      </ol>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input type="text" placeholder="Search" aria-label="Search" class="form-control">
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg"></a>
+      </div>
+      <button class="btn search">Search</button>
+  
+    </div>
+  </section>
+  
+  <div class="content_part">
+    <div class="mainTitle" style="justify-content: flex-end;">
+        <button
+          type="button"
+          class="btn btn-success btn-user-control"
+          (click)="add(addtemp)"
+        >
+        <i class="fa fa-user" aria-hidden="true"></i> Add Roles
+        </button>
+    </div>
+    
+  
+    <div class="p10">
+      <table *ngIf="data.length > 0" datatable class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" style="color: black">#</th>
+            <th scope="col" style="color: black">Roles</th>
+            <th scope="col" style="color: black">Edit</th>
+            <th scope="col" style="color: black">Delete</th>
+            <th scope="col" style="color: black">Permission</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of data; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              {{ d.name | titlecase }}
+            </td>
+            <td><button class="btn btn-info btn-user-control" *ngIf="d.edit_flag=='Y'" (click)="edit(d,edittemp)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+            <td><button class="btn btn-danger btn-user-control" *ngIf="d.edit_flag=='Y'" (click)="delete(d.id,messagebox)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+            <td><a class="btn btn-success btn-user-control" *ngIf="d.edit_flag=='Y'" routerLink="/admin/settings/roles/{{ d.id }}"> <i class="fa fa-lock" aria-hidden="true"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+      <table *ngIf="data.length == 0" datatable class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Permission</th>
+              </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+  <ng-template #edittemp>
+    <div class="modal-body">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="close()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5>Add Admin</h5>
+        
+        <form
+          id="adduserform"
+          name="adduserform"
+          (ngSubmit)="f.form.valid && submit1(messagebox)"
+          #f="ngForm"
+          novalidate
+        >
+        <div class="form-group">
+          <label for="ContactName">Role Name</label>
+          <input type="text" name="name" class="form-control" placeholder="Enter Name" (input)="f1.name = namedata($event)"  [(ngModel)]="f1.name" #name="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" >
+      </div> 
+
+          <button type="button" class="btn main_hover_btn mr30px w200px" (click)="close()">CANCEL</button>
+          <button type="submit" class="btn main_btn w200px">Update</button>
+        </form>
+      </div>
+  </ng-template>
+
+  <ng-template #addtemp>
+    <div class="modal-body">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="close()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5>Add Admin</h5>
+        
+        <form
+          id="adduserform"
+          name="adduserform"
+          (ngSubmit)="f.form.valid && submit(messagebox)"
+          #f="ngForm"
+          novalidate
+        >
+        <div class="form-group">
+          <label for="ContactName">Role Name</label>
+          <input type="text" name="name" class="form-control" placeholder="Enter Name" (input)="f1.name = namedata($event)"  [(ngModel)]="f1.name" #name="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" >
+      </div> 
+
+          <button type="button" class="btn main_hover_btn mr30px w200px" (click)="close()">CANCEL</button>
+          <button type="submit" class="btn main_btn w200px">Add</button>
+        </form>
+      </div>
+</ng-template>
+
+<ng-template #messagebox>
+    <div class="modal-body text-center">
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">Message</p>
+      <p *ngFor="let m of message">{{ m }}</p>
+    </div>
+  </ng-template>
+
+  
+  

@@ -1,0 +1,142 @@
+
+    <div class="p20 ">
+        <!-- <div class="part1">
+            <p class="headtext">MED Plan Credit Page Application 1/3</p>
+        </div> -->
+        <div class="part2">
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-12 ">
+                        Do you have a source of income?
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="income1"  [(ngModel)]="income1" id="income1" (click)="changeincome1()">
+                                    <label class="form-check-label" for="income1">
+                                    Yes
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                  
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="income2"  [(ngModel)]="income2"  id="income2" (click)="changeincome2()">
+                                    <label class="form-check-label" for="income2">
+                                        No
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <form name="form" (ngSubmit)="f.form.valid && onSubmit(template)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="ContactName">What’s your work status?</label>
+                    <input type="text" name="workstatus" class="form-control" placeholder="Employed"  [(ngModel)]="f1.workstatus" #workstatus="ngModel"  [ngClass]="{ 'is-invalid': f.submitted && workstatus.invalid }">
+                </div> 
+                <div class="form-group">
+                    <label for="ContactName">What’s your income?</label>
+                    <input type="text" name="income" class="form-control" placeholder="Enter your income"  [(ngModel)]="f1.income" (input)="f1.income = number($event)" (blur)="f1.income = transformAmount($event)"  #income="ngModel"  [ngClass]="{ 'is-invalid': f.submitted && income.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Employer:</label>
+                    <input type="text" name="employer" class="form-control" placeholder="Enter employer"  
+                    [(ngModel)]="f1.employer" #employer="ngModel"  [ngClass]="{ 'is-invalid': f.submitted && employer.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Job Title</label>
+                    <input type="text" name="jobtitle" class="form-control" placeholder="Enter job title" 
+                     [(ngModel)]="f1.jobtitle" #jobtitle="ngModel"  [ngClass]="{ 'is-invalid': f.submitted && jobtitle.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Years with Employer</label>
+                    <input type="text" name="yearsemployed" class="form-control" (input)="f1.yearsemployed = number($event)" placeholder="Enter years with employer" 
+                     [(ngModel)]="f1.yearsemployed" #yearsemployed="ngModel" 
+                      [ngClass]="{ 'is-invalid': f.submitted && yearsemployed.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Months with Employer</label>
+                    <input type="text" name="monthsemployed" class="form-control" (input)="f1.monthsemployed = number($event)" placeholder="Enter years with employer"  
+                    [(ngModel)]="f1.monthsemployed" #monthsemployed="ngModel"  
+                    [ngClass]="{ 'is-invalid': f.submitted && monthsemployed.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Home Occupancy</label>
+                </div>
+                <select class="form-select" aria-label="Default select example" name="homeoccupancy" 
+                         [(ngModel)]="f1.homeoccupancy" 
+                         >                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                            <option value="Investment">Investment</option>
+                            <option value="Other">Other</option>
+                          </select>
+                <div class="form-group">
+                    <label for="ContactName">Home Ownership</label>
+                 </div>
+                 <select class="form-select"   name="homeOwnership"     
+                    [(ngModel)]="f1.homeOwnership"  
+                         > 
+                         <option value="Not Owned">Not Owned</option>
+                            <option value="Owned with Mortgage">Owned with Mortgage</option>
+                            <option value="Owned free and clear">Owned free and clear</option>
+                          </select>
+                   
+                <div>
+                    <div class="row">
+                        <div class="col-12">
+                            Spoken Language
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-6">
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="language1"  [(ngModel)]="language1" id="language1" (click)="changelanguage1()">
+                                        <label class="form-check-label" for="language1">
+                                        English
+                                        </label>
+                                      </div>
+                                </div>
+                                <div class="col-6">
+                                      
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="language2"  [(ngModel)]="language2" id="language2" (click)="changelanguage2()">
+                                        <label class="form-check-label" for="language2">
+                                        Spanish
+                                        </label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>              
+                
+                
+                <div class="form-group mt-5">
+                    <button type="submit" class="form-control btn-sales">REQUEST APPROVAL</button>
+                </div>
+            </form>
+        </div>
+      </div>
+
+
+      <ng-template #template>
+        <div class="modal-body text-center">
+            <img src="/assets/fireworks 1.png">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <p class="modeltext">Congratulations!</p>
+      <p class="modeltext">You have been approved. </p>
+      <p>While credit has been approved, you did not verify ownership of the property hosting the installation and your income.</p>
+
+        <p>1. You will need to:</p>
+        <p>2. Upload proof of ownership</p>
+        <p>3. Upload proof of income</p>
+        <button type="button" class="btn btn-sales btn-block modelbtn" (click)="close()">OKAY</button>
+              
+          
+        </div>
+      </ng-template>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="69"
+   height="69"
+   viewBox="0 0 69 69"
+   fill="none"
+   version="1.1"
+   id="svg13"
+   sodipodi:docname="dropfolder.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <metadata
+     id="metadata17">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     id="namedview15"
+     showgrid="false"
+     inkscape:zoom="6.5797101"
+     inkscape:cx="34.5"
+     inkscape:cy="34.5"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g6" />
+  <g
+     clip-path="url(#clip0)"
+     id="g6">
+    <path
+       d="M54.0149 11.7083H19.0118C17.9274 11.7083 17.0484 10.8293 17.0484 9.74495V8.76254C17.0484 7.657 16.1521 6.76074 15.0466 6.76074H4.52069C2.3096 6.76074 0.51709 8.55312 0.51709 10.7643V44.4519L5.65406 19.46C5.84174 18.547 6.64522 17.8918 7.57726 17.8918H58.0185V15.7119C58.0185 13.5007 56.226 11.7083 54.0149 11.7083Z"
+       fill="#C5D93A"
+       id="path2"
+       style="fill:#6dd0d1;fill-opacity:1" />
+    <path
+       d="M64.376 21.8184H9.17906L1.45352 59.4032C1.2001 60.6364 2.14195 61.7916 3.40098 61.7916H60.8395C62.8802 61.7916 64.5944 60.2567 64.8188 58.2282L68.3553 26.2623C68.6176 23.8912 66.7614 21.8184 64.376 21.8184Z"
+       fill="#C5D93A"
+       id="path4"
+       style="fill:#6dd0d1;fill-opacity:1" />
+  </g>
+  <defs
+     id="defs11">
+    <clipPath
+       id="clip0">
+      <rect
+         width="67.8621"
+         height="67.8621"
+         fill="white"
+         transform="translate(0.517578 0.344727)"
+         id="rect8" />
+    </clipPath>
+  </defs>
+</svg>

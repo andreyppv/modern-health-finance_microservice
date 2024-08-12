@@ -1,0 +1,1976 @@
+<section class="inner_ban">
+  <div class="container">
+    <div class="media">
+      <div class="media-body">
+        <h2 class="mt-0">Affordable Personal Loans up to $55,000</h2>
+        Your best solution for a best future
+      </div>
+      <img src="assets/new/banner_img.svg" class="mr-3" alt="..." />
+    </div>
+  </div>
+</section>
+<div class="w-100" style1="background: url(/assets/loginBg.jpg);">
+  <section
+    class="borrowing_amount"
+    *ngIf="
+      lastscreen != 'completed' &&
+      lastscreen != 'bank reconnect' &&
+      lastscreen != 'promissorynote'
+    "
+  >
+    <div class="container">
+      <div class="tabbed-content tabs-side">
+        <div class="d-flex">
+          <div class="step_sidebar view-on-desktop">
+            <nav class="tabs">
+              <ul>
+                <li>
+                  <a
+                    href="javascript:void(0);"
+                    [ngClass]="{
+                      active: lastscreen == 'basic',
+                      done:
+                        lastscreen == 'loan' ||
+                        lastscreen == 'bank' ||
+                        lastscreen == 'document'
+                    }"
+                    >01 Step
+                    <i
+                      [ngClass]="{
+                        'fal fa-angle-right': !(
+                          lastscreen == 'loan' ||
+                          lastscreen == 'bank' ||
+                          lastscreen == 'document'
+                        ),
+                        'far fa-check-circle':
+                          lastscreen == 'loan' ||
+                          lastscreen == 'bank' ||
+                          lastscreen == 'document'
+                      }"
+                    ></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0);"
+                    [ngClass]="{
+                      active: lastscreen == 'loan',
+                      done: lastscreen == 'bank' || lastscreen == 'document'
+                    }"
+                    >02 Step
+                    <i
+                      [ngClass]="{
+                        'fal fa-angle-right': !(
+                          lastscreen == 'bank' || lastscreen == 'document'
+                        ),
+                        'far fa-check-circle':
+                          lastscreen == 'bank' || lastscreen == 'document'
+                      }"
+                    ></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0);"
+                    [ngClass]="{
+                      active: lastscreen == 'bank',
+                      done: lastscreen == 'document'
+                    }"
+                    >03 Step
+                    <i
+                      [ngClass]="{
+                        'fal fa-angle-right': !(lastscreen == 'document'),
+                        'far fa-check-circle': lastscreen == 'document'
+                      }"
+                    ></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0);"
+                    [ngClass]="{ active: lastscreen == 'document' }"
+                    >04 Step
+                    <i class="fal fa-angle-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="step_content_part">
+            <div class="view-on-mobile">
+              <div
+                class="Tab_on_mobile"
+                [ngClass]="{
+                  active: lastscreen == 'basic',
+                  done:
+                    lastscreen == 'loan' ||
+                    lastscreen == 'bank' ||
+                    lastscreen == 'document'
+                }"
+              >
+                <a href="javascript:void(0);"
+                  >01 Step
+                  <i
+                    [ngClass]="{
+                      'fal fa-angle-right': !(
+                        lastscreen == 'loan' ||
+                        lastscreen == 'bank' ||
+                        lastscreen == 'document'
+                      ),
+                      'far fa-check-circle':
+                        lastscreen == 'loan' ||
+                        lastscreen == 'bank' ||
+                        lastscreen == 'document'
+                    }"
+                  ></i>
+                </a>
+              </div>
+            </div>
+            <!--basic-->
+            <section
+              *ngIf="lastscreen == 'basic'"
+              id="basic_tab"
+              class="item active"
+              data-title="01 Step"
+            >
+              <!-- <div class="item-content"> -->
+              <div class="how_much">
+                <div class="media">
+                  <img
+                    class="mr-3"
+                    src="assets/new/get_started.svg"
+                    alt="Generic placeholder image"
+                  />
+                  <div class="media-body">
+                    <h5 class="mt-0">Tell Us About Yourself</h5>
+                    <p>
+                      This information will help us maximize your loan options
+                    </p>
+
+                    <div>
+                      <!-- <div class="card-body"> -->
+                      <section
+                        id="createApplicationFromBackend"
+                        class="content_header"
+                      >
+                        <form
+                          autocomplete="off"
+                          class="formclass signupForm"
+                          style="width: 100%"
+                          [formGroup]="apForm"
+                          (ngSubmit)="basicSendForm()"
+                          method="POST"
+                        >
+                          <div class="applicant-personal-info">
+                            <div class="row">
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>First Name</label>  -->
+                                  <input
+                                    placeholder="First Name"
+                                    formControlName="FirstName"
+                                    id="FirstName"
+                                    class="form-control form-application"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.FirstName.dirty ||
+                                          apiFormvalidation.FirstName.touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.FirstName.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.FirstName.dirty ||
+                                        apiFormvalidation.FirstName.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.FirstName.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.FirstName.errors
+                                          .required
+                                      "
+                                    >
+                                      First Name is required
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.FirstName.errors
+                                          .pattern
+                                      "
+                                    >
+                                      First Name is not Vaild
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Middle Name</label>  -->
+                                  <input
+                                    placeholder="Middle Name"
+                                    formControlName="MiddleName"
+                                    class="form-control form-application"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        apiFormvalidation.MiddleName.errors &&
+                                        (apiFormvalidation.MiddleName.dirty ||
+                                          apiFormvalidation.MiddleName
+                                            .touched ||
+                                          apibtn)
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      apiFormvalidation.MiddleName.errors &&
+                                      (apiFormvalidation.MiddleName.dirty ||
+                                        apiFormvalidation.MiddleName.touched ||
+                                        apibtn)
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.MiddleName.errors
+                                          .pattern
+                                      "
+                                    >
+                                      Middle Name is not Vaild
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Last Name</label>  -->
+                                  <input
+                                    placeholder="Last Name"
+                                    formControlName="LastName"
+                                    class="form-control form-application"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apForm.controls.LastName.dirty ||
+                                          apForm.controls.LastName.touched ||
+                                          apibtn) &&
+                                        apForm.controls.LastName.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apForm.controls.LastName.dirty ||
+                                        apForm.controls.LastName.touched ||
+                                        apibtn) &&
+                                      apForm.controls.LastName.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apForm.controls.LastName.errors.required
+                                      "
+                                    >
+                                      Last Name is required
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        apForm.controls.LastName.errors.pattern
+                                      "
+                                    >
+                                      Last Name is not Vaild
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Email</label>  -->
+                                  <input
+                                    placeholder="Email Address"
+                                    formControlName="Email"
+                                    class="form-control form-application"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.Email.dirty ||
+                                          apiFormvalidation.Email.touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.Email.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.Email.dirty ||
+                                        apiFormvalidation.Email.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.Email.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.Email.errors.required
+                                      "
+                                    >
+                                      Email is required
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.Email.errors.pattern
+                                      "
+                                    >
+                                      Email is not Vaild
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Mobile Phone</label> -->
+                                  <input
+                                    type="text"
+                                    name="phone"
+                                    formControlName="MobilePhone"
+                                    class="form-control form-application"
+                                    placeholder="+1 (000) 000-0000"
+                                    mask="+0 (000) 000-0000"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.MobilePhone.dirty ||
+                                          apiFormvalidation.MobilePhone
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.MobilePhone.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.MobilePhone.dirty ||
+                                        apiFormvalidation.MobilePhone.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.MobilePhone.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.MobilePhone.errors
+                                          .required
+                                      "
+                                    >
+                                      Mobile Phone is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Password</label> -->
+                                  <div class="input-group mb-3">
+                                    <input
+                                      [type]="dynamicInputs.Password.type"
+                                      name="Password"
+                                      formControlName="Password"
+                                      class="form-control form-application"
+                                      placeholder="Password"
+                                      [ngClass]="{
+                                        'is-invalid':
+                                          (apiFormvalidation.Password.dirty ||
+                                            apiFormvalidation.Password
+                                              .touched ||
+                                            apibtn) &&
+                                          apiFormvalidation.Password.errors
+                                      }"
+                                    />
+                                    <div
+                                      class="input-group-append"
+                                      (click)="passwordToggle('Password')"
+                                    >
+                                      <span
+                                        class="input-group-text"
+                                        id="basic-addon2"
+                                        ><i
+                                          [class]="
+                                            dynamicInputs.Password.className
+                                          "
+                                          aria-hidden="true"
+                                        ></i
+                                      ></span>
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        (apiFormvalidation.Password.dirty ||
+                                          apiFormvalidation.Password.touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.Password.errors
+                                      "
+                                      class="invalid-feedback"
+                                    >
+                                      <div
+                                        *ngIf="
+                                          apiFormvalidation.Password.errors
+                                            .required
+                                        "
+                                      >
+                                        Password is required
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Confirm Password</label> -->
+                                  <div class="input-group mb-3">
+                                    <input
+                                      [type]="
+                                        dynamicInputs.ConfirmPassword.type
+                                      "
+                                      name="ConfirmPassword"
+                                      formControlName="ConfirmPassword"
+                                      class="form-control form-application"
+                                      placeholder="Confirm Password"
+                                      [ngClass]="{
+                                        'is-invalid':
+                                          (apiFormvalidation.ConfirmPassword
+                                            .dirty ||
+                                            apiFormvalidation.ConfirmPassword
+                                              .touched ||
+                                            apibtn) &&
+                                          apiFormvalidation.ConfirmPassword
+                                            .errors
+                                      }"
+                                    />
+                                    <div
+                                      class="input-group-append"
+                                      (click)="
+                                        passwordToggle('ConfirmPassword')
+                                      "
+                                    >
+                                      <span
+                                        class="input-group-text"
+                                        id="basic-addon2"
+                                        ><i
+                                          [class]="
+                                            dynamicInputs.ConfirmPassword
+                                              .className
+                                          "
+                                          aria-hidden="true"
+                                        ></i
+                                      ></span>
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        (apiFormvalidation.ConfirmPassword
+                                          .dirty ||
+                                          apiFormvalidation.ConfirmPassword
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.ConfirmPassword.errors
+                                      "
+                                      class="invalid-feedback"
+                                    >
+                                      <div
+                                        *ngIf="
+                                          apiFormvalidation.ConfirmPassword
+                                            .errors.required
+                                        "
+                                      >
+                                        Confirm Password is required
+                                      </div>
+                                      <div
+                                        *ngIf="
+                                          apiFormvalidation.ConfirmPassword
+                                            .errors.mustMatch
+                                        "
+                                      >
+                                        Passwords must match
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Street Address</label>  -->
+                                  <input
+                                    placeholder="Street Address"
+                                    formControlName="StreetAddress"
+                                    class="form-control form-application"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.StreetAddress
+                                          .dirty ||
+                                          apiFormvalidation.StreetAddress
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.StreetAddress.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.StreetAddress.dirty ||
+                                        apiFormvalidation.StreetAddress
+                                          .touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.StreetAddress.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.StreetAddress.errors
+                                          .required
+                                      "
+                                    >
+                                      Street Address is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Unit/Apartment</label>  -->
+                                  <input
+                                    placeholder="Unit/Apartment"
+                                    formControlName="UnitApartment"
+                                    class="form-control form-application"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.UnitApartment
+                                          .dirty ||
+                                          apiFormvalidation.UnitApartment
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.UnitApartment.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.UnitApartment.dirty ||
+                                        apiFormvalidation.UnitApartment
+                                          .touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.UnitApartment.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.UnitApartment.errors
+                                          .required
+                                      "
+                                    >
+                                      Unit/Apartment is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>City</label>  -->
+                                  <input
+                                    placeholder="City"
+                                    formControlName="City"
+                                    class="form-control form-application"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.City.dirty ||
+                                          apiFormvalidation.City.touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.City.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.City.dirty ||
+                                        apiFormvalidation.City.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.City.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.City.errors.required
+                                      "
+                                    >
+                                      City is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="float-label">
+                                  <!-- <label>State</label>  -->
+                                  <select
+                                    class="form-control form-application"
+                                    formControlName="State"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.State.dirty ||
+                                          apiFormvalidation.State.touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.State.errors
+                                    }"
+                                  >
+                                    <option
+                                      value=""
+                                      selected="selected"
+                                      disabled="disabled"
+                                    >
+                                      State
+                                    </option>
+                                    <option
+                                      [value]="state.id"
+                                      *ngFor="let state of stateList"
+                                    >
+                                      {{ state.displayName }}
+                                    </option>
+                                  </select>
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.State.dirty ||
+                                        apiFormvalidation.State.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.State.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.State.errors.required
+                                      "
+                                    >
+                                      State is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Zip Code</label>  -->
+                                  <input
+                                    placeholder="Zip Code"
+                                    class="form-control form-application"
+                                    formControlName="ZipCode"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.ZipCode.dirty ||
+                                          apiFormvalidation.ZipCode.touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.ZipCode.errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.ZipCode.dirty ||
+                                        apiFormvalidation.ZipCode.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.ZipCode.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.ZipCode.errors
+                                          .required
+                                      "
+                                    >
+                                      Zip Code is required
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.ZipCode.errors.pattern
+                                      "
+                                    >
+                                      Zip Code is not Vaild
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Social Security Number</label> -->
+                                  <div class="input-group mb-3">
+                                    <input
+                                      [type]="
+                                        dynamicInputs.SocialSecurityNumber.type
+                                      "
+                                      placeholder="Social Security Number"
+                                      class="form-control form-application"
+                                      formControlName="SocialSecurityNumber"
+                                      mask="000-00-0000"
+                                      placeholder="000-00-0000"
+                                      [hiddenInput]="true"
+                                      [ngClass]="{
+                                        'is-invalid':
+                                          (apiFormvalidation
+                                            .SocialSecurityNumber.dirty ||
+                                            apiFormvalidation
+                                              .SocialSecurityNumber.touched ||
+                                            apibtn) &&
+                                          apiFormvalidation.SocialSecurityNumber
+                                            .errors
+                                      }"
+                                    />
+                                    <div
+                                      class="input-group-append"
+                                      (click)="
+                                        passwordToggle('SocialSecurityNumber')
+                                      "
+                                    >
+                                      <span
+                                        class="input-group-text"
+                                        id="basic-addon2"
+                                        ><i
+                                          [class]="
+                                            dynamicInputs.SocialSecurityNumber
+                                              .className
+                                          "
+                                          aria-hidden="true"
+                                        ></i
+                                      ></span>
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        (apiFormvalidation.SocialSecurityNumber
+                                          .dirty ||
+                                          apiFormvalidation.SocialSecurityNumber
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.SocialSecurityNumber
+                                          .errors
+                                      "
+                                      class="invalid-feedback"
+                                    >
+                                      <div
+                                        *ngIf="
+                                          apiFormvalidation.SocialSecurityNumber
+                                            .errors.required
+                                        "
+                                      >
+                                        Social Security Number is required
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="
+                                  form-group
+                                  col-xs-12 col-sm-12 col-md-6 col-lg-6
+                                "
+                              >
+                                <!-- <label for="ContactName">Date of Birth</label> -->
+                                <input
+                                  name="birthday"
+                                  placeholder="MM/DD/YYYY"
+                                  formControlName="DateofBirth"
+                                  #birthday="bsDatepicker"
+                                  [maxDate]="maxDate"
+                                  class="form-control"
+                                  bsDatepicker
+                                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                                  [ngClass]="{
+                                    'is-invalid':
+                                      (apiFormvalidation.DateofBirth.dirty ||
+                                        apiFormvalidation.DateofBirth.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.DateofBirth.errors
+                                  }"
+                                />
+                                <div
+                                  *ngIf="
+                                    (apiFormvalidation.DateofBirth.dirty ||
+                                      apiFormvalidation.DateofBirth.touched ||
+                                      apibtn) &&
+                                    apiFormvalidation.DateofBirth.errors
+                                  "
+                                  class="invalid-feedback"
+                                >
+                                  <div
+                                    *ngIf="
+                                      apiFormvalidation.DateofBirth.errors
+                                        .required
+                                    "
+                                  >
+                                    Date of Birth is required
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Source of Income</label>  -->
+                                  <select
+                                    name="incomesource"
+                                    id="incomesource"
+                                    placeholder="Source of Income"
+                                    class="form-control form-application"
+                                    formControlName="SourceOfIncome"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.SourceOfIncome
+                                          .dirty ||
+                                          apiFormvalidation.SourceOfIncome
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.SourceOfIncome.errors
+                                    }"
+                                  >
+                                    <option
+                                      value=""
+                                      selected="selected"
+                                      disabled="disabled"
+                                    >
+                                      Source of Income
+                                    </option>
+                                    <option
+                                      [value]="opt.id"
+                                      *ngFor="let opt of sourceOfIncomeList"
+                                    >
+                                      {{ opt.displayName }}
+                                    </option>
+                                  </select>
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.SourceOfIncome.dirty ||
+                                        apiFormvalidation.SourceOfIncome
+                                          .touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.SourceOfIncome.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.SourceOfIncome.errors
+                                          .required
+                                      "
+                                    >
+                                      Source of Income is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Net Monthly Income</label>  -->
+                                  <input
+                                    placeholder="Monthly Take Home Pay"
+                                    class="form-control form-application"
+                                    formControlName="NetMonthlyIncome"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.NetMonthlyIncome
+                                          .dirty ||
+                                          apiFormvalidation.NetMonthlyIncome
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.NetMonthlyIncome
+                                          .errors
+                                    }"
+                                  />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.NetMonthlyIncome
+                                        .dirty ||
+                                        apiFormvalidation.NetMonthlyIncome
+                                          .touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.NetMonthlyIncome.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.NetMonthlyIncome
+                                          .errors.required
+                                      "
+                                    >
+                                      Net Monthly Income is required
+                                    </div>
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.NetMonthlyIncome
+                                          .errors.pattern
+                                      "
+                                    >
+                                      Net Monthly Income is not Vaild
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Pay Frequency</label>  -->
+                                  <select
+                                    placeholder="Pay Frequency"
+                                    name="PayFrequency"
+                                    id="PayFrequency"
+                                    class="form-control form-application valid"
+                                    formControlName="PayFrequency"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.PayFrequency.dirty ||
+                                          apiFormvalidation.PayFrequency
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.PayFrequency.errors
+                                    }"
+                                  >
+                                    <option
+                                      value=""
+                                      selected="selected"
+                                      disabled="disabled"
+                                    >
+                                      Pay Frequency
+                                    </option>
+                                    <option
+                                      [value]="opt.id"
+                                      *ngFor="let opt of payFrequencyList"
+                                    >
+                                      {{ opt.displayName }}
+                                    </option>
+                                  </select>
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.PayFrequency.dirty ||
+                                        apiFormvalidation.PayFrequency
+                                          .touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.PayFrequency.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.PayFrequency.errors
+                                          .required
+                                      "
+                                    >
+                                      Pay Frequency is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>Day of Month</label>  -->
+                                  <select
+                                    name="DayOfMonth"
+                                    id="DayOfMonth"
+                                    class="form-control form-application"
+                                    formControlName="DayOfMonth"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.DayOfMonth.dirty ||
+                                          apiFormvalidation.DayOfMonth
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.DayOfMonth.errors
+                                    }"
+                                  >
+                                    <option
+                                      value=""
+                                      selected="selected"
+                                      disabled="disabled"
+                                    >
+                                      Day of Month
+                                    </option>
+                                    <option
+                                      [value]="opt.id"
+                                      *ngFor="let opt of dayOfMonthList"
+                                    >
+                                      {{ opt.displayName }}
+                                    </option>
+                                  </select>
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.DayOfMonth.dirty ||
+                                        apiFormvalidation.DayOfMonth.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.DayOfMonth.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.DayOfMonth.errors
+                                          .required
+                                      "
+                                    >
+                                      Day of Month is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="form-group col-xs-12 col-sm-6 col-md-6"
+                              >
+                                <div class="float-label">
+                                  <!-- <label>How do you get paid?</label> -->
+                                  <select
+                                    name="paymethod"
+                                    id="paymethod"
+                                    class="form-control form-application"
+                                    formControlName="Paymethod"
+                                    placeholder="Pay Method"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.Paymethod.dirty ||
+                                          apiFormvalidation.Paymethod.touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.Paymethod.errors
+                                    }"
+                                  >
+                                    <option
+                                      value=""
+                                      selected="selected"
+                                      disabled="disabled"
+                                    >
+                                      How do you get paid?
+                                    </option>
+                                    <option
+                                      [value]="opt.id"
+                                      *ngFor="let opt of paymethodList"
+                                    >
+                                      {{ opt.displayName }}
+                                    </option>
+                                  </select>
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.Paymethod.dirty ||
+                                        apiFormvalidation.Paymethod.touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.Paymethod.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.Paymethod.errors
+                                          .required
+                                      "
+                                    >
+                                      Pay Method is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="term">
+                              <p>
+                                I understand that by clicking on the I AGREE
+                                button immediately following this notice, I am
+                                providing “written instructions” to
+                                {{ dpSettings.name | uppercase }} under the Fair
+                                Credit Reporting Act authorizing
+                                {{ dpSettings.name | uppercase }} to obtain
+                                information from my personal credit profile or
+                                other information from Reseller. I authorize
+                                {{ dpSettings.name | uppercase }} to obtain such
+                                information solely to prequalify me for credit
+                                options (or something that indicates the
+                                financial aspect of the transaction). Credit
+                                Information accessed for my pre-qualification
+                                request may be different from the Credit
+                                Information accessed by a credit grantor on a
+                                date after the date of my original
+                                prequalification request to make the credit
+                                decision.
+                              </p>
+                              <div class="consents text-left">
+                                <div
+                                  class="flex-j-center checkbox_btn"
+                                  style="z-index: 0; font-size: 14px"
+                                >
+                                  <input
+                                    class="consent-checkbox"
+                                    type="checkbox"
+                                    name="consents"
+                                    id="consents"
+                                    formControlName="PrivacyPolicy"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.PrivacyPolicy
+                                          .dirty ||
+                                          apiFormvalidation.PrivacyPolicy
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.PrivacyPolicy.errors
+                                    }"
+                                  />
+                                  <label
+                                    class="consent-label pl-2"
+                                    for="consents"
+                                  >
+                                    By checking this box, you agree that you
+                                    have read, understand, and consent to our
+
+                                    <a
+                                      href="javascript:void(0)"
+                                      (click)="findViewDoc('E-Consent')"
+                                      ><strong>E-Signature Consent</strong></a
+                                    >,
+                                    <a
+                                      href="javascript:void(0)"
+                                      (click)="
+                                        findViewDoc('Contact Authorization')
+                                      "
+                                      ><strong>Contact Authorization</strong></a
+                                    >, and
+                                    <a
+                                      href="javascript:void(0)"
+                                      (click)="findViewDoc('Privacy')"
+                                      ><strong>Privacy Policy</strong></a
+                                    >
+                                  </label>
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.PrivacyPolicy.dirty ||
+                                        apiFormvalidation.PrivacyPolicy
+                                          .touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.PrivacyPolicy.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.PrivacyPolicy.errors
+                                          .required
+                                      "
+                                    >
+                                      It's required field
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="consents text-left">
+                                <div
+                                  class="flex-j-center checkbox_btn"
+                                  style="z-index: 0; font-size: 14px"
+                                >
+                                  <input
+                                    class="consent-checkbox"
+                                    type="checkbox"
+                                    name="messaging"
+                                    id="messaging"
+                                    formControlName="MessagingPolicy"
+                                    [ngClass]="{
+                                      'is-invalid':
+                                        (apiFormvalidation.MessagingPolicy
+                                          .dirty ||
+                                          apiFormvalidation.MessagingPolicy
+                                            .touched ||
+                                          apibtn) &&
+                                        apiFormvalidation.MessagingPolicy.errors
+                                    }"
+                                  />
+
+                                  <label
+                                    class="consent-label pl-2"
+                                    for="messaging"
+                                  >
+                                    By checking this box, you agree that you
+                                    have read, understand, and consent to our
+
+                                    <a
+                                      href="javascript:void(0)"
+                                      (click)="findViewDoc('Other Messaging')"
+                                      ><strong
+                                        >Other Messaging Policy</strong
+                                      ></a
+                                    >
+                                  </label>
+                                  <br />
+                                  <div
+                                    *ngIf="
+                                      (apiFormvalidation.MessagingPolicy
+                                        .dirty ||
+                                        apiFormvalidation.MessagingPolicy
+                                          .touched ||
+                                        apibtn) &&
+                                      apiFormvalidation.MessagingPolicy.errors
+                                    "
+                                    class="invalid-feedback"
+                                  >
+                                    <div
+                                      *ngIf="
+                                        apiFormvalidation.MessagingPolicy.errors
+                                          .required
+                                      "
+                                    >
+                                      It's required field
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="btn-top">
+                              <button type="submit" class="btn main_btn">
+                                Continue <i class="fal fa-angle-right"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </section>
+
+                      <!-- </div> -->
+                      <!-- <div class="card-footer text-muted">
+      
+    </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- </div> -->
+            </section>
+            <!--loan-->
+            <div class="view-on-mobile">
+              <div
+                class="Tab_on_mobile"
+                [ngClass]="{
+                  active: lastscreen == 'loan',
+                  done: lastscreen == 'bank' || lastscreen == 'document'
+                }"
+              >
+                <a href="javascript:void(0);"
+                  >02 Step
+                  <i
+                    [ngClass]="{
+                      'fal fa-angle-right': !(
+                        lastscreen == 'bank' || lastscreen == 'document'
+                      ),
+                      'far fa-check-circle':
+                        lastscreen == 'bank' || lastscreen == 'document'
+                    }"
+                  ></i>
+                </a>
+              </div>
+            </div>
+            <section
+              *ngIf="lastscreen == 'loan'"
+              id="loan_tab2"
+              class="item"
+              data-title="02 Step"
+            >
+              <div class1="item-content">
+                <div>
+                  <!-- <div class="d-flex"> -->
+                  <div class="how_much">
+                    <!-- <div class="text-center" >
+      <img src="/assets/logo.png" style="width: min-content;" class="card-img-top" alt="logo">
+    </div> -->
+                    <div class="media">
+                      <img
+                        class="mr-3"
+                        src="assets/new/money.svg"
+                        alt="Generic placeholder image"
+                      />
+                      <div class="media-body">
+                        <form (ngSubmit)="loanSendForm()" [formGroup]="apForm">
+                          <!-- <h1 class="card-title text-center">Congratulations!</h1> -->
+
+                          <!-- <p class="card-text text-center">Slide to modify draw amount.</p> -->
+                          <h5>How much would you like to borrow?</h5>
+                          <div class="progressbar">
+                            <input
+                              class="w-100"
+                              formControlName="LoanAmount"
+                              id="loanslider"
+                              (change)="findPaymentAmount()"
+                              name="loanslider"
+                              [step]="shortData.loanStep"
+                              type="range"
+                              [min]="shortData.loanMin"
+                              [max]="shortData.loanMax"
+                              [value]="shortData.loanamount"
+                            />
+                          </div>
+                          <p class="card-text text-center">
+                            You're approved for
+                            {{ shortData.loanamount | currency }} pending our
+                            verification of your application.
+                          </p>
+                          <div class="value_box">
+                            <h4>
+                              {{ apForm.controls.LoanAmount.value | currency }}
+                            </h4>
+                          </div>
+                          <br />
+                          <table class="table payment_detail">
+                            <thead></thead>
+                            <tbody>
+                              <tr>
+                                <th>Number of Payments</th>
+                                <td id="term" class="text-right">48</td>
+                              </tr>
+                              <tr>
+                                <th>Payment Amount</th>
+                                <td id="amount" class="text-right">
+                                  {{ shortData.paymentAmount | currency }}
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Payment Frequency</th>
+                                <td
+                                  id="frequency"
+                                  class="text-right"
+                                  style="text-transform: capitalize"
+                                >
+                                  {{ shortData.payfrequency | titlecase }}
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>TERM</th>
+                                <td
+                                  id="frequency"
+                                  class="text-right"
+                                  style="text-transform: capitalize"
+                                >
+                                  {{ shortData.loanterm }}
+                                </td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid #ddd">
+                                <th>APR</th>
+                                <td class="text-right">
+                                  <span id="apr">{{ shortData.apr }}</span
+                                  >%
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <br />
+                          <div class="text-center">
+                            <button class="btn main_btn">
+                              Continue <i class="fal fa-angle-right"></i>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </section>
+            <!--bank-->
+            <div class="view-on-mobile">
+              <div
+                class="Tab_on_mobile"
+                [ngClass]="{
+                  active: lastscreen == 'bank',
+                  done: lastscreen == 'document'
+                }"
+              >
+                <a href="javascript:void(0);"
+                  >03 Step
+                  <i
+                    [ngClass]="{
+                      'fal fa-angle-right': !(lastscreen == 'document'),
+                      'far fa-check-circle': lastscreen == 'document'
+                    }"
+                  ></i>
+                </a>
+              </div>
+            </div>
+            <section
+              *ngIf="lastscreen == 'bank'"
+              id="bank_tab3"
+              class="item"
+              data-title="03 Step"
+            >
+              <div class1="item-content">
+                <div>
+                  <!-- <div class="d-flex justify-content-center"> -->
+                  <div class="how_much">
+                    <!-- <div class="card-header">
+        <br>
+        <div class="col-xs-12 text-center">
+          <img src="/assets/logo.png">
+        </div>
+        <br>
+    </div> -->
+                    <div class="media">
+                      <img
+                        class="mr-3"
+                        src="assets/new/bank_info.svg"
+                        alt="Generic placeholder image"
+                      />
+                      <div class="media-body">
+                        <h5 class="mt-0">Banking information</h5>
+                        <p>
+                          Please, log in to the bank where you receive your
+                          payroll direct deposit or deposit your payroll check
+                          for income verification purposes
+                        </p>
+
+                        <!-- <button class="btn main_btn">Connect Bank </button> -->
+                        <mr-ngx-plaid-link-button
+                          env="sandbox"
+                          [publicKey]="plaidKey"
+                          institution=""
+                          webhook="https://sandbox.plaid.com/api/v1/getPlaidTransactions"
+                          [countryCodes]="['US']"
+                          [product]="['auth', 'assets', 'transactions']"
+                          (Success)="onPlaidSuccess($event)"
+                          (Exit)="onPlaidExit($event)"
+                          (Event)="onPlaidEvent($event)"
+                          (Click)="onPlaidClick($event)"
+                          buttonText="Connect Bank"
+                          className="btn main_btn"
+                        ></mr-ngx-plaid-link-button>
+                        <button
+                          (click)="manualBankSendForm()"
+                          class="btn main_hover_btn"
+                        >
+                          Manually Submit Banking Information
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </section>
+            <div class="view-on-mobile">
+              <div
+                class="Tab_on_mobile"
+                [ngClass]="{ active: lastscreen == 'document' }"
+              >
+                <a href="javascript:void(0);">
+                  04 Step
+                  <i class="fal fa-angle-right"></i>
+                </a>
+              </div>
+            </div>
+            <section
+              *ngIf="lastscreen == 'document'"
+              id="document_tab4"
+              class="item"
+              data-title="04 Step"
+            >
+              <!-- <div class1="item-content"> -->
+
+              <!--document-->
+              <div class="bankmanual">
+                <div class="how_much">
+                  <div class="media">
+                    <img
+                      class="mr-3"
+                      src="assets/new/upload_document.svg"
+                      alt="Generic placeholder image"
+                    />
+                    <div class="media-body">
+                      <h5 class="mt-0">Upload Documents</h5>
+                      <p>
+                        Easily send us the documents below by taking a photo of
+                        them with your mobile device or uploading from your
+                        computer.
+                      </p>
+                      <div class="its_important">
+                        <div class="media">
+                          <img
+                            class="mr-3"
+                            src="assets/new/upload_doc_info.svg"
+                            alt="Generic placeholder image"
+                          />
+                          <div class="media-body">
+                            <h3>
+                              Click the box next to each document to send.
+                            </h3>
+                            <p>
+                              For multiply pages, just click the box next to the
+                              document again to take more photos.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="card"> -->
+                  <!-- <div class="card-body"> -->
+                  <!-- <div class="row">
+          <div class="col-md-offset-2 col-md-10 text-align">
+              <p class="card-text">Easily send us the documents below by taking a photo of them with your mobile device or uploading from your computer.</p>
+        </div>
+      </div> -->
+
+                  <!-- <div class="col-md-12"> -->
+                  <!-- <div class="row"> -->
+                  <!-- <div class="col-md-5 text-white mb-2">
+                <div class="bg-secondary box-content">
+                  <h5>Click the box next to each document to send.</h5>
+                  <br>
+                  <h5>For multiple pages, just click the box next to the document again to take more photos.</h5>
+                </div>
+                </div> -->
+                  <!-- <div class="col-md-12"> -->
+                  <div class="upload_documents">
+                    <!-- <hr style="margin-top:0px !important;"> -->
+                    <!--<div *ngFor="let input of dynamicInputs; index as i;">
+                    <div class="media">
+                      <button type="button" class="btn" (click)="openModalFile(templateBrowse, i)"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+                      <div class="media-body">
+                        <h5 class="mt-0">{{input.title}}</h5>
+                        {{input.details}}
+                        <div *ngFor="let t of input.uploadedFiles; index as j;" class="upload-list-item" >
+                          <a href="javascript:void(0)" (click)="docView(input.download[j])">
+                            <span class="check-circle-box"><i class="far fa-check-circle"></i></span> 
+                            <span> {{t}}</span>
+                            </a>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>-->
+                    <accordion>
+                      <accordion-group
+                        *ngFor="let input of dynamicInputs; index as i"
+                        #group
+                        [isOpen]="true"
+                      >
+                        <h2 class="acc_header" accordion-heading>
+                          {{ input.title }}
+                          <a class="angle_up"
+                            ><i class="fal fa-angle-up"></i
+                          ></a>
+                        </h2>
+
+                        <p>{{ input.details }}</p>
+
+                        <div
+                          *ngFor="let t of input.uploadedFiles; index as j"
+                          class="upload-list-item"
+                        >
+                          <div class="align_left">
+                            <a
+                              href="javascript:void(0)"
+                              (click)="docView(input.download[j])"
+                            >
+                              <div class="check-circle-box imageIcon">
+                                <!-- <i class="fad fa-file"></i> -->
+                              </div>
+                            </a>
+                          </div>
+
+                          <div class="align_center">
+                            <div class="media">
+                              <!-- <img class="mr-3" src="..." alt="Generic placeholder image"> -->
+                              <i class="fas fa-file-alt mr-3"></i>
+                              <div class="media-body">
+                                <h5 class="mt-0">
+                                  {{ t }}
+                                  <button
+                                    type="button"
+                                    class="btn"
+                                    (click)="deleteUserUploadDocument(i, j)"
+                                  >
+                                    <i class="fal fa-trash"></i>
+                                  </button>
+                                </h5>
+                              </div>
+                            </div>
+                            <!-- <div class="progress" *ngIf="t.progress">
+                            <div class="inner_progress" [style.width.%]="t.progress"></div>
+                          </div> -->
+                          </div>
+                          <div class="align_right">
+                            <div
+                              class="delete_icon2 cursorpointer"
+                              (click)="deleteDoc(i, j)"
+                              *ngIf="t.progress == undefined"
+                            ></div>
+                            <div
+                              class="closeButton2 cursorpointer"
+                              (click)="removeDoc(i, j)"
+                              *ngIf="t.progress"
+                            ></div>
+                          </div>
+                        </div>
+
+                        <div class="drag-files">
+                          <ngx-file-drag-drop
+                            [formControl]="input.formControls.docFile"
+                            activeBorderColor="#3F51B5"
+                            accept="image/png, image/jpeg, application/pdf"
+                            multiple
+                            class="drag_update"
+                          >
+                          </ngx-file-drag-drop>
+                          <div
+                            *ngIf="
+                              !input.formControls.docFile.valid &&
+                              input.formControls.docFile.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="input.formControls.docFile.errors.required"
+                            >
+                              File is required.
+                            </div>
+                            <div
+                              *ngIf="
+                                input.formControls.docFile.errors.fileExtension
+                              "
+                            >
+                              Unsupported file format.
+                            </div>
+                          </div>
+                          <input
+                            type="hidden"
+                            name="type"
+                            [formControl]="input.formControls.type"
+                          />
+                          <!-- <button
+                          type="button"
+                          class="btn main_btn btn-xs"
+                          (click)="uploadDoc(i)"
+                        >
+                          Submit
+                        </button> -->
+                        </div>
+                      </accordion-group>
+                    </accordion>
+                  </div>
+                  <!-- </div> -->
+                  <!-- </div>  -->
+                  <!-- </div> -->
+                  <div class="text-danger" *ngIf="commonError.error">
+                    <p>{{ commonError.message }}</p>
+                  </div>
+                  <button (click)="uploadsComplete()" class="btn main_btn">
+                    CONTINUE <i class="fal fa-angle-right"></i>
+                  </button>
+                  <!-- </div> -->
+                  <!-- </div> -->
+                </div>
+
+                <!-- Modal -->
+                <ng-template #templateBrowse>
+                  <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                    id="docForm"
+                  >
+                    <div class="modal-header">
+                      <h1 class="modal-title text-center">
+                        Upload Your {{ dynamicInputs[activeIndex].title }}
+                        {{ dynamicInputs[activeIndex].details }}
+                      </h1>
+                      <button
+                        type="button"
+                        class="close pull-right"
+                        aria-label="Close"
+                        (click)="modalBrowseRef.hide()"
+                      >
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <ngx-file-drag-drop
+                        [formControl]="formControls.docFile"
+                        activeBorderColor="#3F51B5"
+                        accept="image/png, image/jpeg, application/pdf"
+                      >
+                      </ngx-file-drag-drop>
+                      <div
+                        *ngIf="
+                          !formControls.docFile.valid &&
+                          formControls.docFile.errors
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="formControls.docFile.errors.required">
+                          File is required.
+                        </div>
+                        <div *ngIf="formControls.docFile.errors.fileExtension">
+                          Unsupported file format.
+                        </div>
+                      </div>
+                      <input
+                        type="hidden"
+                        name="type"
+                        [formControl]="formControls.type"
+                      />
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-theme btn-xs"
+                        (click)="uploadDoc()"
+                      >
+                        CONTINUE
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-xs"
+                        (click)="modalBrowseRef.hide()"
+                      >
+                        CLOSE
+                      </button>
+                    </div>
+                  </form>
+                </ng-template>
+              </div>
+              <!-- </div> -->
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--other step-->
+  <!--completed-->
+  <div *ngIf="lastscreen == 'completed'">
+    <div class="container">
+      <div class="body_content">
+        <!-- <div class="card text-center"> -->
+        <!-- <div class="card-header">
+          <br>
+          <div class="col-xs-12 text-center">
+            <img src="/assets/logo.png">
+          </div>
+          <br>
+      </div> -->
+        <!-- <div class="card-body"> -->
+        <section class="main thnk_you">
+          <h2><i class="far fa-check-circle"></i> Thank you!</h2>
+          <p>
+            Thank you, an associate from {{ dpSettings.name }} will reach out to
+            you shortly. <br />
+            For urgent matters, please email {{ dpSettings.helpEmail }}
+          </p>
+          <p>Thank you for choosing {{ dpSettings.name }}</p>
+          <p>You may close the tab or browser. Thank you!</p>
+        </section>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+  <!--bank reconnect-->
+  <div *ngIf="lastscreen == 'bank reconnect'">
+    <div class="d-flex justify-content-center">
+      <div class="card text-center">
+        <div class="card-header">
+          <br />
+          <div class="col-xs-12 text-center">
+            <img src="/assets/logo.png" />
+          </div>
+          <br />
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Banking Information</h2>
+          <p class="card-text">
+            Please log in to the bank where you receive your payroll direct
+            deposit or deposit your payroll check for income verification
+            purposes
+          </p>
+          <div class="connect-bank-bg"></div>
+          <div class="connect-bank-container text-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              aria-hidden="true"
+              focusable="false"
+              width="1.08em"
+              height="1em"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 1920 1792"
+              class="iconify"
+              data-icon="fa:bank"
+              data-inline="false"
+              style="transform: rotate(360deg)"
+            >
+              <path
+                d="M960 0l960 384v128h-128q0 26-20.5 45t-48.5 19H197q-28 0-48.5-19T128 512H0V384zM256 640h256v768h128V640h256v768h128V640h256v768h128V640h256v768h59q28 0 48.5 19t20.5 45v64H128v-64q0-26 20.5-45t48.5-19h59V640zm1595 960q28 0 48.5 19t20.5 45v128H0v-128q0-26 20.5-45t48.5-19h1782z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <div
+              style="
+                z-index: 10;
+                padding: 12px 40px;
+                margin-top: 12px;
+                margin-bottom: 18px;
+                font-size: 16px;
+              "
+            >
+              <mr-ngx-plaid-link-button
+                env="sandbox"
+                [publicKey]="plaidKey"
+                institution=""
+                webhook="https://sandbox.plaid.com/api/v1/getPlaidTransactions"
+                [countryCodes]="['US']"
+                [product]="['auth', 'assets', 'transactions']"
+                (Success)="onPlaidSuccess($event, true)"
+                (Exit)="onPlaidExit($event)"
+                (Event)="onPlaidEvent($event)"
+                (Click)="onPlaidClick($event)"
+                buttonText="Connect Bank"
+                className="connectBank btn btn-primary btn-theme"
+              ></mr-ngx-plaid-link-button>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+  </div>
+  <!--contract sign-->
+  <section *ngIf="lastscreen == 'promissorynote'" class="contract_sec">
+    <div class="container">
+      <div class="how_much">
+        <div class="media sign_contract">
+          <img
+            class="mr-3"
+            src="assets/new/contract.png"
+            alt="Generic placeholder image"
+          />
+          <div class="media-body">
+            <h5>Sign a contract</h5>
+            <p>
+              We kindly ask you to sign this contract, which is necessary before
+              you will proceed with next steps.
+            </p>
+            <div class="its_important">
+              <div class="media">
+                <img
+                  class="mr-3"
+                  src="assets/new/important.png"
+                  alt="Generic placeholder image"
+                />
+                <div class="media-body">
+                  <h3>It's important</h3>
+                  <p>
+                    This contract is NOT in effect until any services are
+                    rendered. Shall no services be confirmed as rendered to the
+                    consumer, the signed contract remains null and void
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <img class="choose_offer_img" src="assets/new/chooseoffer.svg">
+      <h1>Sign a <span>Contract</span></h1>
+      <p>We kindly ask you to sign this contract, which is necessary before you will <br>proceed with next steps.</p> -->
+        <!-- <div class="row"> -->
+        <!-- <div class="col-md-10"> -->
+
+        <accordion>
+          <accordion-group
+            heading="Create Your Signature"
+            [isOpen]="contractSignShow"
+          >
+            <div class="create_sign">
+              <h3>Create your Sign</h3>
+              <p>
+                Please click and hold your mouse to sign your signature in the
+                box below. You will need to sign the fields below with your
+                signature.
+              </p>
+              <div class="signature sign_box">
+                <signature-pad
+                  [options]="signaturePadOptions"
+                  (onBeginEvent)="drawStart()"
+                  (onEndEvent)="drawComplete()"
+                ></signature-pad>
+              </div>
+              <div class="btn_center">
+                <button class="btn main_btn" (click)="signAccept()">
+                  Accept
+                </button>
+                <button class="btn main_hover_btn" (click)="signClear()">
+                  Clear
+                </button>
+              </div>
+            </div>
+          </accordion-group>
+          <accordion-group heading="Contract" [isOpen]="contractnoteShow">
+            <div class="contract">
+              <h3>Contract</h3>
+              <p>
+                This Promissory Note has not been registered with the Securities
+                and Exchange Commission or the securities commission of any
+                state in reliance upon an exemption from registration under the
+                Securities Act of 1933, as amended, and, accordingly, may not be
+                offered or sold except pursuant to an effective registration
+                statement under the securities act or pursuant to an available
+                exemption from, or in a transaction not subject to, the
+                registration requirements of the securities act and in
+                accordance with applicable state securities laws.
+              </p>
+              <h2>Promissory Note</h2>
+              <iframe
+                [src]="safeResourceUrl(htmlDoc)"
+                style="width: 100%; min-height: 780px"
+                title="Contract Documents"
+              ></iframe>
+            </div>
+          </accordion-group>
+        </accordion>
+
+        <!-- </div> -->
+        <!-- </div> -->
+        <div class="btn_center">
+          <button
+            type="button"
+            class="btn main_btn"
+            (click)="promissoryNoteSendForm()"
+          >
+            Submit <i class="fal fa-angle-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

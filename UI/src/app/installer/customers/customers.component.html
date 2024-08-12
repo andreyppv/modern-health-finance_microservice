@@ -1,0 +1,29 @@
+<div class="m50px customers scroll">
+  <div class="fs22px pb20 textAlignCenter">Applications of all customers</div>
+
+  <div class="customers displayFlex AlignItemCenter mb20px">
+    <div class="w20per textAlignCenter"></div>
+    <div class="w20per textAlignCenter">Application Status</div>
+    <div class="w15per textAlignCenter">Id</div>
+    <div class="w20per textAlignCenter">Name</div>
+    <div class="w20per textAlignCenter">
+      Loan Reference<br />
+      Number
+    </div>
+    <div class="w20per textAlignCenter">
+      Application<br />
+      Submited Date
+    </div>
+  </div>
+
+  <div *ngFor="let al of data.applicationsList" class="customers displayFlex AlignItemCenter grayBox ptb20px mb20px">
+    <div class="w20per textAlignCenter">
+      <button class="viewDetails upperCase" (click)="go(al.loan_id)">View Details</button>
+    </div>
+    <div class="w20per textAlignCenter greenColor">{{al.status?al.status:'APPROVED'}}</div>
+    <div class="w15per textAlignCenter">APP_{{al.ref_no}}</div>
+    <div class="w20per textAlignCenter">{{al.firstname}} {{al.lastname}}</div>
+    <div class="w20per textAlignCenter">LON_{{al.loan_ref}}</div>
+    <div class="w20per textAlignCenter">{{datePipe.transform(al.createdat,"dd/MM/yyyy hh:mm a")}}</div>
+  </div>  
+</div>

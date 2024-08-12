@@ -1,0 +1,727 @@
+<section class="content-header pt48_plrb_25">
+  <div class="displayFlex spaceBetween AlignItemCenter">
+    <div>
+      <h1>Start Application</h1>
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']">
+            <img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">
+          <img src="../../assets/new/plus.svg" /> Start Application
+        </li>
+      </ol>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input type="text" placeholder="Search" aria-label="Search" />
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg" /></a> 
+      </div>
+      <button class="btn search">Search</button>
+    </div>
+  </div>
+</section>
+<section id="createApplicationFromBackend" class="p25">
+  <form
+    autocomplete="on"
+    class="formclass signupForm"
+    style="width: 100%"
+    [formGroup]="apForm"
+    (ngSubmit)="sendForm()"
+    method="POST"
+  >
+    <div class="WhiteFrame BRadius_10 p24">
+      <div class="row">
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <!-- <label>First Name</label>  -->
+          <input
+            placeholder="First Name"
+            formControlName="FirstName"
+            id="FirstName"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                apiFormvalidation.FirstName.errors &&
+                (apiFormvalidation.FirstName.dirty ||
+                  apiFormvalidation.FirstName.touched ||
+                  apibtn)
+            }"
+          />
+          <div
+            *ngIf="
+              apiFormvalidation.FirstName.errors &&
+              (apiFormvalidation.FirstName.dirty ||
+                apiFormvalidation.FirstName.touched ||
+                apibtn)
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.FirstName.errors.required">
+              First Name is required
+            </div>
+            <div *ngIf="apiFormvalidation.FirstName.errors.pattern">
+              First Name is not Vaild
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <!-- <label>Middle Name</label>  -->
+          <input
+            placeholder="Middle Name"
+            formControlName="MiddleName"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                apiFormvalidation.MiddleName.errors &&
+                (apiFormvalidation.MiddleName.dirty ||
+                  apiFormvalidation.MiddleName.touched ||
+                  apibtn)
+            }"
+          />
+          <div
+            *ngIf="
+              apiFormvalidation.MiddleName.errors &&
+              (apiFormvalidation.MiddleName.dirty ||
+                apiFormvalidation.MiddleName.touched ||
+                apibtn)
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.MiddleName.errors.pattern">
+              Middle Name is not Vaild
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <!-- <label>Last Name</label>  -->
+          <input
+            placeholder="Last Name"
+            formControlName="LastName"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                apForm.controls.LastName.errors &&
+                (apForm.controls.LastName.dirty ||
+                  apForm.controls.LastName.touched ||
+                  apibtn)
+            }"
+          />
+          <div
+            *ngIf="
+              apForm.controls.LastName.errors &&
+              (apForm.controls.LastName.dirty ||
+                apForm.controls.LastName.touched ||
+                apibtn)
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apForm.controls.LastName.errors.required">
+              Last Name is required
+            </div>
+            <div *ngIf="apForm.controls.LastName.errors.pattern">
+              Last Name is not Vaild
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12 col-sm-6">
+          <!-- <label>Email</label>  -->
+          <input
+            placeholder="Email Address"
+            formControlName="Email"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                apiFormvalidation.Email.errors &&
+                (apiFormvalidation.Email.dirty ||
+                  apiFormvalidation.Email.touched ||
+                  apibtn)
+            }"
+          />
+          <div
+            *ngIf="
+              apiFormvalidation.Email.errors &&
+              (apiFormvalidation.Email.dirty ||
+                apiFormvalidation.Email.touched ||
+                apibtn)
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.Email.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="apiFormvalidation.Email.errors.pattern">
+              Email is not Vaild
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <!-- <label>Mobile Phone</label> -->
+          <input
+            type="text"
+            name="phone"
+            formControlName="MobilePhone"
+            class="adminInput"
+            placeholder="Mobile Phone"
+            placeholder="+0(000)-000-0000"
+            mask="+0(000)-000-0000"
+            [ngClass]="{
+              'is-invalid':
+                apiFormvalidation.MobilePhone.errors &&
+                (apiFormvalidation.MobilePhone.dirty ||
+                  apiFormvalidation.MobilePhone.touched ||
+                  apibtn)
+            }"
+          />
+          <div
+            *ngIf="
+              apiFormvalidation.MobilePhone.errors &&
+              (apiFormvalidation.MobilePhone.dirty ||
+                apiFormvalidation.MobilePhone.touched ||
+                apibtn)
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.MobilePhone.errors.required">
+              Mobile Phone is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-6">
+          <!-- <label>Street Address</label>  -->
+          <input
+            placeholder="Street Address"
+            formControlName="StreetAddress"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.StreetAddress.dirty ||
+                  apiFormvalidation.StreetAddress.touched ||
+                  apibtn) &&
+                apiFormvalidation.StreetAddress.errors
+            }"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.StreetAddress.dirty ||
+                apiFormvalidation.StreetAddress.touched ||
+                apibtn) &&
+              apiFormvalidation.StreetAddress.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.StreetAddress.errors.required">
+              Street Address is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6">
+          <!-- <label>Unit/Apartment</label>  -->
+          <input
+            placeholder="Unit/Apartment"
+            formControlName="UnitApartment"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.UnitApartment.dirty ||
+                  apiFormvalidation.UnitApartment.touched ||
+                  apibtn) &&
+                apiFormvalidation.UnitApartment.errors
+            }"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.UnitApartment.dirty ||
+                apiFormvalidation.UnitApartment.touched ||
+                apibtn) &&
+              apiFormvalidation.UnitApartment.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.UnitApartment.errors.required">
+              Unit/Apartment is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label>City</label>  -->
+          <input
+            placeholder="City"
+            formControlName="City"
+            class="adminInput"
+            onkeydown="return /[a-z ]/i.test(event.key)"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.City.dirty ||
+                  apiFormvalidation.City.touched ||
+                  apibtn) &&
+                apiFormvalidation.City.errors
+            }"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.City.dirty ||
+                apiFormvalidation.City.touched ||
+                apibtn) &&
+              apiFormvalidation.City.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.City.errors.required">
+              City is required
+            </div>
+            <div *ngIf="apiFormvalidation.City.errors.pattern">
+              City is not Vaild
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label>State</label>  -->
+          <select
+            class="adminInput"
+            formControlName="State"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.State.dirty ||
+                  apiFormvalidation.State.touched ||
+                  apibtn) &&
+                apiFormvalidation.State.errors
+            }"
+          >
+            <option value="" selected="selected" disabled="disabled">
+              State
+            </option>
+            <option [value]="state.id" *ngFor="let state of stateList">
+              {{ state.displayName }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              (apiFormvalidation.State.dirty ||
+                apiFormvalidation.State.touched ||
+                apibtn) &&
+              apiFormvalidation.State.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.State.errors.required">
+              State is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label>Zip Code</label>  -->
+          <input
+            placeholder="Zip Code"
+            class="adminInput"
+            formControlName="ZipCode"
+            mask="00000"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.ZipCode.dirty ||
+                  apiFormvalidation.ZipCode.touched ||
+                  apibtn) &&
+                apiFormvalidation.ZipCode.errors
+            }"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.ZipCode.dirty ||
+                apiFormvalidation.ZipCode.touched ||
+                apibtn) &&
+              apiFormvalidation.ZipCode.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.ZipCode.errors.required">
+              Zip Code is required
+            </div>
+            <div *ngIf="apiFormvalidation.ZipCode.errors.pattern">
+              Zip Code is not Vaild
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label>Social Security Number</label> -->
+          <input
+            placeholder="Social Security Number"
+            class="adminInput"
+            formControlName="SocialSecurityNumber"
+            mask="XXX-XX-0000"
+            placeholder="000-00-0000"
+            [hiddenInput]="true"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.SocialSecurityNumber.dirty ||
+                  apiFormvalidation.SocialSecurityNumber.touched ||
+                  apibtn) &&
+                apiFormvalidation.SocialSecurityNumber.errors
+            }"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.SocialSecurityNumber.dirty ||
+                apiFormvalidation.SocialSecurityNumber.touched ||
+                apibtn) &&
+              apiFormvalidation.SocialSecurityNumber.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.SocialSecurityNumber.errors.required">
+              Social Security Number is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label for="ContactName">Date of Birth</label> -->
+          <input
+            name="birthday"
+            placeholder="MM/DD/YYYY"
+            formControlName="DateofBirth"
+            #birthday="bsDatepicker"
+            [maxDate]="maxDate"
+            class="adminInput"
+            bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.DateofBirth.dirty ||
+                  apiFormvalidation.DateofBirth.touched ||
+                  apibtn) &&
+                apiFormvalidation.DateofBirth.errors
+            }"
+            [readonly]="true"
+            style="background: white"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.DateofBirth.dirty ||
+                apiFormvalidation.DateofBirth.touched ||
+                apibtn) &&
+              apiFormvalidation.DateofBirth.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.DateofBirth.errors.required">
+              Date of Birth is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label>Loan Amount</label>  -->
+          <input
+            id="loanamount"
+            formControlName="MonthlyIncome"
+            placeholder="Monthly Income"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.MonthlyIncome.dirty ||
+                  apiFormvalidation.MonthlyIncome.touched ||
+                  apibtn) &&
+                apiFormvalidation.MonthlyIncome.errors
+            }"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.MonthlyIncome.dirty ||
+                apiFormvalidation.MonthlyIncome.touched ||
+                apibtn) &&
+              apiFormvalidation.MonthlyIncome.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.MonthlyIncome.errors.required">
+              Monthly Income is required
+            </div>
+            <div *ngIf="apiFormvalidation.MonthlyIncome.errors.pattern">
+              This is not Vaild number
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label>State</label>  -->
+          <select
+            class="adminInput"
+            formControlName="typeOFResidence"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.typeOFResidence.dirty ||
+                  apiFormvalidation.typeOFResidence.touched ||
+                  apibtn) &&
+                apiFormvalidation.typeOFResidence.errors
+            }"
+          >
+            <option value="" selected="selected" disabled="disabled">
+              Type Of Residence
+            </option>
+            <option
+              [value]="state.id"
+              *ngFor="let state of typeOFResidenceList"
+            >
+              {{ state.displayName }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              (apiFormvalidation.typeOFResidence.dirty ||
+                apiFormvalidation.typeOFResidence.touched ||
+                apibtn) &&
+              apiFormvalidation.typeOFResidence.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.typeOFResidence.errors.required">
+              Type OF Residence is required
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <div class="float-label">
+          
+            <input
+              id="_apr"
+              formControlName="APR"
+              placeholder="APR"
+              class="adminInput "
+              [ngClass]="{
+                'is-invalid':
+                  (apiFormvalidation.APR.dirty ||
+                    apiFormvalidation.APR.touched ||
+                    apibtn) &&
+                  apiFormvalidation.APR.errors
+              }"
+              (input)="findPaymentAmount()"
+            />
+            <div
+              *ngIf="
+                (apiFormvalidation.APR.dirty ||
+                  apiFormvalidation.APR.touched ||
+                  apibtn) &&
+                apiFormvalidation.APR.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.APR.errors.required">
+                APR is required
+              </div>
+              <div *ngIf="apiFormvalidation.APR.errors.pattern">
+                This is not Vaild number
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <!-- <label>Loan Amount</label>  -->
+          <input
+            id="houseExpense"
+            formControlName="houseExpense"
+            placeholder="House Expense"
+            class="adminInput"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.houseExpense.dirty ||
+                  apiFormvalidation.houseExpense.touched ||
+                  apibtn) &&
+                apiFormvalidation.houseExpense.errors
+            }"
+          />
+          <div
+            *ngIf="
+              (apiFormvalidation.houseExpense.dirty ||
+                apiFormvalidation.houseExpense.touched ||
+                apibtn) &&
+              apiFormvalidation.houseExpense.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.houseExpense.errors.required">
+              House Expense is required
+            </div>
+            <div *ngIf="apiFormvalidation.houseExpense.errors.pattern">
+              This is not Vaild number
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-4">
+          <!-- <label>State</label>  -->
+          <select
+            class="adminInput"
+            formControlName="practiceName"
+            [ngClass]="{
+              'is-invalid':
+                (apiFormvalidation.practiceName.dirty ||
+                  apiFormvalidation.practiceName.touched ||
+                  apibtn) &&
+                apiFormvalidation.practiceName.errors
+            }"
+            (change)="selectPractice($event.target.value)"
+          >
+            <option value="" selected="selected" disabled="disabled">
+              Practice Name
+            </option>
+            <option [value]="practice.id" *ngFor="let practice of practiceList">
+              {{ practice.practicename }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              (apiFormvalidation.practiceName.dirty ||
+                apiFormvalidation.practiceName.touched ||
+                apibtn) &&
+              apiFormvalidation.practiceName.errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="apiFormvalidation.practiceName.errors.required">
+              Practice Name is required
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <input
+              id="paymentAmount"
+              placeholder="Payment Amount"
+              formControlName="PaymentAmount"
+              class="adminInput "
+            />
+          </div>
+        </div> -->
+      </div>
+
+      <div class="displayFlex pb24">
+        <input
+          type="checkbox"
+          class="mr8"
+          formControlName="agreement"
+          [ngClass]="{
+            'is-invalid':
+              (apiFormvalidation.agreement.dirty ||
+                apiFormvalidation.agreement.touched ||
+                apibtn) &&
+              apiFormvalidation.agreement.errors
+          }"
+        />
+        <div>
+          I consent to the
+          <span class="bluetxt"
+            ><a href="javascript:void(0)">SMS Policy</a></span
+          >,
+          <span class="bluetxt"
+            ><a href="javascript:void(0)">Credit Pull Consent</a></span
+          >
+          and,
+          <span class="bluetxt"
+            ><a href="javascript:void(0)"> E-Signature agreements </a></span
+          >
+        </div>
+        <div
+          *ngIf="
+            (apiFormvalidation.agreement.dirty ||
+              apiFormvalidation.agreement.touched ||
+              apibtn) &&
+            apiFormvalidation.agreement.errors
+          "
+          class="invalid-feedback"
+        >
+          <div *ngIf="apiFormvalidation.agreement.errors.required">
+            It's required field
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn main_btn mt_48">Submit</button>
+    </div>
+  </form>
+</section>
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>
+<ng-template #policy>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">MODERN HEALTH FINANCE SMS Text Message Policy</p>
+    <p>{{ todayDate }}</p>
+  </div>
+</ng-template>
+<ng-template #credit>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">MODERN HEALTH FINANCE SMS Text Message CREDIT</p>
+    <div *ngFor="let item of practiceList">
+      <div *ngIf="item.id == apForm.get('practiceName').value">
+        <h3>{{ item.contactName }}</h3>
+        <p>{{ item.streetaddress }}</p>
+        <p>{{ item.phoneNumber }} - {{ item.email }}</p>
+      </div>
+    </div>
+    <p>{{ todayDate }}</p>
+  </div>
+</ng-template>
+<ng-template #sign>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">MODERN HEALTH FINANCE SMS Text Message SIGN</p>
+    <div *ngFor="let item of practiceList">
+      <div *ngIf="item.id == apForm.get('practiceName').value">
+        <h3>{{ item.contactName }}</h3>
+        <p>{{ item.streetaddress }}</p>
+        <p>{{ item.phoneNumber }} - {{ item.email }}</p>
+      </div>
+    </div>
+    <p>{{ todayDate }}</p>
+  </div>
+</ng-template>

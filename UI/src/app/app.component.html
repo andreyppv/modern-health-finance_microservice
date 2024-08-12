@@ -1,0 +1,213 @@
+<header  *ngIf="borrowerSidebar" [ngStyle]="{ 'background-color': practiceMainColor }">
+  <div class="container">
+    <nav class="navbar">
+      <a class="borrower_logo">
+        <img [src]="path" />
+      </a>
+      <div class="displayFlex AlignItemCenter">
+        <div>
+          <div class="displayFlex AlignItemCenter">
+            <div class="mr16"><img src="../assets/new/hand.png" /></div>
+            <div class="mr16">
+              <div>Hello,</div>
+              <div>
+                <a [routerLink]="['/borrower/overview']" class="blackText">
+                  <strong>
+                    {{ UDInfo.firstname }} {{ UDInfo.lastname }}
+                  </strong></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="btnGreen-outline cursorpointer"
+          (click)="logout()"
+        >
+          Logout
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="mainSection">
+  <div class="" style="margin: 0 !important; padding: 0 !important">
+  <div
+    class="col-12"
+    *ngIf="!installersidebar && !adminsidebar && !borrowerSidebar"
+    style="margin: 0 !important; padding: 0 !important"
+  >
+    <router-outlet (activate)="changeOfRoutes()"></router-outlet>
+  </div>
+
+  <div class="displayFlex">
+    <div *ngIf="installersidebar" class="leftMenu">
+      <app-installersidebar></app-installersidebar>
+    </div>
+    <div *ngIf="installersidebar" class="mainContent">
+      <router-outlet (activate)="changeOfRoutes()"></router-outlet>
+    </div>
+  </div>
+  <div class="borrower_sec">
+    <div class="container mobPaddingZero">
+      <div *ngIf="borrowerSidebar">
+        <app-borrower-sidebar></app-borrower-sidebar>
+      </div>
+
+      <div *ngIf="borrowerSidebar">
+        <router-outlet (activate)="changeOfRoutes()"></router-outlet>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="admin_wrapper"
+    [class.sidenav-toggled]="sidenavtoggled"
+    *ngIf="adminsidebar"
+  >
+    <app-adminsidebar></app-adminsidebar>
+
+    <div class="content-wrapper">
+      <div class="top_header">
+        <div
+          class="nav-item"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Start Applications"
+          [routerLink]="['/admin/start-application']"
+        >
+          <a class="btn startapp_btn width_249" [routerLinkActive]="['active']">
+            <img src="../../assets/new/create_plus.svg" />
+            <span class="nav-link-text"> Create Application</span>
+          </a>
+        </div>
+
+        <div>
+          <ul class="user_admin">
+            <li>
+              <a class="icon_img"
+                ><img src="../../../assets/new/notification.svg"
+              /></a>
+            </li>
+            <li>
+              <a class="icon_img"
+                ><img src="../../../assets/new/settings.svg"
+              /></a>
+            </li>
+
+            <li>
+              <a><img src="../../../assets/new/center_border.svg" /></a>
+            </li>
+            <li>
+              <a
+                class="logoutText"
+                data-toggle="modal"
+                data-target="#exampleModal"
+                (click)="logout()"
+              >
+                <i class="fa fa-fw fa-sign-out"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="Mobile_show">
+        <!-- <a href=""><img src="../assets/new/mobileSidebar_arrow.svg"></a> -->
+        <div class="mobile_topHeader">
+          <div><img src="../assets/new/Mobile_logo.svg" /></div>
+          <div>
+            <ul class="EmptyList displayFlex AlignItemCenter">
+              <li class="mr_14">
+                <a class="btn mobile_startbtn" [routerLinkActive]="['active']">
+                  <img src="../../assets/new/create_plus.svg" />
+                </a>
+              </li>
+              <li>
+                <a
+                  class="logOut_btn"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  (click)="logout()"
+                >
+                  <img src="../../../assets/new/dp.jpg"
+                /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <router-outlet (activate)="changeOfRoutes()"></router-outlet>
+    </div>
+  </div>
+  </div>
+  <ngx-spinner></ngx-spinner>
+
+  <footer *ngIf="menusBar || isFooterShow">
+    <div class="container">
+      <div class="row pb80">
+        <div class="col-md-6 mb36">
+          <img src="../assets/new/footer_logo.svg" />
+        </div>
+
+        <div class="col-md-4">
+          <div class="footerTitle pb22">Contact Us</div>
+
+          <div class="displayFlex pb22">
+            <div class="footericon">
+              <img src="../assets/new/contact.svg" />
+            </div>
+            <div class="footertxt">contact@modernhealthfinance.com</div>
+          </div>
+          <div class="displayFlex pb22">
+            <div class="footericon">
+              <img src="../assets/new/phone.svg" />
+            </div>
+            <div class="footertxt">(619) 403-9753</div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="footerTitle pb22">Socials</div>
+          <div class="displayFlex pb22 spaceBetween mobflexStart">
+            <img src="../assets/new/facebook.svg" class="pr20" />
+            <img src="../assets/new/linkedin.svg" class="pr20" />
+            <img src="../assets/new/twitter.svg" class="pr20" />
+            <img src="../assets/new/instagram.svg" class="pr20" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="displayFlex mobflexcolmn">
+            <a
+              href="#"
+              target="_blank"
+              style="color: #c6c6c8"
+              class="fs12px pr20 mob_pb16"
+            >
+              Terms & Conditions
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              style="color: #c6c6c8"
+              class="fs12px pr20 mob_pb16"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              style="color: #c6c6c8"
+              class="fs12px pr20 mob_pb16"
+            >
+              California Consumer Privacy Act Notice
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

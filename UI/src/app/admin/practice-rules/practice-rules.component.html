@@ -1,0 +1,240 @@
+<section class="content-header pt48_plrb_25" *ngIf="isListView">
+    <div class="displayFlex spaceBetween AlignItemCenter">
+        <div>
+            <h1>Practice Rules</h1>
+
+            <ol class="breadcrumb">
+                <li class="current">
+                    <a [routerLink]="['/admin/dashboard']"><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+                        <i class="fal fa-angle-right"></i
+      ></a>
+    </li>
+    <li class="active">
+      <img src="../../assets/new/file_open_active.svg" />Practice Rules
+    </li>
+  </ol>
+  <button
+    (click)="isListView = !isListView; apForm.reset()"
+    class="btn Whitebtn mt_24"
+  >
+    Create Rules
+  </button>
+  </div>
+         <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+                        </span>
+        </div>
+        <input type="text" placeholder="Search" aria-label="Search" class="form-control" />
+    </div>
+    <div>
+        <a><img src="../../assets/new/search.svg" /></a>
+    </div>
+    <button class="btn search">Search</button>
+    </div>
+    </div>
+
+</section>
+
+<section class="content-header pt48_plrb_25 " *ngIf="isListView != true">
+
+    <h1>Create New Rules</h1>
+    <ol class="breadcrumb">
+        <li class="current">
+            <!--[routerLink]="['/admin/dashboard']-->
+            <a [routerLink]="['/admin/dashboard']">
+                <img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+                <i class="fal fa-angle-right"></i
+      ></a>
+    </li>
+    <li class="active">
+      <img src="../../assets/new/plus.svg" /> Create New Rules
+    </li>
+  </ol>
+  
+  <button
+    (click)="resetVal()"
+    class="btn Whitebtn mt_24"
+  >
+    Back
+  </button>
+</section>
+
+<div class="content_part" *ngIf="isListView">
+  <div class="Table_wrapped overflowScroll table_responsive">
+    <table *ngIf="data != null && data.length > 0" datatable class="table">
+      <thead >
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Setings Name</th>
+          <th scope="col">Is Default</th>
+          <th scope="col">Updated Date</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of data; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <!-- <td>{{ d.ref_no }}</td> -->
+          <td>{{ d.setting_name }}</td>
+          <td>{{ d.isDefault }}</td>
+          <td>{{ d.updatedat | date: "dd/MM/yyyy" }}</td>
+          <td (click)="editPracticeRulesData(d.ref_no)" style="cursor: pointer">
+            <img src="../../../assets/new/EditIcon.svg">
+          </td>
+          <td
+            (click)="deletePracticeRulesData(d.ref_no)"
+            style="cursor: pointer"
+          >
+            <img src="../../../assets/new/deleteICon.svg">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="data.length == 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Reference No</th>
+          <th scope="col">Setings Name</th>
+          <th scope="col">Is Default</th>
+          <th scope="col">Updated Date</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Remove</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<section
+  id="createApplicationFromBackend"
+  class="p25"
+  *ngIf="isListView != true"
+>
+
+    <div class="WhiteFrame BRadius_10 p24">
+        <form
+    autocomplete="on"
+    class="formclass signupForm"
+    style="width: 100%"
+    [formGroup]="apForm"
+    (ngSubmit)="sendForm()"
+    method="POST"
+  >
+          <div class="mb_24">
+            <input
+              type="hidden"
+              [(ngModel)]="update_id"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <!-- <label class="ruleslabel">Settings name</label> -->
+            <input
+              placeholder="Enter settings Name"
+              formControlName="settingsName"
+              id="settingsName"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.settingsName.errors &&
+                  (apiFormvalidation.settingsName.dirty ||
+                    apiFormvalidation.settingsName.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.settingsName.errors &&
+                (apiFormvalidation.settingsName.dirty ||
+                  apiFormvalidation.settingsName.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.settingsName.errors.required">
+                Settings Name is required
+              </div>
+            </div>
+          </div>
+          <div class="mb_24 displayFlex AlignItemCenter spaceBetween">
+            <label class="ruleslabel">Is Default</label>
+            <div>
+               <span class="sw-text mr16">default settings already exists</span>
+            <label class="switch">
+              <input
+                type="checkbox"
+                formControlName="isDefault"
+                disabled
+                name="isDefault"
+              />
+              <span class="slider round"></span>
+            </label>
+           
+          </div>
+          </div>
+                    
+
+          <div class="mb_24 displayFlex AlignItemCenter spaceBetween">
+            <label class="ruleslabel">Deny specific tiers</label>
+            <div>
+            <label class="switch">
+              <input
+                type="checkbox"
+                formControlName="denyspecifictier"
+                name="denyspecifictier"
+              />
+              <span class="slider round"></span>
+            </label>
+            </div>
+          </div>
+          <div class="mb_24 displayFlex AlignItemCenter spaceBetween">
+            <label class="ruleslabel">Enable transunion</label>
+            <div>
+            <label class="switch">
+              <input
+                type="checkbox"
+                formControlName="transunion"
+                name="transunion"
+              />
+              <span class="slider round"></span>
+            </label>
+            </div>
+          </div>
+          <div class="mb_24 displayFlex AlignItemCenter spaceBetween">
+            <label class="ruleslabel">Enable Plaid</label>
+            <div>
+            <label class="switch">
+              <input type="checkbox" formControlName="plaid" name="plaid" />
+              <span class="slider round"></span>
+            </label>
+            </div>
+          </div>
+      <button type="submit" class="btn main_btn">
+        <span *ngIf="isShowbtn; else upbtn_err">Update</span>
+        <ng-template #upbtn_err><span>Save</span></ng-template>
+      </button>
+      </form>
+      <br/>
+      <iframe class="DecisionEngine" [src]="DERulesSrc" frameborder="0" width="1200" height="1200"></iframe>
+        </div>
+        
+</section>
+
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>

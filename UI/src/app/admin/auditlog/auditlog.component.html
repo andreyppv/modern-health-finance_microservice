@@ -1,0 +1,78 @@
+<section class="content-header pt48_plrb_25">
+  <div class="displayFlex spaceBetween">
+    <div>
+      <h1>Audit Log</h1>
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']"
+            ><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">Audit Log</li>
+      </ol>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg" /></a>
+      </div>
+      <button class="btn search">Search</button>
+    </div>
+  </div>
+</section>
+<div class="content_part">
+<div class="Table_wrapped table_responsive">
+  <!-- <div class="mainTitle">Audit Log</div> -->
+
+  <table *ngIf="data.length > 0" datatable class="mt_30">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width: 10px">#</th>
+        <th scope="col">Log Reference</th>
+        <th scope="col">Loan Reference</th>
+        <th scope="col">Module Name</th>
+        <th scope="col">User</th>
+        <th scope="col">Created Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of data; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ d.id }}</td>
+        <td>{{ d.loan_id }}</td>
+        <td>{{ d.module }}</td>
+        <td>
+          {{ d.user }}
+        </td>
+        <td>{{ d.createdat }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table *ngIf="data.length == 0" datatable class="mt_30">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Log Reference</th>
+        <th scope="col">Loan Reference</th>
+        <th scope="col">Module Name</th>
+        <th scope="col">User</th>
+        <th scope="col">Created Date</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+</div>

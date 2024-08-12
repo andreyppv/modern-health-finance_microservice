@@ -1,0 +1,111 @@
+<header *ngIf="menusBar" [ngStyle]="{ 'background-color': practiceMainColor }">
+  <div class="container">
+    <nav class="navbar">
+      <a class="borrower_logo">
+        <img [src]="path" />
+      </a>
+      <a class="btn btnGreen" [routerLink]="['/startApplication']"
+        >Start Application</a
+      >
+      <!-- <a
+            class="btn btnGreen"
+            [routerLink]="['/borrower/login']"
+            *ngIf="!isUserlogin"
+            >Login</a
+          > -->
+      <div class="displayFlex AlignItemCenter" *ngIf="isUserlogin">
+        <div>
+          <div class="displayFlex AlignItemCenter">
+            <div class="mr16"><img src="../assets/new/hand.png" /></div>
+            <div class="mr16">
+              <div>Hello,</div>
+              <div>
+                <a [routerLink]="['/borrower/overview']" class="blackText">
+                  <strong>
+                    {{ UDInfo.firstname }} {{ UDInfo.lastname }}
+                  </strong></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="btnGreen-outline cursorpointer"
+          *ngIf="isUserlogin"
+          (click)="logout()"
+        >
+          Logout
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="loginSection mb_159">
+  <h1 class="heading_Bold28 mb_40 textAlignCenter">Member login</h1>
+  <form
+    id="Login"
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit(template)"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-group">
+      <input
+        type="email"
+        class="adminInput"
+        id="inputEmail"
+        placeholder="Email"
+        name="email"
+        [(ngModel)]="f1.email"
+        #email="ngModel"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+      />
+    </div>
+
+    <div class="form-group eyeopenclose">
+      <div class="input-group">
+        <input
+          [type]="hide ? 'password' : 'text'"
+          name="password"
+          id="inputPassword"
+          placeholder="Password"
+          [(ngModel)]="f1.password"
+          #password="ngModel"
+          required
+          [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+        />
+        <div class="input-group-prepend">
+          <span class="input-group-text" (click)="hide = !hide"
+            ><i [class]="hide ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+            <!-- <i class="fa-solid fa-eye-low-vision"></i> -->
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btnGreen w100per">Login</button>
+
+    <div class="forgot mt_20 textAlignCenter">
+      <a href="borrower/forgot-password">Forgot your password?</a>
+    </div>
+
+    <!-- <button type="submit" class="btn btn-primary">Login</button> -->
+  </form>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>

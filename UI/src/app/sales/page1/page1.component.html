@@ -1,0 +1,45 @@
+<!-- <div class="content"> -->
+    <div class="p20 ">
+        <!-- <div class="part1">
+            <p class="headtext">Please answer five questions to proceed with selecting financing options</p>
+        </div> -->
+        <div class="part2" *ngIf="question.length>0">
+            
+
+            <div class="child" *ngFor="let q of question; let i = index">
+                <p class="qustext">{{i+1}}. {{q.question}}</p>
+                <select *ngIf="q.type=='Yes_or_no'" class="form-select" [class.border-danger]="ans_err==q.question_id" name="approvedif" placeholder="approvedif" [(ngModel)]="q.answer">
+                    <option value="">Select Answer</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                <input *ngIf="q.type=='Value'" class="form-control" (input)="q.answer = number($event)" [class.border-danger]="ans_err==q.question_id" [(ngModel)]="q.answer" (click)="clearerror()">
+                <input *ngIf="q.type=='Free_style'" class="form-control" [class.border-danger]="ans_err==q.question_id" [(ngModel)]="q.answer" (click)="clearerror()">
+            </div>
+            <button type="button" class="btn btn-sales btn-block" (click)="submit(template,messagebox)">SUBMIT</button>
+            
+        </div>
+      </div>
+<!-- </div> -->
+
+<ng-template #template>
+    <div class="modal-body text-center">
+        <img src="/assets/fireworks 1.png">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      <p class="modeltext">Congratulations!</p>
+      <p class="modeltext">We have already  pre-approved</p>
+      <button type="button" class="btn btn-sales btn-block modelbtn" (click)="close()">OKAY</button>
+    </div>
+  </ng-template>
+  <ng-template #messagebox>
+    <div class="modal-body text-center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="closemsg()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">Message</p>
+      <p *ngFor="let m of message;">{{m}}</p>
+    </div>
+  </ng-template>
+

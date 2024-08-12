@@ -1,0 +1,50 @@
+.uploadicon1 {
+    // background-image: url(../../../assets/upload_icon1.svg);
+    background-repeat: no-repeat;
+    width: 29px;
+    height: 30px;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .uploadIcon {
+    background: url(../../../assets/upload_icon.svg);
+    width: 61px;
+    height: 60px;
+    margin-left: 56px;
+  }
+  .file-input {
+    display: none;
+  }
+  .flieUploadBlock {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23A3A3A3FF' stroke-width='7' stroke-dasharray='12%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  }
+  .alignMiddle {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .tragTxt {
+    color: #969696;
+    font-size: 14px;
+    padding: 20px 0px;
+    font-family: "Avenir";
+  }
+  
+  .clickHereBut {
+    border: 2px solid #232323;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 12px 40px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "AvenirBlack";
+  }

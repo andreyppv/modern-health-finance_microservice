@@ -1,0 +1,57 @@
+<section class="content-header">
+    <!-- <h1>Pending Application Details</h1> -->
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/admin/dashboard']"
+          ><i class="fa fa-dashboard"></i> Dashboard</a
+        >
+      </li>
+      <li class="active">Notification List</li>
+    </ol>
+  </section>
+  
+  <div class="frameshadow">
+    <div class="mainTitle">Notification List</div>
+  
+    <div class="p10">
+      <table *ngIf="data.length > 0" datatable class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Messages</th>
+            <th scope="col">Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of data; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+                {{ d.title }}
+            </td>
+            <td>
+                {{ d.message }}
+            </td>
+            <td>{{ d.createdat }}</td>
+            <td><a (click)="go(d.link)"
+                >View</a
+              ></td>
+          </tr>
+        </tbody>
+      </table>
+      <table *ngIf="data.length == 0" datatable class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Messages</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+              </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  

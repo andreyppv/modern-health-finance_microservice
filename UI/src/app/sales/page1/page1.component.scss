@@ -1,0 +1,50 @@
+select{
+  width: 100%;
+    padding: 10px;
+    border: 1px solid #000;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+b
+
+  input{
+    width: 100%;
+  }
+
+  input:focus {
+    border-color: #28a745!important;
+  }
+
+  .child{
+      padding-bottom: 3%;
+  }
+
+  .qustext{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14.4347px;
+    line-height: 17px;
+    
+    color: #000000;
+  }
+
+  .modeltext{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 65%;
+    /* or 35px */
+    
+    
+    color: #000000;
+    
+  }
+
+  .modelbtn{
+    width: 88%;
+    margin: auto;
+    margin-top: 10%;
+  }

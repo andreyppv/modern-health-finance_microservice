@@ -1,0 +1,925 @@
+<section class="content-header">
+  <h1>View Application Details</h1>
+  <ol class="breadcrumb">
+    <li>
+      <a [routerLink]="['/admin/dashboard']"
+        ><i class="fa fa-dashboard"></i> Dashboard</a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['/admin/denied']"
+        ><i class="fa fa-dashboard"></i> Denied Application Details</a
+      >
+    </li>
+    <li class="active">View Application Details</li>
+  </ol>
+</section>
+
+<div class="frameshadow ">
+  <div class="mainTitle">
+    <div>View Application Details</div>
+    <div>
+      <button
+        type="button"
+        class="btn btn-warning btn-user-control"
+        (click)="Pending()"
+      >
+        <i class="fa fa-thumbs-up" aria-hidden="true"></i>Pending
+      </button>
+      &nbsp;
+      <button
+        type="button"
+        class="btn btn-danger btn-user-control"
+        (click)="delete()"
+      >
+        <i class="fa fa-trash" aria-hidden="true"></i>Delete
+      </button>
+    </div>
+  </div>
+
+  <div class="p10">
+    <div class="pendingTab">
+      <tabset>
+        <tab
+          heading="User Information"
+          *ngIf="data.from_details.length > 0 && tabs['User Information']"
+        >
+          <div class="p10px">
+            <div
+              class="displayFlex AlignItemCenter spaceBetween p10px frameshadow"
+            >
+              <div
+                class="fs22px displayFlex AlignItemCenter spaceBetween flexDirection mr30px"
+              >
+                <div class="profilePhoto">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                </div>
+                <div class="nowrap">
+                  {{ data.from_details[0]["firstname"] }}
+                  {{ data.from_details[0]["lastname"] }}
+                </div>
+              </div>
+
+              <!-- <div style="display: none">
+                   <div class="displayFlex AlignItemCenter spaceBetween">
+                     <div class="w100per mr30px">
+                       <label>Loan Amount</label>
+                       <input
+                         class="form-control form-application"
+                         id="loanamount"
+                         data-state="data-offer="
+                       />
+                     </div>
+                     <div class="w100per mr30px">
+                       <label>APR</label>
+                       <input
+                         class="form-control form-application"
+                         id="apr"
+                         value="0"
+                       />
+                     </div>
+                     <div class="w100per mr30px">
+                       <label>Duration (Months)</label>
+                       <select class="form-control form-application" id="duration">
+                         <option selected="">12</option>
+                         <option value="value2">24</option>
+                         <option value="value3">36</option>
+                         <option value="value4">42</option>
+                         <option value="value5">48</option>
+                         <option value="value6">49</option>
+                         <option value="value7">50</option>
+                         <option value="value8">60</option>
+                       </select>
+                     </div>
+                     <div class="w100per mr30px">
+                       <label>Payment Amount</label>
+                       <input
+                         class="form-control form-application"
+                         id="payAmount"
+                         disabled=""
+                       />
+                     </div>
+                     <div class="w100per mr30px minHeight">
+                       <button
+                         data-toggle="pill"
+                         class="btn btn-primary"
+                         style="margin-right: 20px"
+                       >
+                         Save
+                       </button>
+                       <button data-toggle="pill" class="btn btn-primary">
+                         Invite
+                       </button>
+                     </div>
+                   </div>
+                 </div> -->
+            </div>
+            <br /><br />
+            <div class="list">
+              <ul class="h700">
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">User Reference</div>
+                    <div>
+                      <a
+                        routerLink="/admin/users/{{
+                          data.from_details[0]['user_id']
+                        }}"
+                      >
+                        USR_{{ data.from_details[0]["user_ref"] }}
+                      </a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Name</div>
+                    <div>
+                      {{ data.from_details[0]["firstname"] }}
+                      {{ data.from_details[0]["lastname"] }}
+                      <span class="text-danger cursorpointer"
+                        ><i class="fa fa-edit" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Email Address</div>
+                    <div>
+                      {{ data.from_details[0]["email"] }}
+                      <i
+                        class="fa fa-bell text-danger cursorpointer"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Phone Number</div>
+                    <div>
+                      {{ data.from_details[0]["phone"] }}
+                      <i
+                        class="fa fa-bell text-danger cursorpointer"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Date of Birth</div>
+                    <div>{{ data.from_details[0]["birthday"] }}</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Latitude</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Longitude</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Address</div>
+                    <div class="textAlignRight">
+                      <div>
+                        {{ data.from_details[0]["streetaddress"] }},
+                        <i
+                          class="fa fa-edit text-danger cursorpointer"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                      <div>
+                        {{ data.from_details[0]["city"] }}
+                        <i
+                          class="fa fa-edit text-danger cursorpointer"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                      <div>
+                        {{ data.from_details[0]["zipcode"] }}
+                        <i
+                          class="fa fa-edit text-danger cursorpointer"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">State</div>
+                    <div>{{ data.from_details[0]["state"] }}</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Financing Exist</div>
+                    <div>
+                      Yes
+                      <i
+                        class="fa fa-bell text-success cursorpointer"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Bank Added</div>
+                    <div>
+                      <i
+                        class="fa fa-bell text-success cursorpointer"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Registered Date</div>
+                    <div>{{ data.from_details[0]["createdat"] }}</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Last Profile Update Date</div>
+                    <div>{{ data.from_details[0]["updatedat"] }}</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Annual Income</div>
+                    <div>${{ data.from_details[0]["annualincome"] }}</div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Monthly Income</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Anticipated Financed Amount</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li class="displayNone">
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">PreDTI Debt</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li class="displayNone">
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Funding Tier</div>
+                    <div>--</div>
+                  </div>
+                </li>
+
+                <li class="displayNone">
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">PreDTI Debt(%)</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li class="displayNone">
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">PreDTI Debt(%)</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li class="displayNone">
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Payroll Detected Income</div>
+                    <div>$0.00</div>
+                  </div>
+                </li>
+                <li class="displayNone">
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Housing Expense</div>
+                    <div>$0.00</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Income Type</div>
+                    <div>Modified by admin</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Underwriting Rules</div>
+                    <div>--</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Application Reference Number</div>
+                    <div>APP_{{ data.from_details[0]["ref_no"] }}</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Financing Status</div>
+                    <div class="text-success">Pending</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Denied Reason</div>
+                    <div class="text-success">--</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Counter offered</div>
+                    <div class="text-success">--</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Application Created By</div>
+                    <div class="text-success">User</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Plaid Re-sent By</div>
+                    <div class="text-success">--</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Offer Link Send By</div>
+                    <div class="text-success">--</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </tab>
+
+        <tab
+          heading="Payment Schedule"
+          *ngIf="data.from_details.length > 0 && tabs['Payment Schedule']"
+        >
+          <div class="p10px">
+            <div class="displayFlex">
+              <div class="frameshadow w35per mr30px">
+                <div>
+                  <div class="mainTitle">Payment</div>
+                  <div class="list2">
+                    <ul>
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">Financing Start Date</div>
+                          <div>{{ payment[0].createdat }}</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">Financing Amount</div>
+                          <div>{{ payment[0].loan_advance | currency }}</div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">Payoff Amount</div>
+                          <div>{{ payment[0].payOffAmount | currency }}</div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">APR</div>
+                          <div>{{ payment[0].apr }}%</div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">Financing Term</div>
+                          <div>12</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">Financing Status</div>
+                          <div>{{ payment[0].loantermcount }}</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">Maturity Date</div>
+                          <div>{{ payment[0].maturityDate }}</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="displayFlex listdetails">
+                          <div class="fontWeight">
+                            Next Payment Schedule Date
+                          </div>
+                          <div>{{ payment[0].nextpaymentschedule }}</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="frameshadow w65per">
+                <div class="mainTitle">Payment Schedule Information</div>
+
+                <div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Unpaid Principal Balance</th>
+                        <th>Principal</th>
+                        <th>Interest</th>
+                        <th>Fees</th>
+                        <th>Amount</th>
+                        <th>Schedule Date</th>
+                        <th>Paid Date</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="data.paymentScheduleDetails.length > 1">
+                      <tr
+                        *ngFor="
+                          let d of data.paymentScheduleDetails;
+                          let i = index
+                        "
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                          {{ d.unpaidprincipal | currency }}
+                        </td>
+                        <td>
+                          {{ d.principal | currency }}
+                        </td>
+                        <td>{{ d.interest | currency }}</td>
+                        <td>{{ d.fees | currency }}</td>
+                        <td>{{ d.amount | currency }}</td>
+                        <td>
+                          {{ datePipe.transform(d.scheduledate, "yyyy/MM/dd") }}
+                        </td>
+                        <td *ngIf="d.paidat">
+                          {{ datePipe.transform(d.paidat, "yyyy/MM/dd") }}
+                        </td>
+                        <td *ngIf="!d.paidat" class="text-center">
+                          -
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab
+          heading="Bank Accounts"
+          *ngIf="data.from_details.length > 0 && tabs['Bank Accounts']"
+        >
+          <div id="userbankinfo">
+            <div
+              class="bankaccount-btns-wrapper displayFlex flexEnd"
+              style="margin: 10px"
+            >
+              <button
+                type="button"
+                class="btn greenBorder"
+                id="sendaddbankinvitation"
+                data-toggle="modal"
+                data-target="#sendaddbankinvitationModal"
+              >
+                <div class="displayFlex">
+                  <div class="sendBank"></div>
+                  <div>Send Bank Login</div>
+                </div>
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                class="btn greenBorder"
+                (click)="manualBankAddModel(manualBankAddTemp)"
+              >
+                <div class="displayFlex">
+                  <div class="addBank"></div>
+                  <div>Add Bank Manually</div>
+                </div>
+              </button>
+            </div>
+            <accordion class="p10 cardSection">
+              <accordion-group heading="Static Header">
+                This content is straight in the template.
+              </accordion-group>
+              <accordion-group heading="Another group">
+                <p>Some content</p>
+              </accordion-group>
+              <accordion-group heading="Another group">
+                <p>Some content</p>
+              </accordion-group>
+              <accordion-group heading="Another group">
+                <p>Some content</p>
+              </accordion-group>
+            </accordion>
+          </div>
+        </tab>
+
+        <tab
+          heading="Document Center"
+          *ngIf="data.files.length > 0 && tabs['Document Center']"
+        >
+          <div class="p10px">
+            <div class="frameshadow mb20px">
+              <div>
+                <div class="mainTitle">Financing Agreement Documents</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 50px">#</th>
+                    <th>Documents</th>
+                    <th>PDF,JPG,JPEG,PNG</th>
+                  </tr>
+                  <tbody>
+                    <tr *ngFor="let d of data.files; let i = index">
+                      <td>{{ i + 1 }}</td>
+
+                      <td>{{ d.originalname }}</td>
+
+                      <td (click)="view(d.filename)"><a>View Document</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="mb20px">
+              <div class="frameshadow">
+                <div>
+                  <div class="mainTitle">Uploaded Documents</div>
+                </div>
+                <div class=" ">
+                  <div
+                    class="displayFlex listdetails AlignItemCenter flexStart"
+                  >
+                    <div class="fontWeight w200px">Document Type</div>
+                    <div>
+                      <select name="docutype" required="" class="form-control">
+                        <option value="">Select Document Type</option>
+                        <option value="Government Issued ID">
+                          Government Issued ID
+                        </option>
+                        <option value="Paystub">Paystub</option>
+                        <option value="Income Document">Income Document</option>
+                        <option value="Driver License">Driver License</option>
+                        <option value="Bank Statement">Bank Statement</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex listdetails AlignItemCenter flexStart"
+                  >
+                    <div class="fontWeight w200px">Document</div>
+                    <div>
+                      <input type="file" required="" />
+                    </div>
+                  </div>
+                  <div class="p10px">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      id="updocs"
+                      value="Validate"
+                      onclick="Validate();"
+                    >
+                      Submit
+                    </button>
+                  </div>
+
+                  <div class="p10px">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Document Type</th>
+                          <th>Document</th>
+                          <th>Underwriter</th>
+                          <th>Created Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Government Issued ID</td>
+                          <td>
+                            <a href="#" target="_blank">View Document</a>
+                          </td>
+
+                          <td></td>
+
+                          <td>
+                            Tue Jul 20 2021 16:23:14 GMT+0000 (Coordinated
+                            Universal Time)
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>2</td>
+                          <td>Government Issued ID</td>
+                          <td>
+                            <a href="#" target="_blank">View Document</a>
+                          </td>
+
+                          <td></td>
+
+                          <td>
+                            Tue Jul 20 2021 16:23:59 GMT+0000 (Coordinated
+                            Universal Time)
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>3</td>
+                          <td>Paystub</td>
+                          <td>
+                            <a href="#" target="_blank">View Document</a>
+                          </td>
+
+                          <td></td>
+
+                          <td>
+                            Tue Jul 20 2021 16:24:16 GMT+0000 (Coordinated
+                            Universal Time)
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="frameshadow">
+              <div>
+                <div class="mainTitle">Comments Details</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="width: 200px">Date</th>
+                      <th style="width: 200px">Type</th>
+                      <th style="width: 200px">Documents</th>
+                      <th>PDF</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab
+          heading="Comments"
+          *ngIf="data.from_details.length > 0 && tabs['Comments']"
+        >
+          <div class="p10px">
+            <div class="mb20px">
+              <div class="frameshadow">
+                <div>
+                  <div class="mainTitle">Comments Section</div>
+                </div>
+                <form
+                  name="form"
+                  (ngSubmit)="f.form.valid && addcomments(messagebox)"
+                  #f="ngForm"
+                  novalidate
+                >
+                  <div class=" ">
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Subject</div>
+                      <div class="w100per">
+                        <input
+                          type="text"
+                          name="subject"
+                          [(ngModel)]="cm.subject"
+                          #subject="ngModel"
+                          required
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid': f.submitted && subject.invalid
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Comments</div>
+                      <div class="w100per">
+                        <textarea
+                          class="form-control"
+                          name="comments"
+                          [(ngModel)]="cm.comments"
+                          #comments="ngModel"
+                          required
+                          [ngClass]="{
+                            'is-invalid': f.submitted && subject.invalid
+                          }"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="p10px">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="updocs"
+                        value="Validate"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="frameshadow">
+              <div>
+                <div class="mainTitle">Comments Details</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Subject</th>
+                      <th>Comments</th>
+                      <th>Created By</th>
+                      <th>Created Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of res_comments; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ c.subject }}</td>
+                      <td>{{ c.comments }}</td>
+                      <td>{{ c.role }}:{{ c.firstname }} {{ c.lastname }}</td>
+                      <td>{{ c.createdat }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Log" *ngIf="data.from_details.length > 0 && tabs['Log']">
+          <div class="p10px">
+            <div class="mb20px">
+              <div class="frameshadow">
+                <div>
+                  <div class="mainTitle">Log Activity Details</div>
+                </div>
+
+                <div class="p10px">
+                  <table id="achlogactivity_table" class="table dataTable">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Log Reference</th>
+                        <th>Module Name</th>
+                        <th>User</th>
+                        <th>Created Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let d of screenlogs; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ d.id }}</td>
+                        <td>{{ d.module }}</td>
+                        <td>
+                          {{ d.user }}
+                        </td>
+                        <td>{{ d.createdat }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>
+
+<!-- Manual Bank Account Modal -->
+<ng-template #manualBankAddTemp>
+  <div class="modal-body">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5>Bank Account Information For Auto-Pay</h5>
+
+    <form
+      id="manualBankAddForm"
+      name="manualBankAddForm"
+      (ngSubmit)="f.form.valid && manualBankAdd()"
+      #f="ngForm"
+      novalidate
+    >
+      <label>Bank Name</label><br />
+      <input
+        type="text"
+        name="bankname"
+        [(ngModel)]="manualBankAddFields.bankname"
+        class="form-control"
+      /><br />
+      <label>Primary Account Holder</label><br />
+      <input
+        type="text"
+        name="holdername"
+        [(ngModel)]="manualBankAddFields.holdername"
+        class="form-control"
+      /><br />
+      <label>Routing Number</label><br />
+      <input
+        type="number"
+        name="routingnumber"
+        [(ngModel)]="manualBankAddFields.routingnumber"
+        class="form-control"
+      /><br />
+      <label>Account Number</label><br />
+      <input
+        type="number"
+        name="accountnumber"
+        [(ngModel)]="manualBankAddFields.accountnumber"
+        class="form-control"
+      /><br />
+      <label>Confirm Account Number</label><br />
+      <input
+        type="number"
+        name="confmAccountNumber"
+        [(ngModel)]="manualBankAddFields.confmAccountNumber"
+        class="form-control"
+      /><br />
+      <button
+        type="button"
+        class="brw-btn closebutton mr30px w200px"
+        (click)="close()"
+      >
+        CANCEL
+      </button>
+      <button type="submit" class="greenbutton upperCase w200px">Save</button>
+    </form>
+  </div>
+</ng-template>

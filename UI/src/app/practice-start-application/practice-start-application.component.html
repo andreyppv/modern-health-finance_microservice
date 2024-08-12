@@ -1,0 +1,1584 @@
+<header [ngStyle]="{ 'background-color': practiceMainColor }">
+  <div class="container">
+    <nav class="navbar">
+      <a class="borrower_logo">
+        <img [src]="path" />
+      </a>
+      <div class="displayFlex AlignItemCenter">
+        <div class="mr16">
+          <div>
+            <a [routerLink]="['/borrower/login']" class="btn btnGreen">
+              Login</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="container" *ngIf="isthankYou">
+  <div class=" ">
+    <div class="fontmainTitle">Application for financing</div>
+  </div>
+  <div class="displayFlex pb40">
+    <div><img src="../../assets/new/clockfast.svg" /></div>
+    <div class="infoText">
+      It will take about 5 minutes to fill the form and less than a minute to
+      <br />
+      get a decision. Check it out!
+    </div>
+  </div>
+
+  <div class="stepblock">
+    <!-- Start Contact Information-->
+    <div class="step01">
+      <div class="displayFlex AlignItemCenter">
+        <div class="circle mt8">1</div>
+        <div class="stepCompleted" *ngIf="isContactFormCompletetick"></div>
+        <div class="fs18px fontWeight">Your contact information</div>
+      </div>
+      <div class="displayFlex" *ngIf="!isContactFormComplete">
+        <form
+          autocomplete="on"
+          class="formclass signupForm displayFlex"
+          style="width: 100%"
+          [formGroup]="contactForm"
+          (ngSubmit)="sendFormDetails('contactForm')"
+          method="POST"
+        >
+          <div class="line"></div>
+          <div>
+            <div class="fs14px pb24">
+              We collect this information to let you know about a decision and
+              create your personal cabinet
+            </div>
+            <div class="w360">
+              <div class="pb24">
+                <select
+                  class="inputBox"
+                  formControlName="practiceid"
+                  id="practiceid"
+                  [ngClass]="{
+                    'is-invalid':
+                      (contactFormValidation.practiceid.dirty ||
+                        contactFormValidation.practiceid.touched ||
+                        contactFormBtn) &&
+                      contactFormValidation.practiceid.errors
+                  }"
+                >
+                  <option value="" selected="selected" disabled="disabled">
+                    Practice Name
+                  </option>
+                  <option
+                    [value]="practice.id"
+                    *ngFor="let practice of practiceList"
+                  >
+                    {{ practice.practiceName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    (contactFormValidation.practiceid.dirty ||
+                      contactFormValidation.practiceid.touched ||
+                      contactFormBtn) &&
+                    contactFormValidation.practiceid.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="contactFormValidation.practiceid.errors.required">
+                    Practice Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="First Name"
+                  formControlName="firstname"
+                  id="firstname"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      contactFormValidation.firstname.errors &&
+                      (contactFormValidation.firstname.dirty ||
+                        contactFormValidation.firstname.touched ||
+                        contactFormBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    contactFormValidation.firstname.errors &&
+                    (contactFormValidation.firstname.dirty ||
+                      contactFormValidation.firstname.touched ||
+                      contactFormBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="contactFormValidation.firstname.errors.required">
+                    First Name is required
+                  </div>
+                  <div *ngIf="contactFormValidation.firstname.errors.pattern">
+                    First Name is not Vaild
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Middle Name"
+                  formControlName="middlename"
+                  id="middlename"
+                  class="inputBox"
+                  class="invalid-feedback"
+                />
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Last Name"
+                  formControlName="lastname"
+                  id="lastname"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      contactFormValidation.lastname.errors &&
+                      (contactFormValidation.lastname.dirty ||
+                        contactFormValidation.lastname.touched ||
+                        contactFormBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    contactFormValidation.lastname.errors &&
+                    (contactFormValidation.lastname.dirty ||
+                      contactFormValidation.lastname.touched ||
+                      contactFormBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="contactFormValidation.lastname.errors.required">
+                    Last Name is required
+                  </div>
+                  <div *ngIf="contactFormValidation.lastname.errors.pattern">
+                    Last Name is not Vaild
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Email"
+                  formControlName="email"
+                  id="email"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      contactFormValidation.email.errors &&
+                      (contactFormValidation.email.dirty ||
+                        contactFormValidation.email.touched ||
+                        contactFormBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    contactFormValidation.email.errors &&
+                    (contactFormValidation.email.dirty ||
+                      contactFormValidation.email.touched ||
+                      contactFormBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="contactFormValidation.email.errors.required">
+                    Email is required
+                  </div>
+                  <div *ngIf="contactFormValidation.email.errors.pattern">
+                    Email is not Vaild
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Phone  (000)-000-0000)"
+                  formControlName="phoneNumber"
+                  id="phoneNumber"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      contactFormValidation.phoneNumber.errors &&
+                      (contactFormValidation.phoneNumber.dirty ||
+                        contactFormValidation.phoneNumber.touched ||
+                        contactFormBtn)
+                  }"
+                  mask="(000)-000-0000"
+                />
+                <div
+                  *ngIf="
+                    contactFormValidation.phoneNumber.errors &&
+                    (contactFormValidation.phoneNumber.dirty ||
+                      contactFormValidation.phoneNumber.touched ||
+                      contactFormBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="contactFormValidation.phoneNumber.errors.required"
+                  >
+                    Phone Number is required
+                  </div>
+                  <div
+                    *ngIf="contactFormValidation.phoneNumber.errors.minlength"
+                  >
+                    Phone Number is not Valid
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  type="password"
+                  [type]="fieldTextType2 ? 'text' : 'password'"
+                  placeholder="Password"
+                  formControlName="password"
+                  id="password"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      contactFormValidation.password.errors &&
+                      (contactFormValidation.password.dirty ||
+                        contactFormValidation.password.touched ||
+                        contactFormBtn)
+                  }"
+                />
+                <div class="input-group-append eyeclose">
+                  <span class="input-group-text">
+                    <i
+                      class="fa"
+                      [ngClass]="{
+                        'fa-eye-slash': !fieldTextType2,
+                        'fa-eye': fieldTextType2
+                      }"
+                      (click)="toggleFieldTextType2()"
+                    ></i>
+                  </span>
+                </div>
+                <div
+                  *ngIf="
+                    contactFormValidation.password.errors &&
+                    (contactFormValidation.password.dirty ||
+                      contactFormValidation.password.touched ||
+                      contactFormBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="contactFormValidation.password.errors.required">
+                    Password is required
+                  </div>
+                  <div *ngIf="contactFormValidation.password.errors.minlength">
+                    Password must be at least 6 characters
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Confirm Password"
+                  [type]="fieldTextType1 ? 'text' : 'password'"
+                  type="password"
+                  formControlName="confirmPassword"
+                  id="confirmPassword"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      contactFormValidation.confirmPassword.errors &&
+                      (contactFormValidation.confirmPassword.dirty ||
+                        contactFormValidation.confirmPassword.touched ||
+                        contactFormBtn)
+                  }"
+                />
+                <div class="input-group-append eyeclose">
+                  <span class="input-group-text">
+                    <i
+                      class="fa"
+                      [ngClass]="{
+                        'fa-eye-slash': !fieldTextType1,
+                        'fa-eye': fieldTextType1
+                      }"
+                      (click)="toggleFieldTextType1()"
+                    ></i>
+                  </span>
+                </div>
+                <div
+                  *ngIf="
+                    contactFormValidation.confirmPassword.errors &&
+                    (contactFormValidation.confirmPassword.dirty ||
+                      contactFormValidation.confirmPassword.touched ||
+                      contactFormBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      contactFormValidation.confirmPassword.errors.required
+                    "
+                  >
+                    Password is required
+                  </div>
+                  <div
+                    *ngIf="
+                      contactFormValidation.confirmPassword.errors.mustMatch
+                    "
+                  >
+                    Passwords must match
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb36">
+                <button type="submit" class="btn btnGreen">Next</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="emptydataline" *ngIf="isContactFormCompletetick"></div>
+    </div>
+    <!-- End Contact Information -->
+
+    <!-- Start Personal Info -->
+    <div class="step02">
+      <div class="displayFlex AlignItemCenter">
+        <div class="circle mt8">2</div>
+        <div class="stepCompleted" *ngIf="isPersonalInfoCompletetick"></div>
+        <div class="fs18px fontWeight">Your personal information</div>
+      </div>
+
+      <div class="displayFlex">
+        <div class="line"></div>
+        <div *ngIf="!isPersonalInfoComplete">
+          <form
+            autocomplete="on"
+            class="formclass signupForm"
+            style="width: 100%"
+            [formGroup]="personalInfoForm"
+            (ngSubmit)="sendFormDetails('personalInfo')"
+            method="POST"
+          >
+            <div class="fs14px pb24">
+              Tell us more about yourself. It will help us to find a more
+              accurate solution that makes sense to you
+            </div>
+            <div class="w360">
+              <div class="pb24">
+                <input
+                  placeholder="Street Address"
+                  ngx-google-places-autocomplete
+                  [options]="options"
+                  #placesRef="ngx-places"
+                  (onAddressChange)="handleAddressChange($event)"
+                  formControlName="streetaddress"
+                  id="streetaddress"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      personalInfoFormValidation.streetaddress.errors &&
+                      (personalInfoFormValidation.streetaddress.dirty ||
+                        personalInfoFormValidation.streetaddress.touched ||
+                        personalInfoFrmBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    personalInfoFormValidation.streetaddress.errors &&
+                    (personalInfoFormValidation.streetaddress.dirty ||
+                      personalInfoFormValidation.streetaddress.touched ||
+                      personalInfoFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      personalInfoFormValidation.streetaddress.errors.required
+                    "
+                  >
+                    Street Address is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Unit Or Apartment"
+                  formControlName="unitApartment"
+                  id="unitApartment"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      personalInfoFormValidation.unitApartment.errors &&
+                      (personalInfoFormValidation.unitApartment.dirty ||
+                        personalInfoFormValidation.unitApartment.touched ||
+                        personalInfoFrmBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    personalInfoFormValidation.unitApartment.errors &&
+                    (personalInfoFormValidation.unitApartment.dirty ||
+                      personalInfoFormValidation.unitApartment.touched ||
+                      personalInfoFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      personalInfoFormValidation.unitApartment.errors.required
+                    "
+                  >
+                    Unit Or Apartment is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="City"
+                  formControlName="city"
+                  onkeydown="return /[a-z ]/i.test(event.key)"
+                  id="city"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      personalInfoFormValidation.city.errors &&
+                      (personalInfoFormValidation.city.dirty ||
+                        personalInfoFormValidation.city.touched ||
+                        personalInfoFrmBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    personalInfoFormValidation.city.errors &&
+                    (personalInfoFormValidation.city.dirty ||
+                      personalInfoFormValidation.city.touched ||
+                      personalInfoFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="personalInfoFormValidation.city.errors.required">
+                    City is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <select
+                  class="inputBox"
+                  formControlName="state"
+                  [ngClass]="{
+                    'is-invalid':
+                      (personalInfoFormValidation.state.dirty ||
+                        personalInfoFormValidation.state.touched ||
+                        personalInfoFrmBtn) &&
+                      personalInfoFormValidation.state.errors
+                  }"
+                >
+                  <option value="" selected="selected" disabled="disabled">
+                    State
+                  </option>
+                  <option [value]="stat.id" *ngFor="let stat of stateList">
+                    {{ stat.displayName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    personalInfoFormValidation.state.errors &&
+                    (personalInfoFormValidation.state.dirty ||
+                      personalInfoFormValidation.state.touched ||
+                      personalInfoFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="personalInfoFormValidation.state.errors.required">
+                    State is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Zip Code"
+                  class="form-control form-application zipbox"
+                  formControlName="zipcode"
+                  mask="00000"
+                  maxlength="5"
+                  [ngClass]="{
+                    'is-invalid':
+                      (personalInfoFormValidation.zipcode.dirty ||
+                        personalInfoFormValidation.zipcode.touched ||
+                        personalInfoFrmBtn) &&
+                      personalInfoFormValidation.zipcode.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    (personalInfoFormValidation.zipcode.dirty ||
+                      personalInfoFormValidation.zipcode.touched ||
+                      personalInfoFrmBtn) &&
+                    personalInfoFormValidation.zipcode.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="personalInfoFormValidation.zipcode.errors.required"
+                  >
+                    Zip Code is required
+                  </div>
+                  <div
+                    *ngIf="personalInfoFormValidation.zipcode.errors.pattern"
+                  >
+                    Zip Code is not Vaild
+                  </div>
+                  <div
+                    *ngIf="personalInfoFormValidation.zipcode.errors.minlength"
+                  >
+                    Zip Code should contain 5 numbers
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="pb24">
+                <input
+                  type="date"
+                  placeholder="MM/DD/YYYY (Date of Birth)"
+                  formControlName="dob"
+                  id="dob"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      personalInfoFormValidation.dob.errors &&
+                      (personalInfoFormValidation.dob.dirty ||
+                        personalInfoFormValidation.dob.touched ||
+                        personalInfoFrmBtn)
+                  }"
+                  [maxDate]="maxDate"
+                  [dropSpecialCharacters]="false"
+                />
+                <div
+                  *ngIf="
+                    personalInfoFormValidation.dob.errors &&
+                    (personalInfoFormValidation.dob.dirty ||
+                      personalInfoFormValidation.dob.touched ||
+                      personalInfoFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="personalInfoFormValidation.dob.errors.required">
+                    Date Of Birth is required
+                  </div>
+                </div>
+              </div> -->
+              <div class="pb24">
+                <!-- <input
+                  class="form-control"
+                  (change)="validateDOB($event)"
+                  name="dob"
+                  formControlName="dob"
+                  placeholder="DOB"
+                  matInput
+                  [matDatepicker]="picker"
+                  [ngClass]="{
+                    'is-invalid':
+                      personalInfoFormValidation.dob.errors &&
+                      (personalInfoFormValidation.dob.dirty ||
+                        personalInfoFormValidation.dob.touched ||
+                        personalInfoFrmBtn)
+                  }"
+                /> -->
+                <!-- (change)="validateDOB($event)" -->
+                <div class="pb24">
+                  <input
+                    type="text"
+                    (bsValueChange)="validateDOB($event)"
+                    placeholder="Date of Birth"
+                    formControlName="dob"
+                    class="form-control form-application zipbox"
+                    bsDatepicker
+                    (keypress)="customkey($event)"
+                    [ngClass]="{
+                      'is-invalid':
+                        personalInfoFormValidation.dob.errors &&
+                        (personalInfoFormValidation.dob.dirty ||
+                          personalInfoFormValidation.dob.touched ||
+                          personalInfoFrmBtn)
+                    }"
+                  />
+
+                  <div
+                    *ngIf="
+                      personalInfoFormValidation.dob.errors &&
+                      (personalInfoFormValidation.dob.dirty ||
+                        personalInfoFormValidation.dob.touched ||
+                        personalInfoFrmBtn)
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="personalInfoFormValidation.dob.errors.required">
+                      DOB is required
+                    </div>
+                  </div>
+                  <div class="date-error" *ngIf="dateval != ''">
+                    {{ dateval }}
+                  </div>
+                </div>
+                <div class="pb24">
+                  <input
+                    placeholder="Social Security Number"
+                    [hiddenInput]="true"
+                    mask="XXX-XX-0000"
+                    formControlName="ssn"
+                    id="ssn"
+                    class="inputBox"
+                    [ngClass]="{
+                      'is-invalid':
+                        personalInfoFormValidation.ssn.errors &&
+                        (personalInfoFormValidation.ssn.dirty ||
+                          personalInfoFormValidation.ssn.touched ||
+                          personalInfoFrmBtn)
+                    }"
+                  />
+
+                  <div
+                    *ngIf="
+                      personalInfoFormValidation.ssn.errors &&
+                      (personalInfoFormValidation.ssn.dirty ||
+                        personalInfoFormValidation.ssn.touched ||
+                        personalInfoFrmBtn)
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="personalInfoFormValidation.ssn.errors.required">
+                      Social Security Number Apartment is required
+                    </div>
+                    <div
+                      *ngIf="personalInfoFormValidation.ssn.errors.minlength"
+                    >
+                      ssn min number 9
+                    </div>
+                  </div>
+                </div>
+                <div class="pb24">
+                  <input
+                    placeholder="Monthly mortgage or rent payment"
+                    formControlName="monthlyRent"
+                    id="monthlyRent"
+                    class="inputBox"
+                    [ngClass]="{
+                      'is-invalid':
+                        personalInfoFormValidation.monthlyRent.errors &&
+                        (personalInfoFormValidation.monthlyRent.dirty ||
+                          personalInfoFormValidation.monthlyRent.touched ||
+                          personalInfoFrmBtn)
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      personalInfoFormValidation.monthlyRent.errors &&
+                      (personalInfoFormValidation.monthlyRent.dirty ||
+                        personalInfoFormValidation.monthlyRent.touched ||
+                        personalInfoFrmBtn)
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        personalInfoFormValidation.monthlyRent.errors.required
+                      "
+                    >
+                      Monthly mortgage or rent payment is required
+                    </div>
+                    <div
+                      *ngIf="
+                        personalInfoFormValidation.monthlyRent.errors.pattern
+                      "
+                    >
+                      This is not Vaild number
+                    </div>
+                  </div>
+                </div>
+                <div class="pb24">
+                  <input
+                    placeholder="Monthly gross income (pre-tax)"
+                    formControlName="income"
+                    id="income"
+                    class="inputBox"
+                    [ngClass]="{
+                      'is-invalid':
+                        personalInfoFormValidation.income.errors &&
+                        (personalInfoFormValidation.income.dirty ||
+                          personalInfoFormValidation.income.touched ||
+                          personalInfoFrmBtn)
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      personalInfoFormValidation.income.errors &&
+                      (personalInfoFormValidation.income.dirty ||
+                        personalInfoFormValidation.income.touched ||
+                        personalInfoFrmBtn)
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="personalInfoFormValidation.income.errors.required"
+                    >
+                      Monthly gross income (pre-tax) is required
+                    </div>
+                    <div
+                      *ngIf="personalInfoFormValidation.income.errors.pattern"
+                    >
+                      This is not Vaild number
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pb24">
+                  <select
+                    class="inputBox"
+                    formControlName="typeResidence"
+                    [ngClass]="{
+                      'is-invalid':
+                        (personalInfoFormValidation.typeResidence.dirty ||
+                          personalInfoFormValidation.typeResidence.touched ||
+                          personalInfoFrmBtn) &&
+                        personalInfoFormValidation.typeResidence.errors
+                    }"
+                  >
+                    <option value="" selected="selected" disabled="disabled">
+                      Type Of Residence
+                    </option>
+                    <option
+                      [value]="residence.id"
+                      *ngFor="let residence of typeOFResidenceList"
+                    >
+                      {{ residence.displayName }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      (personalInfoFormValidation.typeResidence.dirty ||
+                        personalInfoFormValidation.typeResidence.touched ||
+                        personalInfoFrmBtn) &&
+                      personalInfoFormValidation.typeResidence.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        personalInfoFormValidation.typeResidence.errors.required
+                      "
+                    >
+                      Type Of Residence is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="displayFlex pb24">
+                  <input
+                    type="checkbox"
+                    class="mr8"
+                    formControlName="userConsent"
+                    [ngClass]="{
+                      'is-invalid':
+                        (personalInfoFormValidation.userConsent.dirty ||
+                          personalInfoFormValidation.userConsent.touched ||
+                          personalInfoFrmBtn) &&
+                        personalInfoFormValidation.userConsent.errors
+                    }"
+                  />
+                  <div>
+                    I consent to the
+                    <span class="bluetxt"
+                      ><a (click)="view(smspolicy)" href="javascript:void(0)"
+                        >SMS Policy</a
+                      ></span
+                    >,
+                    <span class="bluetxt"
+                      ><a (click)="view(creditpull)" href="javascript:void(0)"
+                        >Credit Pull Consent</a
+                      ></span
+                    >
+                    and,
+                    <span class="bluetxt"
+                      ><a (click)="view(esign)" href="javascript:void(0)">
+                        E-Signature agreements
+                      </a></span
+                    >
+                  </div>
+                  <div
+                    *ngIf="
+                      (personalInfoFormValidation.userConsent.dirty ||
+                        personalInfoFormValidation.userConsent.touched ||
+                        personalInfoFrmBtn) &&
+                      personalInfoFormValidation.userConsent.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        personalInfoFormValidation.userConsent.errors.required
+                      "
+                    >
+                      It's required field
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb36">
+                  <button type="submit" class="btn btnGreen">Next</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="emptydataline" *ngIf="isPersonalInfoCompletetick"></div>
+    </div>
+
+    <!-- End Personal Info -->
+
+    <!-- Start Employment -->
+    <div class="step03">
+      <div class="displayFlex AlignItemCenter">
+        <div class="circle mt8">3</div>
+        <div
+          class="stepCompleted"
+          *ngIf="isEmploymentSpecificCompletetick"
+        ></div>
+        <div class="fs18px fontWeight">Employment specific</div>
+      </div>
+
+      <div class="displayFlex">
+        <div class="line"></div>
+        <div *ngIf="!isEmploymentSpecificComplete">
+          <form
+            autocomplete="on"
+            class="formclass signupForm"
+            style="width: 100%"
+            [formGroup]="employmentForm"
+            (ngSubmit)="sendFormDetails('employment')"
+            method="POST"
+          >
+            <div class="fs14px pb24">
+              Tell us more about current employment. It will help us to find a
+              more accurate solution that makes sense to you
+            </div>
+
+            <div class="w360">
+              <div class="pb24">
+                <select
+                  class="inputBox"
+                  formControlName="employertatus"
+                  [ngClass]="{
+                    'is-invalid':
+                      (employmentValidation.employertatus.dirty ||
+                        employmentValidation.employertatus.touched ||
+                        employmentFrmBtn) &&
+                      employmentValidation.employertatus.errors
+                  }"
+                >
+                  <option value="" selected="selected" disabled="disabled">
+                    Employment status
+                  </option>
+                  <option
+                    [value]="employ.id"
+                    *ngFor="let employ of employmentType"
+                  >
+                    {{ employ.displayName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    (employmentValidation.employertatus.dirty ||
+                      employmentValidation.employertatus.touched ||
+                      employmentFrmBtn) &&
+                    employmentValidation.employertatus.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="employmentValidation.employertatus.errors.required"
+                  >
+                    Employer Status is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Employer Name"
+                  formControlName="employerName"
+                  id="employerName"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      employmentValidation.employerName.errors &&
+                      (employmentValidation.employerName.dirty ||
+                        employmentValidation.employerName.touched ||
+                        employmentFrmBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    employmentValidation.employerName.errors &&
+                    (employmentValidation.employerName.dirty ||
+                      employmentValidation.employerName.touched ||
+                      employmentFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="employmentValidation.employerName.errors.required"
+                  >
+                    Employer Name is required
+                  </div>
+                  <div *ngIf="employmentValidation.employerName.errors.pattern">
+                    Employer Name is not Vaild
+                  </div>
+                </div>
+              </div>
+
+              <div class="pb24">
+                <input
+                  placeholder="Employer Phone  +0(000)-000-0000"
+                  formControlName="phoneNumber"
+                  id="phoneNumber"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      employmentValidation.phoneNumber.errors &&
+                      (employmentValidation.phoneNumber.dirty ||
+                        employmentValidation.phoneNumber.touched ||
+                        employmentFrmBtn)
+                  }"
+                  mask="+0(000)-000-0000"
+                />
+                <div
+                  *ngIf="
+                    employmentValidation.phoneNumber.errors &&
+                    (employmentValidation.phoneNumber.dirty ||
+                      employmentValidation.phoneNumber.touched ||
+                      employmentFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="employmentValidation.phoneNumber.errors.required">
+                    Employer Phone Number is required
+                  </div>
+                  <div
+                    *ngIf="employmentValidation.phoneNumber.errors.minlength"
+                  >
+                    Employer Phone Number is not Valid
+                  </div>
+                </div>
+              </div>
+
+              <div class="pb24">
+                <input
+                  type="text"
+                  onfocus="(this.type='date')"
+                  placeholder="Date of Hired"
+                  formControlName="hireDate"
+                  id="hireDate"
+                  [max]="maxdate"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      employmentValidation.hireDate.errors &&
+                      (employmentValidation.hireDate.dirty ||
+                        employmentValidation.hireDate.touched ||
+                        employmentFrmBtn)
+                  }"
+                  [maxDate]="maxDate"
+                  [dropSpecialCharacters]="false"
+                />
+                <div
+                  *ngIf="
+                    employmentValidation.hireDate.errors &&
+                    (employmentValidation.hireDate.dirty ||
+                      employmentValidation.hireDate.touched ||
+                      employmentFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="employmentValidation.hireDate.errors.required">
+                    Date Hired is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <input
+                  placeholder="Job Title"
+                  formControlName="jobtitle"
+                  id="jobtitle"
+                  class="inputBox"
+                  [ngClass]="{
+                    'is-invalid':
+                      employmentValidation.jobtitle.errors &&
+                      (employmentValidation.jobtitle.dirty ||
+                        employmentValidation.jobtitle.touched ||
+                        employmentFrmBtn)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    employmentValidation.jobtitle.errors &&
+                    (employmentValidation.jobtitle.dirty ||
+                      employmentValidation.jobtitle.touched ||
+                      employmentFrmBtn)
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="employmentValidation.jobtitle.errors.required">
+                    Job Title is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="pb24">
+                <select
+                  class="inputBox"
+                  formControlName="payfrequency"
+                  id="payfrequency"
+                  [ngClass]="{
+                    'is-invalid':
+                      (employmentValidation.payfrequency.dirty ||
+                        employmentValidation.payfrequency.touched ||
+                        employmentFrmBtn) &&
+                      employmentValidation.payfrequency.errors
+                  }"
+                >
+                  <option value="" selected="selected" disabled="disabled">
+                    Payroll Frequency
+                  </option>
+                  <option
+                    [value]="payFre.id"
+                    *ngFor="let payFre of payFrequencyType"
+                  >
+                    {{ payFre.displayName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    (employmentValidation.payfrequency.dirty ||
+                      employmentValidation.payfrequency.touched ||
+                      employmentFrmBtn) &&
+                    employmentValidation.payfrequency.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="employmentValidation.payfrequency.errors.required"
+                  >
+                    Payroll Frequency is required
+                  </div>
+                </div>
+              </div>
+              <div class="pb24">
+                <select
+                  class="inputBox"
+                  formControlName="payDueDate"
+                  id="payDueDate"
+                  [ngClass]="{
+                    'is-invalid':
+                      (employmentValidation.payDueDate.dirty ||
+                        employmentValidation.payDueDate.touched ||
+                        employmentFrmBtn) &&
+                      employmentValidation.payDueDate.errors
+                  }"
+                >
+                  <option value="" selected="selected" disabled="disabled">
+                    Payment due date
+                  </option>
+                  <option [value]="due" *ngFor="let due of payDueDateList">
+                    {{ due }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    (employmentValidation.payDueDate.dirty ||
+                      employmentValidation.payDueDate.touched ||
+                      employmentFrmBtn) &&
+                    employmentValidation.payDueDate.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="employmentValidation.payDueDate.errors.required">
+                    Payment due date is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb36">
+                <button type="submit" class="btn btnGreen">Next</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="emptydataline" *ngIf="isEmploymentSpecificCompletetick"></div>
+    </div>
+    <!-- End Employment Info -->
+
+    <!-- Start Connect Bank -->
+    <div class="step04">
+      <div class="displayFlex AlignItemCenter">
+        <div class="circle mt8">4</div>
+        <div class="stepCompleted" *ngIf="isConnectBankCompletetick"></div>
+        <div class="fs18px fontWeight">Connect your bank</div>
+      </div>
+
+      <div class="displayFlex">
+        <div class="line"></div>
+        <div *ngIf="!isConnectBankComplete">
+          <div class="fs14px pb8">
+            Please choose the account where your monthly income is deposited
+          </div>
+          <div class="fs14px pb24 bluetxt">
+            Why do we need your banking information?
+          </div>
+          <div class="w360">
+            <div class="pb24">
+              <img src="../../assets/new/bank.png" />
+            </div>
+
+            <div class="mb36">
+              <button type="button" class="btn btnGreen" (click)="plaidLogin()">
+                Connect bank account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="emptydataline" *ngIf="isConnectBankCompletetick"></div>
+    </div>
+    <!-- End Connect Bank -->
+
+    <!-- Start Offer Select Screen -->
+    <div class="step05">
+      <div class="displayFlex AlignItemCenter">
+        <div class="circle mt8">5</div>
+        <div class="stepCompleted" *ngIf="isOfferSelecetdCompletetick"></div>
+        <div class="fs18px fontWeight">Choose offer</div>
+      </div>
+
+      <div class="displayFlex">
+        <div class="line"></div>
+        <div class="" *ngIf="!isOfferSelecetdComplete">
+          <div class="step5-1">
+            <div class="fs14px pb24">
+              Dear Temeka, <br />
+              Congratulations! You have the following pre-qualification offers
+              available from Pompeii Surgical!
+            </div>
+            <div class="fs22px pb24 lineHeight">
+              You are pre-qualified for up to
+              <span class="fontWeight" *ngIf="eligibleOfferDetails.length > 0">
+                {{ eligibleOfferDetails[0].financialAmount | currency }}</span
+              >
+            </div>
+            <div class="fs14px pb24">
+              Please enter the amount you would like to finance below.
+              <br />
+              Then select a monthly payment option to continue.
+            </div>
+            <div class="w360">
+              <div class="pb24 displayFlex spaceBetween AlignItemCenter">
+                <div>
+                  <input
+                    type="text"
+                    class="inputBox w160px"
+                    [formControl]="FinancialAmt"
+                    *ngIf="eligibleOfferDetails.length > 0"
+                    (focusout)="validFinancialAmt()"
+                    (ngModelChange)="CalcPayment($event)"
+                  />
+
+                  <div class="fs12px labeltxt">Finance</div>
+                </div>
+
+                <div class="greenTxt fontWeight" (click)="CalcPayment()">
+                  Calculate Payments
+                </div>
+              </div>
+              <div class="fs14px pb24 fontWeight pb16">
+                Fixed Rate Payment Plans
+              </div>
+            </div>
+            <div class="w400">
+              <label
+                class="optionBlock"
+                *ngFor="let offer of eligibleOfferDetails"
+              >
+                <div class="displayFlex">
+                  <div class="mr40">
+                    <div class="fs14px fontWeight pb8">
+                      {{ offer.loanamount | currency }} / mo
+                    </div>
+                    <div class="fs12px">
+                      <!-- {{ offer.duration }} months term ·
+                      {{ offer.interestrate }}% APR ·
+                      {{ offer.financialamount | currency }} Financed -->
+                      {{ 5 }} months term ·
+                      {{ offer.fundingrate}}% APR ·
+                      {{ offer.financedamount | currency }} Financed
+                    </div>
+                  </div>
+                  <div>
+                    <input
+                      id="{{ offer.month }}months"
+                      type="radio"
+                      [formControl]="selectedOffer"
+                      name="termMonth"
+                      [value]="offer._id"
+                    />
+                    <input type="radio" checked="checked" name="radio" />
+                    <span class="checkmark1"></span>
+                  </div>
+                </div>
+              </label>
+              <div class="fs14px pb24">
+                <span class="fontWeight">0% APR</span> if financed amount is
+                paid in full within 6 months
+              </div>
+              <div class="fs14px pb24 bluetxt">
+                Can I change the selected offer later?
+              </div>
+
+              <div class="mb36">
+                <button
+                  type="button"
+                  class="btn btnGreen"
+                  (click)="confirmSelOffer()"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="step5-2">
+            <div class="fs14px pb24">
+              Dear Temeka, <br />
+              We are sorry to advise you that we cannot provide
+              pre-qualification offers to you at this time. For detailed
+              information and a statement of specific reasons, please contact us
+              at the address, telephone number or email shown below.
+            </div>
+
+            <div class="fs14px pb24 w360">
+              <div class="fontWeight pb8">Modern Health Finance</div>
+
+              23030 Lake Forest Dr., Suite 202, Laguna Hills, CA 92653 (619)
+              403-9753 contact@modernhealthfinance.com
+            </div>
+            <div class="mb36">
+              <!-- <a [routerLink]="['/borrower']">
+                <button type="button" class="btn btnGreen">
+                  Back to main
+                </button></a
+              > -->
+              <a class="btn btnGreen" [routerLink]="['/borrower']"
+                >Back to main</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="emptydataline" *ngIf="isOfferSelecetdCompletetick"></div>
+    </div>
+
+    <div class="step06">
+      <div class="displayFlex AlignItemCenter">
+        <div class="circle mt8">6</div>
+        <div class="stepCompleted" *ngIf="iscontractSignCompletetick"></div>
+        <div class="fs18px fontWeight">Sign a contract</div>
+      </div>
+
+      <div class="displayFlex">
+        <div class="line" style="visibility: hidden"></div>
+        <div *ngIf="!iscontractSignComplete">
+          <div class="importantNotice mt15px mb24">
+            <div class="mr30px">
+              <img src="../../assets/new/info.png" />
+            </div>
+            <div>
+              <div class="fontWeight pb8">It's important</div>
+
+              This contract is NOT in effect until any services are rendered.
+              Shall no services be confirmed as rendered to the consumer, the
+              signed contract remains null and void
+            </div>
+          </div>
+
+          <div class="whiteBox2 mb24">
+            <div class="create_sign">
+              <div class="fs18px fontWeight pb24">Create your Sign</div>
+              <p>
+                Please click and hold your mouse to sign your signature in the
+                box below. You will need to sign the fields below with your
+                signature.
+              </p>
+              <div
+                class="signature whiteBox2"
+                style="height: 200px; margin-bottom: 20px"
+              >
+                <!--don't use ngif in for loop its make problem because index based logic working (signature-pad length == multipleSignature length). use style display none-->
+
+                <signature-pad
+                  [options]="signaturePadOptions"
+                  (onBeginEvent)="drawStart()"
+                  (onEndEvent)="drawComplete()"
+                ></signature-pad>
+              </div>
+              <div class="displayFlex flexEnd">
+                <button class="btn btnGreen-outline" (click)="signClear(0)">
+                  Clear
+                </button>
+                &nbsp; &nbsp;
+                <button class="btn btnGreen" (click)="signAccept(0)">
+                  Accept
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="whiteBox2 mb24">
+            <iframe
+              [src]="htmlDoc"
+              style="width: 100%; min-height: 780px"
+              title="Contract Documents"
+              frameborder="0"
+            ></iframe>
+            <br /><br /><br /><br />
+          </div>
+
+          <!-- <div class="pb24">
+                              <button type="button" class="btn btnGreen-outline w100per">
+                    Show more and sign &nbsp; &nbsp;
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                          </div> -->
+          <div class="pb24" (click)="sendForm()">
+            <button type="button" class="btn btnGreen w100per">
+              Agree and finalize
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="emptydataline" *ngIf="iscontractSignCompletetick"></div>
+    </div>
+
+    <div style="clear: both"></div>
+  </div>
+
+  <div class="container" *ngIf="!isVerifyContactInfo">
+    <div class="stepCompleted" *ngIf="isVerifyContactInfotick"></div>
+    <div class=" ">
+      <div class="fontmainTitle">Please, verify your contact information</div>
+    </div>
+
+    <div class="whiteBox2">
+      <div></div>
+      <div class="verifySection AlignItemCenter" *ngIf="!isphonenumEdit">
+        <div class="grayColor fontWeight">Phone</div>
+        <div class="displayFlex AlignItemCenter">
+          <div>{{editPhone.value}}</div>
+          <div><button class="btn greenTxt fontWeight" (click)="isphonenumEdit = !isphonenumEdit">Edit</button></div>
+        </div>
+      </div>
+      <form class="edit_phonenum" (ngSubmit)="editPhonenumber()" [formGroup]="phonenumForm">
+      <div class="verifySection AlignItemCenter" *ngIf="isphonenumEdit">
+        <div>
+          <div>
+            <input placeholder="Phone +0(000)-000-0000" mask="+0(000)-000-0000" type="text" class="inputBox" name="newphonenum" formControlName="newphonenum" [ngClass]="{
+              'is-invalid':
+              phonenumFormValidation.newphonenum.errors &&
+              (phonenumFormValidation.newphonenum.dirty ||
+              phonenumFormValidation.newphonenum.touched ||
+              phonenumFormBtn)
+            }" />
+            <div class="fs12px labeltxt">Phone</div>
+            <div *ngIf="phonenumFormValidation.newphonenum.errors &&
+            (phonenumFormValidation.newphonenum.dirty ||
+            phonenumFormValidation.newphonenum.touched ||
+            phonenumFormBtn)" class="invalid-feedback">
+              <div
+                *ngIf="phonenumFormValidation.newphonenum.errors.required"
+              >
+                Phone Number is required
+              </div>
+              <div
+                *ngIf="phonenumFormValidation.newphonenum.errors.minlength"
+              >
+                Phone Number is not Valid
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="displayFlex AlignItemCenter">
+          <button class="btn btnGreen-outline" (click)="isphonenumEdit = false">Cancel</button> &nbsp;
+          <button class="btn btnGreen">Update</button>
+        </div>
+      </div>
+      </form>
+      <div
+        class="verifySection AlignItemCenter borderNone"
+        *ngIf="!isEmailEdit"
+      >
+        <div class="grayColor fontWeight">Email</div>
+        <div class="displayFlex AlignItemCenter">
+          <div>{{ editEmail.value }}</div>
+          <div>
+            <button
+              class="btn greenTxt fontWeight"
+              (click)="isEmailEdit = !isEmailEdit"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="verifySection AlignItemCenter borderNone" *ngIf="isEmailEdit">
+        <form
+          class="edit_email"
+          (ngSubmit)="f.form.valid && editEmailResend()"
+          #f="ngForm"
+          novalidate
+        >
+          <div>
+            <div>
+              <input
+                type="hidden"
+                name="oldEmail"
+                class="inputBox"
+                [(ngModel)]="editEmailFields.oldEmail"
+              />
+              <input
+                type="text"
+                name="newEmail"
+                class="inputBox"
+                [(ngModel)]="editEmailFields.newEmail"
+              />
+              <div class="fs12px labeltxt">Email</div>
+            </div>
+          </div>
+          <div class="displayFlex AlignItemCenter">
+            <input
+              type="submit"
+              name="submit"
+              value="Update"
+              class="btn main_btn mr_12"
+            />
+            <input
+              type="button"
+              name="cancel"
+              value="Cancel"
+              class="main_hover_btn"
+              (click)="isEmailEdit = false"
+            />
+            <!-- <button
+              class="btn btnGreen-outline"
+              (click)="isEmailEdit = false"
+            >
+              Cancel
+            </button> -->
+            &nbsp;
+            <!-- <button class="btn btnGreen">Update</button> -->
+          </div>
+        </form>
+      </div>
+      <!-- Verify your email start-->
+      <div
+        class="displayFlex AlignItemCenter spaceBetween"
+        *ngIf="
+          multipleSignature.length > 0 &&
+          multipleSignature[0].emailverify == 'N'
+        "
+      >
+        <div class="w100per">
+          <div class="importantNotice mt15px mb24">
+            <div class="mr30px"><img src="../../assets/new/info.png" /></div>
+            <div>
+              <div class="fontWeight pb8">Verify your email</div>
+
+              Please check your email address to verify your account
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="btn greenTxt fontWeight" (click)="resendEmailVerify()">
+            Resend
+          </button>
+        </div>
+      </div>
+      <!-- Verify your email end-->
+
+      <!-- Email verified start-->
+      <!-- <div
+        class="displayFlex AlignItemCenter spaceBetween"
+        *ngIf="
+          multipleSignature.length > 0 &&
+          multipleSignature[0].emailverify != 'N'
+        "
+      > -->
+      <div
+      class="displayFlex AlignItemCenter spaceBetween"
+      >
+        <div class="w100per">
+          <div class="emailVerified mt15px mb24">
+            <div class="mr30px">
+              <img src="../../assets/new/verified.png" />
+            </div>
+            <div>
+              <div class="fontWeight pb8">Email verified</div>
+
+              Your email has been successfully verified
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Email verified end-->
+    </div>
+    <div>
+      <!-- <button
+        class="btn btnGreen w100per"
+        (click)="applicationFinalSubmit()"
+        *ngIf="
+          multipleSignature.length > 0 &&
+          multipleSignature[0].emailverify != 'N'
+        "
+      > -->
+      <button
+      class="btn btnGreen w100per"
+      (click)="applicationFinalSubmit()"
+       >
+        Submit Application
+      </button>
+    </div>
+    <div class="emptydataline" *ngIf="isVerifyContactInfotick"></div>
+  </div>
+
+  <div style="clear: both"></div>
+</div>
+
+<div class="container" *ngIf="!isthankYou">
+  <div class="w360 m0auto">
+    <div class="fontmainTitle mb_30 textAlignCenter">Thank You!</div>
+    <div class="whiteBox2 mb24">
+      <div class="pb24 textAlignCenter">
+        <img src="../../assets/new/thankyou.svg" />
+      </div>
+      <div class="textAlignCenter" *ngIf="multipleSignature.length > 0">
+        Your financing will take effect when the practice confirms the date of
+        your service. <br />
+        <br />
+        Contact your representative at
+        {{ multipleSignature[0].practicename }} at
+        <span class="fontWeight greenTxt">
+          {{ multipleSignature[0].praphonenumber }}
+        </span>
+        now to set a date!
+      </div>
+    </div>
+    <!-- <div class=""><button class="btn btnGreen w100per">Finish</button></div> -->
+  </div>
+</div>

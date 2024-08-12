@@ -1,0 +1,111 @@
+<div>
+  <!-- sign a contract -->
+
+  <section class="choose_offer_sec">
+    <div class="container">
+      <div class="choose_offer">
+        <img class="choose_offer_img" src="assets/new/chooseoffer.svg" />
+        <h1>Sign your <span> Loan Documents</span></h1>
+        <p>Please execute the loan agreement below.</p>
+        <div class="row">
+          <div class="col-md-10">
+            <div class="its_important">
+              <img src="assets/new/important.svg" />
+              <h3>It's important</h3>
+              <p>
+                This loan agreement is NOT in effect until any services are
+                rendered. Shall no<br />
+                services be confirmed as rendered to the consumer, the loan
+                agreement is null<br />
+                and void until signed by the business owner.
+              </p>
+            </div>
+
+            <div>
+              <accordion>
+                <!-- <div *ngFor="let owner of multipleSignature; index as i"> -->
+                <div *ngFor="let owner of multipleSignature; index as i">
+                  <accordion-group
+                    heading="{{ owner.firstname + ' ' + owner.lastname }} #{{
+                      i + 1
+                    }} Create Your Signature"
+                    [isOpen]="contractSignShow"
+                  >
+                    <div class="create_sign">
+                      <!-- <h4>Create your <span>Sign</span></h4> -->
+                      <p>
+                        Please click and hold your mouse to sign your signature
+                        in the box below. You<br />
+                        will need to sign the fields below with your signature.
+                      </p>
+                      <p>Signature person email: {{ owner.email }}</p>
+                      <div
+                        class="signature"
+                        style="
+                          width: 780;
+                          height: 200;
+                          box-shadow: 4px 2px 10px rgba(0, 0, 0, 0.398);
+                          margin-bottom: 14px;
+                        "
+                      >
+                        <!--don't use ngif in for loop its make problem because index based logic working (signature-pad length == multipleSignature length). use style display none-->
+
+                        <signature-pad
+                          [options]="signaturePadOptions"
+                          (onBeginEvent)="drawStart()"
+                          (onEndEvent)="drawComplete()"
+                        ></signature-pad>
+                      </div>
+                      <div class="btn_center">
+                        <button class="btn main_btn" (click)="signAccept(i)">
+                          Accept
+                        </button>
+                        <button class="btn main_hover" (click)="signClear(i)">
+                          Clear
+                        </button>
+                      </div>
+                    </div>
+                    <accordion *ngIf="owner.signature && !owner.signCameFromUI">
+                      <accordion-group heading="View signature">
+                        <img [src]="owner.signature" />
+                      </accordion-group>
+                    </accordion>
+                  </accordion-group>
+                </div>
+
+                <accordion-group heading="Contract" [isOpen]="contractnoteShow">
+                  <div class="contract">
+                    <h3>Contract</h3>
+                    <p class="contract_text">
+                      This Promissory Note has not been registered with the
+                      Securities and Exchange Commission or the securities
+                      commission of any state in reliance upon an exemption from
+                      registration under the Securities Act of 1933, as amended,
+                      and, accordingly, may not be offered or sold except
+                      pursuant to an effective registration statement under the
+                      securities act or pursuant to an available exemption from,
+                      or in a transaction not subject to, the registration
+                      requirements of the securities act and in accordance with
+                      applicable state securities laws.
+                    </p>
+                    <h2>Promissory Note</h2>
+                    <iframe
+                      [src]="safeResourceUrl(htmlDoc)"
+                      style="width: 100%; min-height: 780px"
+                      title="Contract Documents"
+                    ></iframe>
+                  </div>
+                </accordion-group>
+              </accordion>
+            </div>
+          </div>
+        </div>
+        <div class="btn_center">
+          <button type="button" class="btn main_btn" (click)="sendForm()">
+            Sign & Continue <i class="fal fa-angle-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

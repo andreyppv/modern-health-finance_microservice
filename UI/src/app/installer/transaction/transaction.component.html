@@ -1,0 +1,79 @@
+<div class="m50px">
+  <div class="frameshadow">
+    <div class="mainTitle">
+      <div>Transaction</div>
+    </div>
+
+    <div class="p10 dataTables_wrapper">
+      <table *ngIf="data.length > 0" datatable class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Loan</th>
+            <th scope="col">Payment</th>
+            <th scope="col">transactionid</th>
+            <th scope="col">Method</th>
+            <th scope="col">message</th>
+            <th scope="col">Status</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of data; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              {{ d.loan_id1 }}
+            </td>
+            <td>{{ d.payment }}</td>
+            <td>{{ d.transactionid }}</td>
+            <td>{{ d.accountmethod }}</td>
+            <td>{{ d.message }}</td>
+            <td>{{ d.status }}</td>
+            <td>{{ d.amount }}</td>
+            <td>
+              {{ datePipe.transform(d.createdat, "yyyy/MM/dd HH:mm:ss") }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table *ngIf="data.length == 0" datatable class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Loan</th>
+            <th scope="col">Payment</th>
+            <th scope="col">transactionid</th>
+            <th scope="col">Method</th>
+            <th scope="col">message</th>
+            <th scope="col">Status</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #messagebox>
+    <div class="modal-body modal-body_messagebox text-center">
+      <div class="msgLogo"><img src="../../../assets/msg_logo.png" /></div>
+
+      <!-- <p class="headtext">message</p> -->
+      <div *ngFor="let m of message" class="messageBlock">{{ m }}</div>
+
+      <div>
+        <button
+          type="button"
+          class="btn orangeButton"
+          aria-label="Close"
+          (click)="close()"
+        >
+          Ok
+        </button>
+      </div>
+    </div>
+    <br />
+  </ng-template>
+</div>

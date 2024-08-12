@@ -1,0 +1,91 @@
+<section class="main_com">
+<div class="m50px">
+  <div class="fs22px pb20 textAlignCenter">
+    Welcome! What would you like to do?
+  </div>
+
+  <div class="displayFlex AlignItemCenter spaceBetween mb50px">
+    <div class="grayButton">
+      <div
+        class="displayFlex justifycontencenter AlignItemCenter flexDirection ptopBottom"
+      >
+        <div class="fileUpload"></div>
+        <div class="displayFlex">
+          <div class="fs16px fontWeight prb">Application File <br />Upload</div>
+          <div class="redCircle">{{data['uploadcount']}}</div>
+        </div>
+        <div class="grayColor3">
+          Upload the necessary documents<br />
+          to proceed
+        </div>
+      </div>
+    </div>
+    <div class="grayButton">
+      <div
+        class="displayFlex justifycontencenter AlignItemCenter flexDirection ptopBottom"
+      >
+        <div class="applicationDetails"></div>
+        <div class="displayFlex">
+          <div class="fs16px fontWeight prb">
+            Verify and Approve<br />
+            Application Details
+          </div>
+          <div class="redCircle">{{data['verfiycount']}}</div>
+        </div>
+        <div class="grayColor3">
+          Please check the application details to verify all information is
+          correct
+        </div>
+      </div>
+    </div>
+    <div class="grayButton" style="margin-right: 0">
+      <div
+        class="displayFlex justifycontencenter AlignItemCenter flexDirection ptopBottom"
+      >
+        <div class="dolar"></div>
+        <div class="displayFlex">
+          <div class="fs16px fontWeight prb">
+            Approve Milestone<br />
+            Funding
+          </div>
+          <div class="redCircle">{{data['milestonecount']}}</div>
+        </div>
+        <div class="grayColor3">
+          Complete this step in the transaction process to receive funding
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fs22px pb20 textAlignCenter">Application File Upload</div>
+
+  <div class="dataTables_wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Application Status</th>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Loan Reference Number</th>
+          <th scope="col">Application Submited Date</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-installer1" *ngFor="let d of data['applicationsList'];">
+          <td>
+            <button class="btn greenBorder fs14px" (click)="go(d['loan_id'])">
+              UPLOAD DOCS
+            </button>
+          </td>
+          <td>APP_{{d['app_ref']}}</td>
+          <td>{{d['firstname']}} {{d['lastname']}}</td>
+          <td>LON_{{d['loan_ref']}}</td>
+          <td>{{d['createdat']}}</td>
+          <td>{{d['email']}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>

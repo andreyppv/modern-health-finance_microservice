@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="45"
+   height="45"
+   viewBox="0 0 45 45"
+   fill="none"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="dolar.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <metadata
+     id="metadata14">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     id="namedview10"
+     showgrid="false"
+     inkscape:zoom="10.088889"
+     inkscape:cx="22.5"
+     inkscape:cy="22.5"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <path
+     d="M43.905 22.1005C43.905 34.0307 34.2476 43.7009 22.3361 43.7009C10.4245 43.7009 0.76709 34.0307 0.76709 22.1005C0.76709 10.1702 10.4245 0.5 22.3361 0.5C34.2476 0.5 43.905 10.1702 43.905 22.1005Z"
+     fill="#C5D93A"
+     fill-opacity="0.15"
+     stroke="#F5F6F5"
+     id="path2" />
+  <path
+     d="M13.3076 13.0593V31.1414C13.3076 31.9451 13.9764 32.146 14.3108 32.146H30.3609C31.1634 32.146 31.364 31.4763 31.364 31.1414V17.0775L26.3484 12.0547H14.3108C13.5082 12.0547 13.3076 12.7244 13.3076 13.0593Z"
+     fill="#C5D93A"
+     stroke="#F5F6F5"
+     stroke-width="0.555556"
+     id="path4"
+     style="fill:#6dd0d1;fill-opacity:1" />
+  <path
+     d="M25.0108 19.5886H22.3358M18.3232 25.4485C18.6161 25.4485 20.9471 25.4485 22.3358 25.4485M22.3358 19.5886H20.4131C18.7411 19.5886 18.7413 22.1 20.4132 22.1H23.3389C25.8468 22.1 25.8468 25.4485 23.3389 25.4485C22.5382 25.4485 22.929 25.4485 22.3358 25.4485M22.3358 19.5886V17.0771M22.3358 25.4485V27.6251"
+     stroke="#F5F6F5"
+     stroke-width="1.66667"
+     id="path6" />
+</svg>

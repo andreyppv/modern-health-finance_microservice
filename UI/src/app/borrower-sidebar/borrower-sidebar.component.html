@@ -1,0 +1,158 @@
+        <h1 class="heading_Bold28 mb_24 mob_pl_16">Personal customer portal</h1>
+
+<section class="borrower_sidebar">
+  <div class="logo" align="center">
+    <a [routerLink]="['/borrower/overview']">
+      <div class="borrowerLogo"></div
+    ></a>
+  </div>
+
+
+  
+  <ul class="menulist">
+    <li
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/overview']"
+      [routerLinkActive]="['MenuActive']"
+    >
+      <div class="iconBlock">
+        <div class="homeIcon"></div>
+      </div>
+      <div>Profile</div>
+    </li>
+
+    <!-- <div
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/todo-list']"
+      [routerLinkActive]="['MenuActive']"
+    >
+      <div class="iconBlock">
+        <div class="todoIcon"></div>
+      </div>
+      <div>To-do list</div>
+    </div> -->
+    <li
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/docs-management']"
+      [routerLinkActive]="['MenuActive']"
+    >
+      <div class="iconBlock">
+        <div class="documentIcon"></div>
+      </div>
+      <div>Document center</div>
+    </li>
+    <li
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/payment-schedule']"
+      [routerLinkActive]="['MenuActive']"
+    >
+      <div class="iconBlock">
+        <div class="paymentIcon"></div>
+      </div>
+      <div>Financing details</div>
+    </li>
+    <li
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/payment-method']"
+      [routerLinkActive]="['MenuActive']"
+    >
+      <div class="iconBlock">
+        <div class="paymentmethodIcon"></div>
+      </div>
+      <div>Payment Method</div>
+    </li>
+
+    <li
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/make-payment']"
+      [routerLinkActive]="['MenuActive']"
+    >
+      <div class="iconBlock">
+        <div class="makepaymentIcon"></div>
+      </div>
+      <div>Make a payment</div>
+    </li>
+
+    <li
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/settings']"
+      [routerLinkActive]="['MenuActive']"
+    >
+      <div class="iconBlock">
+        <div class="setting"></div>
+      </div>
+      <div>Settings</div>
+    </li>
+
+    <li
+      class="displayFlex ptb10 cursorpointer"
+      [routerLinkActive]="['bg-borrower']"
+      [routerLinkActive]="['MenuActive']"
+      (click)="logout()"
+    >
+      <div class="iconBlock">
+        <div class="logoutIcon"></div>
+      </div>
+      <div class="btnGreen-outline">Logout</div>
+    </li>
+    <!--
+    <div
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/overview']"
+    >
+      <a class="btn"
+        ><i class="fa fa-home" aria-hidden="true"></i
+        >&nbsp;&nbsp;&nbsp;Overview</a
+      >
+    </div>
+    <div>
+      <a class="btn"
+        ><i class="fa fa-list-alt" aria-hidden="true"></i
+        >&nbsp;&nbsp;&nbsp;To-do list</a
+      >
+    </div>
+    <div
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/payment-schedule']"
+    >
+      <a class="btn"
+        ><i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+        &nbsp;&nbsp;&nbsp;Payment Schedule</a
+      >
+    </div>
+    <div
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/make-payment']"
+    >
+      <a class="btn"
+        ><i class="fa fa-money" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;Make a
+        payment</a
+      >
+    </div>
+    <div
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/payment-method']"
+    >
+      <a class="btn"
+        ><i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+        &nbsp;&nbsp;&nbsp;Payment Method</a
+      >
+    </div>
+    <div
+      [routerLinkActive]="['bg-borrower']"
+      [routerLink]="['/borrower/docs-management']"
+    >
+      <a class="btn"
+        ><i class="fa fa-file-text" aria-hidden="true"></i>
+        &nbsp;&nbsp;&nbsp;Documents Management</a
+      >
+    </div> -->
+  </ul>
+</section>

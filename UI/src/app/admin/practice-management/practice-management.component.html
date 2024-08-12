@@ -1,0 +1,764 @@
+<section class="content-header pt48_plrb_25" *ngIf="isListView">
+  <div class="displayFlex spaceBetween AlignItemCenter">
+    <div>
+      <h1>Practice Management</h1>
+
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']"
+            ><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">
+          <img src="../../assets/new/file_open_active.svg" />Practice Management
+        </li>
+      </ol>
+      <button
+        (click)="isListView = !isListView; backbtn()"
+        class="btn Whitebtn mt_24"
+      >
+        Create Practice
+      </button>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg" /></a>
+      </div>
+      <button class="btn search">Search</button>
+    </div>
+  </div>
+</section>
+
+<section class="content-header pt48_plrb_25" *ngIf="isListView != true">
+  <div class="displayFlex spaceBetween AlignItemCenter">
+    <div>
+      <h1>Create New Practice</h1>
+
+      <ol class="breadcrumb">
+        <li class="current">
+          <!--[routerLink]="['/admin/dashboard']-->
+          <a [routerLink]="['/admin/dashboard']">
+            <img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">
+          <img src="../../assets/new/plus.svg" /> Create New Practice
+        </li>
+      </ol>
+      <button
+        (click)="isListView = !isListView; apForm.reset()"
+        class="btn Whitebtn mt_24"
+      >
+        Back
+      </button>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg" /></a>
+      </div>
+      <button class="btn search">Search</button>
+    </div>
+  </div>
+</section>
+
+<div class="content_part" *ngIf="isListView">
+  <div class="Table_wrapped overflowScroll table_responsive">
+    <table *ngIf="data != null && data.length > 0" datatable class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Contact Name</th>
+          <th scope="col">Contact Email</th>
+          <th scope="col">Location</th>
+          <th scope="col">City</th>
+          <th scope="col">State Code</th>
+          <th scope="col">PracticeUrl</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of data; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ d.practicename }}</td>
+          <td>{{ d.contactname }}</td>
+          <td>{{ d.email }}</td>
+
+          <td>{{ d.locationname }}</td>
+          <td>{{ d.city }}</td>
+          <td>{{ d.statecode }}</td>
+
+          <td>{{ d.practiceurl }}</td>
+          <!-- <td>{{ d.city }}</td> -->
+          <td (click)="editPracticeData(d._id)" style="cursor: pointer">
+            <img src="../../../assets/new/EditIcon.svg" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="data.length == 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Contact Name</th>
+          <th scope="col">Contact Email</th>
+          <th scope="col">Location</th>
+          <th scope="col">City</th>
+          <th scope="col">State Code</th>
+          <th scope="col">PracticeUrl</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<section
+  id="createApplicationFromBackend"
+  class="start_application"
+  *ngIf="isListView != true"
+>
+  <div class="WhiteFrame BRadius_10 p24">
+    <form
+      autocomplete="on"
+      class="formclass signupForm"
+      style="width: 100%"
+      [formGroup]="apForm"
+      (ngSubmit)="sendForm()"
+      method="POST"
+    >
+      <div class="row">
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>First Name</label>  -->
+            <input
+              type="hidden"
+              [(ngModel)]="updateId"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <input
+              placeholder="Contact Name"
+              formControlName="contactName"
+              id="contactName"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.contactName.errors &&
+                  (apiFormvalidation.contactName.dirty ||
+                    apiFormvalidation.contactName.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.contactName.errors &&
+                (apiFormvalidation.contactName.dirty ||
+                  apiFormvalidation.contactName.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.contactName.errors.required">
+                Contact Name is required
+              </div>
+              <div *ngIf="apiFormvalidation.contactName.errors.pattern">
+                Contact Name is not Vaild
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>Email</label>  -->
+            <input
+              placeholder="Email Address"
+              formControlName="email"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.email.errors &&
+                  (apiFormvalidation.email.dirty ||
+                    apiFormvalidation.email.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.email.errors &&
+                (apiFormvalidation.email.dirty ||
+                  apiFormvalidation.email.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.email.errors.required">
+                Email is required
+              </div>
+              <div *ngIf="apiFormvalidation.email.errors.pattern">
+                Email is not Vaild
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>First Name</label> -->
+            <input
+              placeholder="Practice Name"
+              formControlName="practiceName"
+              id="practiceName"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.practiceName.errors &&
+                  (apiFormvalidation.practiceName.dirty ||
+                    apiFormvalidation.practiceName.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.practiceName.errors &&
+                (apiFormvalidation.practiceName.dirty ||
+                  apiFormvalidation.practiceName.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.practiceName.errors.required">
+                Practice Name is required
+              </div>
+              <div *ngIf="apiFormvalidation.practiceName.errors.pattern">
+                Practice Name is not Vaild
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>First Name</label>  -->
+            <input
+              placeholder="Practice Url"
+              formControlName="practiceUrl"
+              id="practiceUrl"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.practiceUrl.errors &&
+                  (apiFormvalidation.practiceUrl.dirty ||
+                    apiFormvalidation.practiceUrl.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.practiceUrl.errors &&
+                (apiFormvalidation.practiceUrl.dirty ||
+                  apiFormvalidation.practiceUrl.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.practiceUrl.errors.required">
+                Practice Url is required
+              </div>
+              <div *ngIf="apiFormvalidation.practiceUrl.errors.pattern">
+                Practice Url is not Vaild
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>First Name</label>  -->
+            <input
+              placeholder="Practice Home Url"
+              formControlName="practiceHomeUrl"
+              id="practiceHomeUrl"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.practiceHomeUrl.errors &&
+                  (apiFormvalidation.practiceHomeUrl.dirty ||
+                    apiFormvalidation.practiceHomeUrl.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.practiceHomeUrl.errors &&
+                (apiFormvalidation.practiceHomeUrl.dirty ||
+                  apiFormvalidation.practiceHomeUrl.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.practiceHomeUrl.errors.required">
+                Practice Home Url is required
+              </div>
+              <div *ngIf="apiFormvalidation.practiceHomeUrl.errors.pattern">
+                Practice Home Url is not Vaild
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>First Name</label>  -->
+            <input
+              placeholder="Location Name"
+              formControlName="locationName"
+              id="locationName"
+              onkeydown="return /[a-z ]/i.test(event.key)"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.locationName.errors &&
+                  (apiFormvalidation.locationName.dirty ||
+                    apiFormvalidation.locationName.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.locationName.errors &&
+                (apiFormvalidation.locationName.dirty ||
+                  apiFormvalidation.locationName.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.locationName.errors.required">
+                Location Name is required
+              </div>
+              <div *ngIf="apiFormvalidation.locationName.errors.pattern">
+                Location Name is not Vaild
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>Mobile Phone</label> -->
+            <input
+              type="text"
+              name="phone"
+              formControlName="mobileNumber"
+              class="adminInput"
+              placeholder="+0(000)-000-0000"
+              mask="+0 (000) 000-0000"
+              [ngClass]="{
+                'is-invalid':
+                  apiFormvalidation.mobileNumber.errors &&
+                  (apiFormvalidation.mobileNumber.dirty ||
+                    apiFormvalidation.mobileNumber.touched ||
+                    apibtn)
+              }"
+            />
+            <div
+              *ngIf="
+                apiFormvalidation.mobileNumber.errors &&
+                (apiFormvalidation.mobileNumber.dirty ||
+                  apiFormvalidation.mobileNumber.touched ||
+                  apibtn)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.mobileNumber.errors.required">
+                Phone Phone is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>Street Address</label>  -->
+            <input
+              placeholder="Street Address"
+              formControlName="streetaddress"
+              class="adminInput"
+              [ngClass]="{
+                'is-invalid':
+                  (apiFormvalidation.streetaddress.dirty ||
+                    apiFormvalidation.streetaddress.touched ||
+                    apibtn) &&
+                  apiFormvalidation.streetaddress.errors
+              }"
+            />
+            <div
+              *ngIf="
+                (apiFormvalidation.streetaddress.dirty ||
+                  apiFormvalidation.streetaddress.touched ||
+                  apibtn) &&
+                apiFormvalidation.streetaddress.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.streetaddress.errors.required">
+                Street Address is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6">
+          <div class="row AlignItemCenter">
+            <div class="form-group col-xs-12 col-sm-9">
+              <div class="float-label">
+                <input
+                  type="hidden"
+                  id="color"
+                  formControlName="mainColor"
+                  name="color"
+                  class="adminInput"
+                  spellcheck="false"
+                  [(ngModel)]="mainColor"
+                  [ngModelOptions]="{ standalone: true }"
+                  [ngClass]="{
+                    'is-invalid':
+                      (apiFormvalidation.mainColor.dirty ||
+                        apiFormvalidation.mainColor.touched ||
+                        apibtn) &&
+                      apiFormvalidation.mainColor.errors
+                  }"
+                  required
+                />
+                <input
+                  ejs-colorpicker
+                  type="color"
+                  class="adminInput"
+                  id="colorpicker"
+                  required
+                  [(value)]="mainColor"
+                  (change)="colorChange($event, 'main')"
+                  name="colorpicker"
+                />
+              </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-3">
+              <a (click)="setDefault('main')" class="btn main_hover_btn">
+                Reset
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6"> 
+          <div class="row AlignItemCenter">
+            <div class="form-group col-xs-12 col-sm-9">
+              <div class="float-label">
+                <input
+                  type="hidden"
+                  id="color"
+                  formControlName="secondaryColor"
+                  name="color"
+                  class="adminInput"
+                  spellcheck="false"
+                  [(ngModel)]="secondaryColor"
+                  [ngModelOptions]="{ standalone: true }"
+                  [ngClass]="{
+                    'is-invalid':
+                      (apiFormvalidation.secondaryColor.dirty ||
+                        apiFormvalidation.secondaryColor.touched ||
+                        apibtn) &&
+                      apiFormvalidation.secondaryColor.errors
+                  }"
+                  required
+                />
+                <input
+                  ejs-colorpicker
+                  type="color"
+                  class="adminInput"
+                  id="colorpicker"
+                  required
+                  [(value)]="secondaryColor"
+                  (change)="colorChange($event, 'secondary')"
+                  name="colorpicker"
+                />
+              </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-3">
+              <a (click)="setDefault('secondary')" class="btn main_hover_btn">
+                Reset
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>City</label>  -->
+            <input
+              placeholder="City"
+              formControlName="city"
+              class="adminInput"
+              onkeydown="return /[a-z ]/i.test(event.key)"
+              [ngClass]="{
+                'is-invalid':
+                  (apiFormvalidation.city.dirty ||
+                    apiFormvalidation.city.touched ||
+                    apibtn) &&
+                  apiFormvalidation.city.errors
+              }"
+            />
+            <div
+              *ngIf="
+                (apiFormvalidation.city.dirty ||
+                  apiFormvalidation.city.touched ||
+                  apibtn) &&
+                apiFormvalidation.city.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.city.errors.required">
+                City is required
+              </div>
+              <div *ngIf="apiFormvalidation.city.errors.pattern">
+                City is not Vaild
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>State</label>  -->
+            <select
+              class="adminInput"
+              formControlName="stateCode"
+              [ngClass]="{
+                'is-invalid':
+                  (apiFormvalidation.stateCode.dirty ||
+                    apiFormvalidation.stateCode.touched ||
+                    apibtn) &&
+                  apiFormvalidation.stateCode.errors
+              }"
+            >
+              <option value="null" disabled>State Code</option>
+              <option [value]="state.id" *ngFor="let state of stateList">
+                {{ state.displayName }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                (apiFormvalidation.stateCode.dirty ||
+                  apiFormvalidation.stateCode.touched ||
+                  apibtn) &&
+                apiFormvalidation.stateCode.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.stateCode.errors.required">
+                State Code is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>Zip Code</label>  -->
+            <input
+              placeholder="Zip Code"
+              class="adminInput zipbox"
+              formControlName="zipcode"
+              mask="00000"
+              maxlength="5"
+              [ngClass]="{
+                'is-invalid':
+                  (apiFormvalidation.zipcode.dirty ||
+                    apiFormvalidation.zipcode.touched ||
+                    apibtn) &&
+                  apiFormvalidation.zipcode.errors
+              }"
+            />
+            <div
+              *ngIf="
+                (apiFormvalidation.zipcode.dirty ||
+                  apiFormvalidation.zipcode.touched ||
+                  apibtn) &&
+                apiFormvalidation.zipcode.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.zipcode.errors.required">
+                Zip Code is required
+              </div>
+              <div *ngIf="apiFormvalidation.zipcode.errors.pattern">
+                Zip Code is not Vaild
+              </div>
+              <div *ngIf="apiFormvalidation.zipcode.errors.minlength">
+                Zip Code should contain 5 numbers
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb_24">
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <div class="float-label">
+            <!-- <label>State</label>  -->
+            <select
+              class="adminInput"
+              formControlName="practiceSettings"
+              [ngClass]="{
+                'is-invalid':
+                  (apiFormvalidation.practiceSettings.dirty ||
+                    apiFormvalidation.practiceSettings.touched ||
+                    apibtn) &&
+                  apiFormvalidation.practiceSettings.errors
+              }"
+            >
+              <option value="null" disabled>Practice Settings</option>
+              <option [value]="ps.ref_no" *ngFor="let ps of dataSettings">
+                {{ ps.setting_name }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                (apiFormvalidation.practiceSettings.dirty ||
+                  apiFormvalidation.practiceSettings.touched ||
+                  apibtn) &&
+                apiFormvalidation.practiceSettings.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="apiFormvalidation.practiceSettings.errors.required">
+                Practice Settings is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <label>Practice Logo</label>
+
+          <!-- <div class="custom-file uploadInputFile">
+    <input type="file" class="custom-file-input"  formControlName = "practicelogo" (change)="dropped($event.target.files)">
+    <label class="custom-file-label" for="validatedCustomFile">Practice Logo</label>
+  </div> -->
+
+          <input
+            type="file"
+            #myInput
+            class="file"
+            name="filename"
+            id="fileControl"
+            formControlName="practicelogo"
+            (change)="dropped($event.target.files)"
+            accept="image/x-png,image/jpg,image/jpeg"
+          />
+          <!-- <ng-template [ngIf]="preFileitems != null">
+            <div *ngFor="let e of preFileitems" class="mt10">
+              <div>
+                 <span>{{preFileitems.originalname}}</span> -->
+          <!-- <span>{{ e.originalname }}</span>
+              </div>
+              <div class="ml5">
+                <span class="tomatoColor">
+                  <i
+                    class="fas fa-times cur-poi"
+                    (click)="deletePreFileSelected(e)"
+                  ></i
+                ></span>
+              </div>
+            </div>
+          </ng-template> -->
+          <ng-template [ngIf]="fileitems != null">
+            <div *ngFor="let e of fileitems" class="mt10">
+              <div>
+                <span>{{ e.originalname }}</span>
+              </div>
+              <div class="ml5">
+                <span class="tomatoColor">
+                  <i
+                    class="fas fa-times cur-poi"
+                    (click)="deleteFileSelected(e)"
+                  ></i
+                ></span>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="form-group col-md-4 col-xs-12 col-sm-6">
+          <label>Practice Powered By Logo</label>
+          <input
+            type="file"
+            #myInput1
+            class="file"
+            name="filename"
+            id="fileControl"
+            formControlName="practicepoweredbylogo"
+            (change)="droppedlogo($event.target.files)"
+            accept="image/x-png,image/jpg,image/jpeg"
+          />
+          <ng-template [ngIf]="fileitemsTwo != null">
+            <div *ngFor="let e of fileitemsTwo" class="mt10">
+              <div>
+                <span>{{ e.originalname }}</span>
+              </div>
+              <div class="ml5">
+                <span class="tomatoColor">
+                  <i
+                    class="fas fa-times cur-poi"
+                    (click)="deleteCoFileSelected(e)"
+                  ></i
+                ></span>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <button type="submit" class="btn main_btn">
+        <span *ngIf="isShowbtn; else upbtn_err">Update</span>
+        <ng-template #upbtn_err>Save</ng-template>
+      </button>
+    </form>
+  </div>
+</section>
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>

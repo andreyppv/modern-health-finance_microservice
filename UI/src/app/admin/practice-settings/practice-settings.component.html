@@ -1,0 +1,79 @@
+<section class="content-header" *ngIf="isListView">
+  <ol class="breadcrumb">
+    <li class="current">
+      <a [routerLink]="['/admin/dashboard']"
+        ><img src="../../assets/new/dashboard.svg" /> Dashboard
+        <i class="fal fa-angle-right"></i
+      ></a>
+    </li>
+    <li class="active">
+      <img src="../../assets/new/file_open_active.svg" />Practice Settings
+    </li>
+  </ol>
+  <h1>Practice Settings</h1>
+  <button (click)="isListView = !isListView" class="btn btn-primary">
+    Create Settings
+  </button>
+</section>
+<section class="content-header" *ngIf="isListView != true">
+  <ol class="breadcrumb">
+    <li class="current">
+      <!--[routerLink]="['/admin/dashboard']-->
+      <a [routerLink]="['/admin/dashboard']">
+        <img src="../../assets/new/dashboard.svg" /> Dashboard
+        <i class="fal fa-angle-right"></i
+      ></a>
+    </li>
+    <li class="active">
+      <img src="../../assets/new/plus.svg" /> Create New Practice Settings
+    </li>
+  </ol>
+  <h1>Settings Form</h1>
+  <button (click)="isListView = !isListView" class="btn btn-primary">
+    Back
+  </button>
+</section>
+<div class="content_part" *ngIf="isListView">
+  <div class="p10">
+    <table *ngIf="data.length > 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Setting Name</th>
+          <th scope="col">Is Default</th>
+          <th scope="col">Action</th>
+          <!-- <th scope="col">First Name</th>
+                    <th scope="col">lastName</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of data; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <a routerLink="/admin/loan-stages/{{ stage }}/{{ d.loan_id }}"
+              >LON_{{ d.loan_ref }}</a
+            >
+          </td>
+          <td>
+            <a routerLink="/admin/users/{{ d.user_id }}"
+              >USR_{{ d.user_ref }}</a
+            >
+          </td>
+          <td>{{ d.email }}</td>
+          <td>{{ d.firstname }}</td>
+          <td>{{ d.lastname }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="data.length == 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Setting Name</th>
+          <th scope="col">Is Default</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

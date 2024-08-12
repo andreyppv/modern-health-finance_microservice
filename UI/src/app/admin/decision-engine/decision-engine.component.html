@@ -1,0 +1,39 @@
+<section class="content-header">
+    <!-- <h1>Pending Application Details</h1> -->
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/dashboard']"
+          ><i class="fa fa-dashboard"></i> Dashboard</a
+        >
+      </li>
+      <li class="active">Decision Engine</li>
+    </ol>
+  </section>
+  
+  <div class="frameshadow">
+    <div class="mainTitle">
+      <div>Decision Engine</div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-success btn-user-control"
+          (click)="mcs()"
+        >
+       DE Parameters
+        </button>
+        &nbsp;
+        <button
+          type="button"
+          class="btn btn-outline-success btn-user-control"
+          (click)="cs()"
+        >
+          DE Config
+        </button>
+      </div>
+    </div>
+  
+    <div class="p10">
+      <iframe class="DecisionEngine" [src]="src" frameborder="0"></iframe>
+    </div>
+  </div>
+  

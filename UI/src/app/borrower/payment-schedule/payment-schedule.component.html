@@ -1,0 +1,140 @@
+<section class="pb_23 Border_borderRadius">
+  <div class="portal_table table_responsive plr_24">
+    <h4 class="SemiBold_14 mb_16">Financing</h4>
+    <table>
+      <tr>
+        <th>Financing reference</th>
+        <td>{{loandata[0].loanreference}}</td>
+      </tr>
+        <tr>
+        <th>Name</th>
+        <td>{{loandata[0].firstname}}</td>
+      </tr>
+      <tr>
+        <th>Amount financed</th>
+        <td>{{loandata[0].amount}}</td>
+      </tr>
+        <tr>
+        <th>Status</th>
+        <td>{{loandata[0].status}}</td>
+      </tr>
+    </table>
+  </div>
+  <hr class="borderCenter">
+  <div class="portal_table table_responsive plr_24">
+    <h4 class="SemiBold_14 mb_16">Financing details</h4>
+    <table>
+      <tr>
+        <th>Financing reference</th>
+        <td>{{loandata[0].loanreference}}</td>
+      </tr>
+        <tr>
+        <th>Amount financed</th>
+        <td>{{loandata[0].amount}}</td>
+      </tr>
+      <!-- <tr>
+        <th>Interest rate</th>
+        <td>0.00%</td>
+      </tr> -->
+      <tr>
+        <th>APR</th>
+        <td>{{loandata[0].apr}}</td>
+      </tr>
+        <tr>
+        <th>Financing term</th>
+        <td>{{loandata[0].loantermcount}}</td>
+      </tr>
+    </table>
+  </div>
+  <hr class="borderCenter">
+  <div class="portal_table table_responsive plr_24">
+    <h4 class="SemiBold_14 mb_16">Payment schedule</h4>
+    <table>
+      <tr *ngFor="let d of data.paymentScheduleDetails; let i = index">
+        <th>{{datePipe.transform(d.scheduledate, "MMM dd, YYYY")}}</th>
+        <td>{{ d.amount | currency }}</td>
+      </tr>
+    </table>
+  </div>
+  <hr class="borderCenter">
+  <div class="content_box plr_30">
+    <div>
+      <div class="fs14px fontWeight pb20">Remaining balance</div>
+      <div class="fs22px greenColor pb20">${{ remainingBalance }}</div>
+    </div>
+    <div class="displayFlex spaceBetween pb20">
+      <div>Minimum amount</div>
+      <div>${{ monthDue }}</div>
+    </div>
+    <div class="displayFlex spaceBetween pb20">
+      <div>Next payment due</div>
+      <div>{{ datePipe.transform(nextDuedate, "MMMM dd yyyy") }}</div>
+    </div>
+    <div
+      *ngIf="data.user_details?.autopayment == 'Y'"
+      class="infoBlock mb20px">
+      <div class="info_icon"></div>
+      <div>
+        You have automatic payment set up and this payment will be
+        automatically deducated from your bank account due to date.
+      </div>
+    </div>
+  </div>
+
+  <div class="content_box plr_30">
+    <h4 class="SemiBold_14 mb_16">Payment Schedule Information</h4>
+    <div class="Table_wrapped table_responsive">
+      <table class="borderradius_unset">
+        <thead>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>Unpaid Principal Balance</th>
+            <th>Principal</th>
+            <th>Interest</th>
+            <th>Fees</th>
+            <th>Amount</th>
+            <th>Schedule Date</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="data.paymentScheduleDetails.length > 1">
+          <tr
+            *ngFor="let d of data.paymentScheduleDetails; let i = index"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ d.unpaidprincipal | currency }}
+            </td>
+            <td>
+              {{ d.principal | currency }}
+            </td>
+            <td>{{ d.interest | currency }}</td>
+            <td>{{ d.fees | currency }}</td>
+            <td>{{ d.amount | currency }}</td>
+            <td>
+              {{ datePipe.transform(d.scheduledate, "yyyy/MM/dd") }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="content_box plr_30">
+    <div>
+      <div class="fs16px fontWeight pb20">Previous Payments</div>
+    </div>
+
+    <div
+      *ngFor="let pd of data.payment_details"
+      class="displayFlex spaceBetween pb20"
+    >
+      <div class="displayFlex">
+        <div class="tick_icon"></div>
+        <div>
+          {{ datePipe.transform(pd.paidat, "MMMM dd") }}th
+          {{ datePipe.transform(pd.paidat, "yyyy") }}
+        </div>
+      </div>
+      <div>${{ pd.amount }}</div>
+    </div>
+</div>
+</section>

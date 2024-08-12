@@ -1,0 +1,378 @@
+<ng-template #template>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Question Add</p>
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && addSubmit(messagebox)"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="row">
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Question</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9">
+          <div class="form-group">
+            <input
+              type="text"
+              name="question"
+              class="form-control"
+              placeholder="Enter Question"
+              [(ngModel)]="f1.question"
+              #question="ngModel"
+              required
+              [ngClass]="{ 'is-invalid': f.submitted && question.invalid }"
+            />
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Type</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9">
+          <select
+            class="form-select"
+            name="type"
+            placeholder="Type"
+            [(ngModel)]="f1.type"
+            (change)="typechange($event.target.value)"
+          >
+            <option value="Yes_or_no">Yes or No</option>
+            <option value="Value">Value</option>
+            <option value="Free_style">Free Style</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Condition</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9">
+          <select
+            class="form-select"
+            name="condition"
+            placeholder="Condition"
+            [(ngModel)]="f1.condition"
+            *ngIf="f1.type == 'Yes_or_no'"
+          >
+            <option value="=">=</option>
+          </select>
+          <select
+            class="form-select"
+            name="condition"
+            placeholder="Condition"
+            [(ngModel)]="f1.condition"
+            *ngIf="f1.type == 'Free_style'"
+          >
+            <option value="=">=</option>
+          </select>
+          <select
+            class="form-select"
+            name="condition"
+            placeholder="Condition"
+            [(ngModel)]="f1.condition"
+            *ngIf="f1.type == 'Value'"
+          >
+            <option value="=">=</option>
+            <option value=">">&#62;</option>
+            <option value="<">&#60;</option>
+            <option value=">=">&#62;=</option>
+            <option value="<=">&#60;=</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Approved If</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9" *ngIf="f1.type == 'Yes_or_no'">
+          <select
+            class="form-select"
+            name="approvedif"
+            placeholder="approvedif"
+            [(ngModel)]="f1.approvedif"
+          >
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="col-9" *ngIf="f1.type == 'Free_style'">
+          <select
+            class="form-select"
+            name="approvedif"
+            placeholder="approvedif"
+            [(ngModel)]="f1.approvedif"
+          >
+            <option value="any">Any</option>
+          </select>
+        </div>
+        <div class="col-9" *ngIf="f1.type == 'Value'">
+          <div class="form-group">
+            <input
+              type="text"
+              name="approvedif"
+              class="form-control"
+              placeholder="Enter Amount"
+              (input)="f1.approvedif = number($event)"
+              [(ngModel)]="f1.approvedif"
+              #approvedif="ngModel"
+              required
+              [ngClass]="{ 'is-invalid': f.submitted && approvedif.invalid }"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group text-center">
+            <button type="submit" class="form-control btn-success">Add</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #template1>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Question Edit</p>
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && editSubmit(messagebox)"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="row">
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Question</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9">
+          <div class="form-group">
+            <input
+              type="text"
+              name="question"
+              class="form-control"
+              placeholder="Enter Question"
+              [(ngModel)]="f1.question"
+              #question="ngModel"
+              required
+              [ngClass]="{ 'is-invalid': f.submitted && question.invalid }"
+            />
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Type</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9">
+          <select
+            class="form-select"
+            name="type"
+            placeholder="Type"
+            [(ngModel)]="f1.type"
+            (change)="typechange($event.target.value)"
+          >
+            <option value="Yes_or_no">Yes or No</option>
+            <option value="Value">Value</option>
+            <option value="Free_style">Free Style</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Condition</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9">
+          <select
+            class="form-select"
+            name="condition"
+            placeholder="Condition"
+            [(ngModel)]="f1.condition"
+            *ngIf="f1.type == 'Yes_or_no'"
+          >
+            <option value="=">=</option>
+          </select>
+          <select
+            class="form-select"
+            name="condition"
+            placeholder="Condition"
+            [(ngModel)]="f1.condition"
+            *ngIf="f1.type == 'Value'"
+          >
+            <option value="=">=</option>
+            <option value=">">&#62;</option>
+            <option value="<">&#60;</option>
+            <option value=">=">&#62;=</option>
+            <option value="<=">&#60;=</option>
+          </select>
+          <select
+            class="form-select"
+            name="condition"
+            placeholder="Condition"
+            [(ngModel)]="f1.condition"
+            *ngIf="f1.type == 'Free_style'"
+          >
+            <option value="=">=</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="ContactName">Approved If</label>
+          </div>
+        </div>
+        <div class="col-1">:</div>
+        <div class="col-9" *ngIf="f1.type == 'Yes_or_no'">
+          <select
+            class="form-select"
+            name="approvedif"
+            placeholder="approvedif"
+            [(ngModel)]="f1.approvedif"
+          >
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="col-9" *ngIf="f1.type == 'Free_style'">
+          <select
+            class="form-select"
+            name="approvedif"
+            placeholder="approvedif"
+            [(ngModel)]="f1.approvedif"
+          >
+            <option value="any">Any</option>
+          </select>
+        </div>
+        <div class="col-9" *ngIf="f1.type == 'Value'">
+          <div class="form-group">
+            <input
+              type="text"
+              name="approvedif"
+              class="form-control"
+              placeholder="Enter Amount"
+              (input)="f1.approvedif = number($event)"
+              [(ngModel)]="f1.approvedif"
+              #approvedif="ngModel"
+              required
+              [ngClass]="{ 'is-invalid': f.submitted && approvedif.invalid }"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group text-center">
+            <button type="submit" class="form-control btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>
+
+<section class="content-header">
+  <!-- <h1>Pending Application Details</h1> -->
+  <ol class="breadcrumb">
+    <li>
+      <a [routerLink]="['/admin/dashboard']"
+        ><i class="fa fa-dashboard"></i> Dashboard</a
+      >
+    </li>
+    <li class="active">Question</li>
+  </ol>
+</section>
+
+<div class="frameshadow">
+  <div class="displayFlex spaceBetween mainTitle">
+    <div>
+      <div class="">Question</div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-success" (click)="add(template)">
+        Add Question
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="p10px">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Question</th>
+              <th scope="col">Type</th>
+              <th scope="col">Condition</th>
+              <th scope="col">Approved If</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let q of list; let i = index">
+              <th scope="row">{{ q.question }}</th>
+              <td>{{ q.type }}</td>
+              <td>{{ q.condition }}</td>
+              <td>{{ q.approvedif }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn greenBorder"
+                  (click)="edit(q, i, template1)"
+                >
+                  <i class="fa fa-edit"></i>
+                </button>
+                &nbsp;
+                <button
+                  type="button"
+                  class="btn greenBorder"
+                  (click)="delete(q.id, messagebox)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

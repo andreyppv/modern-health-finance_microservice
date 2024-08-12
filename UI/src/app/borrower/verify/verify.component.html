@@ -1,0 +1,9 @@
+<ng-template #messagebox>
+    <div class="modal-body text-center">
+       <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+       </button>
+       <p class="headtext">Message</p>
+       <p *ngFor="let m of message;">{{m}}</p>
+    </div>
+ </ng-template>

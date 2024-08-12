@@ -1,0 +1,275 @@
+
+    <div class="p20">
+        <!-- <div class="part1">
+            <p class="headtext">MED Plan Credit Page Application 1/3</p>
+        </div> -->
+        <div class="part2">
+            <form name="form" (ngSubmit)="f.form.valid && onSubmit(template)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="ContactName">First Name</label>
+                    <input type="text" name="firstname" class="form-control" placeholder="Enter First Name" (input)="f1.firstname = namedata($event)"  [(ngModel)]="f1.firstname" #firstname="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }" >
+                </div> 
+                <div class="form-group">
+                    <label for="ContactName">Last name</label>
+                    <input type="text" name="lastname" class="form-control" placeholder="Enter Last name" (input)="f1.lastname = namedata($event)"  [(ngModel)]="f1.lastname" #lastname="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }">
+                </div> 
+                <div class="form-group">
+                    <label for="ContactName">Social Security Number </label>
+                    <input type="text" name="socialsecuritynumber" placeholder="000-00-0000" class="form-control" [hiddenInput]="true"  mask="XXX-XX-0000"  [(ngModel)]="f1.socialsecuritynumber" #socialsecuritynumber="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && socialsecuritynumber.invalid }">
+                </div> 
+                <div class="form-group">
+                    <label for="ContactName">Date of Birthday</label>
+                    <!-- <input type="text"  class="form-control"  (input)="f1.Date_of_Birthday = namedata($event)"  [(ngModel)]="f1.Date_of_Birthday" #Date_of_Birthday="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && Date_of_Birthday.invalid }"> -->
+                    <input
+                    name="birthday"
+                    placeholder="mm/dd/yyyy"
+                    [(ngModel)]="f1.birthday"
+                    #birthday="bsDatepicker"
+                    [maxDate]="maxDate"
+        class="form-control"
+        bsDatepicker
+        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+        required [ngClass]="{ 'is-invalid': f.submitted && !f1.birthday }">
+
+                </div>
+                <div class="form-group">
+                    <label for="ContactEmail">Email</label>
+                    <input type="email"  name="email" class="form-control" placeholder="Enter Email" [(ngModel)]="f1.email" #email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Phone</label>
+                    <input type="text" name="phone" class="form-control" placeholder="Enter Phone" placeholder="+1 (000) 000-0000" mask="+0 (000) 000-0000" (input)="f1.phone=$event.target.value" [(ngModel)]="f1.Phone" #phone="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }">
+                </div>                
+                
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="ContactName">Installation Street Address</label>
+                            <input type="text" name="streetaddress" class="form-control" placeholder="Enter Installation Street Address"  [(ngModel)]="f1.streetaddress" #streetaddress="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && streetaddress.invalid }">
+                        </div> 
+                        
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="ContactName">Unit</label>
+                            <input type="text" name="unit" class="form-control" placeholder="Enter Unit" [(ngModel)]="f1.unit" #unit="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && unit.invalid }">
+                        </div> 
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="ContactName">City</label>
+                            <input type="text" name="city" class="form-control" placeholder="Enter City"  [(ngModel)]="f1.city" #city="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && city.invalid }">
+                        </div> 
+                        
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="ContactName">State</label>
+                            <input type="text" name="state" class="form-control" placeholder="Enter State"   [(ngModel)]="f1.state" #state="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && state.invalid }">
+                        </div> 
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="ContactName">Zip Code</label>
+                            <input type="text" name="zipcode" class="form-control" placeholder="Enter Zip Code" (input)="f1.zipcode = number($event)"   [(ngModel)]="f1.zipcode" #zipcode="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && zipcode.invalid }">
+                        </div> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Individual Annual Income ($)</label>
+                    <input type="text" name="annualincome" class="form-control" placeholder="Enter Individual Annual Income" (input)="f1.annualincome = number($event)" (blur)="f1.annualincome = transformAmount($event)"   [(ngModel)]="f1.annualincome" #annualincome="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && annualincome.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Additional Income</label>
+                    <input type="text" name="additionalincome" class="form-control" placeholder="Enter Additional Income" (input)="f1.additionalincome = number($event)" (blur)="f1.additionalincome = transformAmount($event)"   [(ngModel)]="f1.additionalincome" #additionalincome="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && additionalincome.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Monthly Mortgage Payment</label>
+                    <input type="text" name="mortgagepayment" class="form-control" placeholder="Enter Monthly Mortgage Payment" (input)="f1.mortgagepayment = number($event)" (blur)="f1.mortgagepayment = transformAmount($event)"   [(ngModel)]="f1.mortgagepayment" #mortgagepayment="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && mortgagepayment.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="ContactName">Loan Amount ($)</label>
+                    <input type="text" disabled name="loanamount" class="form-control" placeholder="Enter Loan Amount" (input)="f1.loanamount = number($event)" (blur)="f1.loanamount = transformAmount($event)"   [(ngModel)]="f1.loanamount" #loanamount="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && loanamount.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="loanterm">Term (Months)</label>
+                    <input type="text" disabled name="loanterm" class="form-control" placeholder="Enter Term In Months" (input)="f1.loanterm = number($event)" [(ngModel)]="f1.loanterm" #loanterm="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && loanterm.invalid }">
+                </div>
+                <div class="form-group">
+                    <label for="apr">Apr (%)</label>
+                    <input type="text" disabled name="apr" class="form-control" placeholder="Enter Apr" (input)="f1.apr = number($event)" [(ngModel)]="f1.apr" #apr="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && apr.invalid }">
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="ContactName">Co-Applicant?</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input type="checkbox" name="Co_Applicant" class="form-check-input"  [(ngModel)]="Co_Applicant"  >
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="Co_Applicant">
+                    <div>
+                        <hr>
+                        <p class="headtext text-center">Co-Applicant Info</p>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactName">First Name</label>
+                        <input type="text" name="co_firstName" class="form-control" placeholder="Enter First Name" (input)="f1.co_firstName = namedata($event)"  [(ngModel)]="f1.co_firstName" #co_firstName="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_firstName.invalid }">
+                    </div> 
+                    <div class="form-group">
+                        <label for="ContactName">Last name</label>
+                        <input type="text" name="co_lastName" class="form-control" placeholder="Enter Last name" (input)="f1.co_lastName = namedata($event)"  [(ngModel)]="f1.co_lastName" #co_lastName="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_lastName.invalid }">
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactName">Date of Birthday</label>
+                        <!-- <input type="text"  class="form-control"  (input)="f1.Date_of_Birthday = namedata($event)"  [(ngModel)]="f1.Date_of_Birthday" #Date_of_Birthday="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && Date_of_Birthday.invalid }"> -->
+                        <input
+                        name="co_birthday"
+                        placeholder="mm/dd/yyyy"
+                        [(ngModel)]="f1.co_birthday"
+                        #co_birthday="bsDatepicker"
+            class="form-control"
+            bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+            required [ngClass]="{ 'is-invalid': f.submitted && !f1.co_birthday }">
+    
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactEmail">Email</label>
+                        <input type="email"  name="co_email" class="form-control" placeholder="Enter Email" [(ngModel)]="f1.co_email" #co_email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [ngClass]="{ 'is-invalid': f.submitted && co_email.invalid }">
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactName">Phone</label>
+                        <input type="text" name="co_phone" class="form-control" placeholder="Enter Phone" placeholder="+1 (000) 000-0000" mask="+0 (000) 000-0000" (input)="f1.co_phone=$event.target.value" [(ngModel)]="f1.co_phone" #co_phone="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_phone.invalid }">
+                    </div>     
+                    <div class="form-group">
+                        <label for="ContactName">Additional Income</label>
+                        <input type="text" name="co_additionalIncome" class="form-control" placeholder="Enter Additional Income"
+                        (input)="f1.co_additionalIncome = number($event)" (blur)="f1.co_additionalIncome = transformAmount($event)"   [(ngModel)]="f1.co_additionalIncome" #co_additionalIncome="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_additionalIncome.invalid }">
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label for="ContactName">Employer</label>
+                        <input type="text" name="co_employer" class="form-control" placeholder="Enter Employer"  [(ngModel)]="f1.co_employer" #co_employer="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_employer.invalid }">
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactName">Job Title</label>
+                        <input type="text" name="co_jobTitle" class="form-control" placeholder="Enter Job Title"   [(ngModel)]="f1.co_jobTitle" #co_jobTitle="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_jobTitle.invalid }">
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactName">Years with Employer</label>
+                        <input type="text" name="co_yearsEmployed" class="form-control" placeholder="Enter Years with Employer"   [(ngModel)]="f1.co_yearsEmployed" (input)="f1.co_yearsEmployed = number($event)" #co_yearsEmployed="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_yearsEmployed.invalid }">
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactName">Months with Employer</label>
+                        <input type="text" name="co_monthsEmployed" class="form-control" placeholder="Enter Months with Employer"   [(ngModel)]="f1.co_monthsEmployed" (input)="f1.co_monthsEmployed = number($event)" #co_monthsEmployed="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && co_monthsEmployed.invalid }">
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactName">Co-Applicant Home Occupancy</label>
+                        
+                    </div>
+                    <select class="form-select" aria-label="Default select example" name="co_homeOccupancy" 
+                         [(ngModel)]="f1.co_homeOccupancy" 
+                         >                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                            <option value="Investment">Investment</option>
+                            <option value="Other">Other</option>
+                          </select>
+                    <div class="form-group">
+                        <label for="ContactName">Co-Applicant Home Ownership</label>
+                        <select class="form-select"   name="co_homeOwnership"     
+                    [(ngModel)]="f1.co_homeOwnership"  
+                         > 
+                         <option value="Not Owned">Not Owned</option>
+                            <option value="Owned with Mortgage">Owned with Mortgage</option>
+                            <option value="Owned free and clear">Owned free and clear</option>
+                          </select>
+                    </div>
+                       
+                    <div class="form-group">
+                        <label for="ContactName">Co-Applicant Employment Status</label>
+                    </div>
+                    <select class="form-select"   name="co_employmentStatus"     
+                    [(ngModel)]="f1.co_employmentStatus"  
+                         > 
+                         <option value="Employed">Employed</option>
+                            <option value="Retired">Retired</option>
+                            <option value="Not Employed">Not Employed</option>
+                            <option value="Other">Other</option>
+                          </select>
+                    
+
+                        
+                    <div class="form-group">
+                        <label for="ContactName">Co-Applicant Citizenship Status</label>
+                    </div>
+                    <select class="form-select"   name="co_citizenshipStatus"     
+                    [(ngModel)]="f1.co_citizenshipStatus"  
+                         > 
+                         <option value="Us Citizen">Us Citizen</option>
+                            <option value="Lawful permanent resident">Lawful permanent resident</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        
+                    <div class="form-group">
+                        <label for="ContactName">Co-Applicant Spoken Language</label>
+                    </div>
+                    <select class="form-select"   name="co_spokenLanguage"  placeholder="US Citizen"   
+                    [(ngModel)]="f1.co_spokenLanguage"  
+                         > 
+                         <option value="English">English</option>
+                            <option value="Spanish">Spanish</option>
+                          </select>
+                        
+                    
+
+                    
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" name="agree" type="checkbox" [(ngModel)]="agree"  id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            By checking this box, the borrower and co-borrower acknowledge that they are applying for joint credit 
+                        </label>
+                      </div>
+                </div>
+                <div class="form-group mt-5">
+                    <button type="submit" class="form-control btn-sales">PRE-QUALIFY</button>
+                </div>
+            </form>
+        </div>
+      </div>
+
+     
+
+      <ng-template #template>
+        <div class="modal-body text-center" >
+            <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <p class="headtext">Customer Consent</p>
+            <form [formGroup]="form" (submit)="onSubmit1()" (window:resize)="beResponsive(sigContainer1,sig)">
+              
+                <div class="form-group">
+                    <label for="ContactName">By clicking “Submit”,  you are providing Express Written Consent under the Fair Credit Reporting Act for the Financier and MED Plan to obtain your consumer credit report from the contracted Credit Bureaus associated with your pre-qualification for credit inquiry. This is a soft-pull of credit that, in no way, affects your credit score. </label>
+                    <div class="sig-container" #sigContainer1>
+                        
+                        <button type="button" (click)="clear(sig)" [disabled]="!form.controls.signatureField1.valid">Clear</button>
+                          <signature-field #sig formControlName="signatureField1"></signature-field>
+                        
+                      </div>
+                </div>
+                
+                <button type="submit" [disabled]="!form.valid" class="btn btn-sales btn-block modelbtn">SUBMIT PRE-QUALIFICATION</button>
+              </form>
+          
+        </div>
+      </ng-template>

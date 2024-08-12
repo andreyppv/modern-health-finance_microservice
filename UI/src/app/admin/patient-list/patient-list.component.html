@@ -1,0 +1,89 @@
+<section class="content-header pt48_plrb_25" *ngIf="isListView">
+  <div class="displayFlex spaceBetween AlignItemCenter">
+    <div>
+      <h1>Manage Patients Table</h1>
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']"
+            ><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">
+          <img src="../../assets/new/file_open_active.svg" />Manage Patients
+        </li>
+      </ol>
+    </div>
+    <div class="search_box">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="far fa-search"></i>
+          </span>
+        </div>
+        <input
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <a><img src="../../assets/new/search.svg" /></a>
+      </div>
+      <button class="btn search">Search</button>
+    </div>
+  </div>
+
+  <!-- <button (click)="isListView = !isListView;apForm.reset()">Create Pratcice</button>  -->
+</section>
+<div class="content_part" *ngIf="isListView">
+  <div class="Table_wrapped">
+    <table *ngIf="data.length > 0" datatable class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th scope="col">User Ref</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email Address</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Application Status</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Created Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of data; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <a routerLinkActive="true" routerLink="/admin/users/{{ d.user_id }}" (click)="redirect(d)"
+              >{{ d.user_ref }}</a
+            >
+          </td>
+          <td>{{ d.firstname }}</td>
+          <td>{{ d.email }}</td>
+          <td>{{ d.phno }}</td>
+          <td>{{ d.regstatus }}</td>
+          <td>{{ d.practicename }}</td>
+          <td>{{ d.createddate }}</td>
+        </tr>
+      </tbody>
+      <!-- routerLink="/admin/users/{{ d.user_id }} -->
+    </table>
+    <table *ngIf="data.length == 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">User Ref</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email Address</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Register Status</th>
+          <th scope="col">Practice Name</th>
+          <th scope="col">Created Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,535 @@
+<br><br>
+<div class="frameshadow m50px">
+  <div class="mainTitle">
+    <div>
+      View Milestone Details
+      <span *ngIf="data.customerDetails!=null">
+        &nbsp;<a routerLink="/installer/main/applicationdetails/{{ data.customerDetails.loan_id }}">
+          APP_{{data.customerDetails.ref_no}}
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="p10">
+    <div class="pendingTab">
+      <tabset>
+        <tab heading="Files Uploaded">
+          <div class="p10px" *ngIf="data.ownershipFiles.length>0">
+            <div class="frameshadow mb20px">
+              <div>
+                <div class="mainTitle">Proof Of Ownership Documents</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 50px">#</th>
+                    <th>Documents</th>
+                    <th>Document Type</th>
+                    <th>PDF,JPG,JPEG,PNG</th>
+                  </tr>
+                  <tbody>
+                    <tr *ngFor="let d of data.ownershipFiles; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ d.originalname }}</td>
+                      <td>{{ d.documenttype }}</td>
+                      <td (click)="view(d.filename)"><a class="cursorpointer">View Document</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </tab>
+
+        <tab heading="Verified System Info">
+          <div class="p10px" *ngIf="data.systemInfo != null">
+            <div class="list">
+              <ul class="h700">
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Manufacturer of Modules</div>
+                    <div>
+                      {{ data.systemInfo["moduleManufacturer"] }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Manufacturer of Inverters</div>
+                    <div>
+                      {{ data.systemInfo["inverterManufacturer"] }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Manufacturer of Battery</div>
+                    <div>
+                      {{ data.systemInfo["batteryManufacturer"] }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">System Size (kW)</div>
+                    <div>
+                      {{ data.systemInfo["systemSize"] }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Estimated Annual Production</div>
+                    <div>
+                      {{ data.systemInfo["estAnnualProduction"] }}
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Milestone 1 Request">
+          <div class="p10px" *ngIf="data.milestone1ReqFiles.length>0">
+            <div class="frameshadow mb20px">
+              <div>
+                <div class="mainTitle">Proof of initial funding to get the project started</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 50px">#</th>
+                    <th>Documents</th>
+                    <th>PDF,JPG,JPEG,PNG</th>
+                  </tr>
+                  <tbody>
+                    <tr *ngFor="let d of data.milestone1ReqFiles; let i = index">
+                      <td>{{ i + 1 }}</td>
+
+                      <td>{{ d.originalname }}</td>
+
+                      <td (click)="view(d.filename)"><a class="cursorpointer">View Document</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="p10px" *ngIf="data.milestone1ReqFiles.length>0">
+            <div>
+              <ul class="mile_textbox">
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Milestone 1 Requested Amount</div>
+                    <div>
+                      {{ data.installingInfo.milestone1ReqAmount }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="listdetails">
+                    <div>
+                      <div class="fontWeight">Enter Comment</div>
+                    </div>
+                    <div>
+                      <form name="form" (ngSubmit)="f1.form.valid && addComment('Milestone1CommentByInstaller',f1)" #f1="ngForm"
+                        novalidate>
+                        <div>
+                          <div class="w100per enter_comments">
+                            <textarea class="form-control" name="milestone1comment" [(ngModel)]="milestone1Comment"
+                              #milestone1comment="ngModel" required
+                              [ngClass]="{ 'is-invalid': f1.submitted && milestone1comment.invalid }"></textarea>
+                          </div>
+        
+                          <div class="p10px comments_btn">
+                            <button type="submit" class="btn btn-primary" id="updocs" value="Validate">
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+        
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+
+          <div *ngIf="data.Milestone1Comments.length>0">
+            <div>
+              <div class="mainTitle">Comments Details</div>
+            </div>
+            <div class="dataTables_wrapper">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Comments</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="
+                            let c of data.Milestone1Comments;
+                            let i = index
+                          ">
+                    <td>{{i+1}}</td>
+                    <td>{{c.comments}}</td>
+                    <td>{{c.role}}:{{c.firstname}} {{c.lastname}}</td>
+                    <td>{{c.createdat}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="frameshadow" *ngIf="data.Milestone1Transactions.length>0">
+            <div>
+              <div class="mainTitle">Transaction</div>
+            </div>
+            <div class="p10px">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>transactionid</th>
+                    <th>Method</th>
+                    <th>message</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of data.Milestone1Transactions; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ d.transactionid }}</td>
+                    <td>{{ d.accountmethod }}</td>
+                    <td>{{ d.message }}</td>
+                    <td>{{ d.status }}</td>
+                    <td>{{ d.amount }}</td>
+                    <td>{{ datePipe.transform(d.createdat, "yyyy/MM/dd HH:mm:ss") }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Milestone 2 Request">
+          <div class="p10px" *ngIf="data.milestone2ReqFiles.length>0">
+            <div class="frameshadow mb20px">
+              <div>
+                <div class="mainTitle">Evidence of completion</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 50px">#</th>
+                    <th>Documents</th>
+                    <th>PDF,JPG,JPEG,PNG</th>
+                  </tr>
+                  <tbody>
+                    <tr *ngFor="let d of data.milestone2ReqFiles; let i = index">
+                      <td>{{ i + 1 }}</td>
+
+                      <td>{{ d.originalname }}</td>
+
+                      <td (click)="view(d.filename)"><a class="cursorpointer">View Document</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="p10px" *ngIf="data.milestone2ReqFiles.length>0">
+            <div>
+              <ul class="mile_textbox">
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Date project was fully installed/completed</div>
+                    <div>
+                      {{ data.installingInfo.projectCompletedAt }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Verified Installation address</div>
+                    <div>
+                      {{ data.installingInfo.verifiedInstAddress?'Yes':'No' }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Milestone 2 Requested Amount</div>
+                    <div>
+                      {{ data.installingInfo.milestone2ReqAmount }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="listdetails">
+                    <div>
+                      <div class="fontWeight">Enter Comment</div>
+                    </div>
+                    <form name="form" (ngSubmit)="f2.form.valid && addComment('Milestone2CommentByInstaller', f2)" #f2="ngForm"
+                      novalidate>
+                      <div>
+                        <div class="w100per enter_comments">
+                          <textarea class="form-control" name="milestone2comment" [(ngModel)]="milestone2Comment"
+                            #milestone2comment="ngModel" required
+                            [ngClass]="{ 'is-invalid': f2.submitted && milestone2comment.invalid }"></textarea>
+                        </div>
+      
+                        <div class="p10px comments_btn">
+                          <button type="submit" class="btn btn-primary" id="updocs" value="Validate">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="frameshadow" *ngIf="data.Milestone2Comments.length>0">
+            <div>
+              <div class="mainTitle">Comments Details</div>
+            </div>
+            <div class="p10px">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Comments</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="
+                            let c of data.Milestone2Comments;
+                            let i = index
+                          ">
+                    <td>{{i+1}}</td>
+                    <td>{{c.comments}}</td>
+                    <td>{{c.role}}:{{c.firstname}} {{c.lastname}}</td>
+                    <td>{{c.createdat}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="frameshadow" *ngIf="data.Milestone2Transactions.length>0">
+            <div>
+              <div class="mainTitle">Transaction</div>
+            </div>
+            <div class="p10px">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>transactionid</th>
+                    <th>Method</th>
+                    <th>message</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of data.Milestone2Transactions; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ d.transactionid }}</td>
+                    <td>{{ d.accountmethod }}</td>
+                    <td>{{ d.message }}</td>
+                    <td>{{ d.status }}</td>
+                    <td>{{ d.amount }}</td>
+                    <td>{{ datePipe.transform(d.createdat, "yyyy/MM/dd HH:mm:ss") }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Milestone 3 Request">
+          <div class="p10px" *ngIf="data.milestone3ReqFiles.length>0">
+            <div class="frameshadow mb20px">
+              <div>
+                <div class="mainTitle">Evidence of PTO</div>
+              </div>
+              <div class="p10px">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 50px">#</th>
+                    <th>Documents</th>
+                    <th>PDF,JPG,JPEG,PNG</th>
+                  </tr>
+                  <tbody>
+                    <tr *ngFor="let d of data.milestone3ReqFiles; let i = index">
+                      <td>{{ i + 1 }}</td>
+
+                      <td>{{ d.originalname }}</td>
+
+                      <td (click)="view(d.filename)"><a class="cursorpointer">View Document</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="p10px" *ngIf="data.milestone3ReqFiles.length>0">
+            <div>
+              <ul class="mile_textbox">
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Milestone 3 Requested Amount</div>
+                    <div>
+                      {{ data.installingInfo.milestone3ReqAmount }}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="listdetails">
+                    <div>
+                      <div class="fontWeight">Enter Comment</div>
+                    </div>
+                    <form name="form" (ngSubmit)="f3.form.valid && addComment('Milestone3CommentByInstaller', f3)" #f3="ngForm"
+                      novalidate>
+                      <div>
+                        <div class="w100per enter_comments">
+                          <textarea class="form-control" name="milestone3comment" [(ngModel)]="milestone3Comment"
+                            #milestone3comment="ngModel" required
+                            [ngClass]="{ 'is-invalid': f3.submitted && milestone3comment.invalid }"></textarea>
+                        </div>
+      
+                        <div class="p10px comments_btn">
+                          <button type="submit" class="btn btn-primary" id="updocs" value="Validate">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="frameshadow" *ngIf="data.Milestone3Comments.length>0">
+            <div>
+              <div class="mainTitle">Comments Details</div>
+            </div>
+            <div class="p10px">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Comments</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="
+                            let c of data.Milestone3Comments;
+                            let i = index
+                          ">
+                    <td>{{i+1}}</td>
+                    <td>{{c.comments}}</td>
+                    <td>{{c.role}}:{{c.firstname}} {{c.lastname}}</td>
+                    <td>{{c.createdat}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="frameshadow" *ngIf="data.Milestone3Transactions.length>0">
+            <div>
+              <div class="mainTitle">Transaction</div>
+            </div>
+            <div class="p10px">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>transactionid</th>
+                    <th>Method</th>
+                    <th>message</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of data.Milestone3Transactions; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ d.transactionid }}</td>
+                    <td>{{ d.accountmethod }}</td>
+                    <td>{{ d.message }}</td>
+                    <td>{{ d.status }}</td>
+                    <td>{{ d.amount }}</td>
+                    <td>{{ datePipe.transform(d.createdat, "yyyy/MM/dd HH:mm:ss") }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Project Completed">
+          <div class="p10px" *ngIf="data.installingInfo?.approvedAt != null">
+            <div class="list">
+              <ul class="h700">
+                <li>
+                  <div class="displayFlex listdetails">
+                    <div class="fontWeight">Application approved at</div>
+                    <div>
+                      {{ datePipe.transform(data.installingInfo.approvedAt, "yyyy/MM/dd") }}
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body modal-body_messagebox text-center">
+    <div class="msgLogo"><img src="../../../assets/msg_logo.png" /></div>
+
+    <!-- <p class="headtext">message</p> -->
+    <div *ngFor="let m of message" class="messageBlock">{{ m }}</div>
+
+    <div>
+      <button
+        type="button"
+        class="btn orangeButton"
+        aria-label="Close"
+        (click)="close()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+  <br />
+</ng-template>

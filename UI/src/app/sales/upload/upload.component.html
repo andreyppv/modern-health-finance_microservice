@@ -1,0 +1,82 @@
+<!-- <div class="content"> -->
+<div class="p20 ">
+    <div class="part1 text-center mb-2">
+        <i-bs name="cloud-upload-fill" width="40px" height="40px" class="text-sales"></i-bs>
+        <p class="headtext mt-3">Documents upload </p>
+        <p class="text-sales mt-3">1. Upload proof of ownership</p>
+        <p class="mt-3">(the Land Use Right Certificate, Real Property Certificate, Other Right Certificate and other
+            any agreement or document relating to the Buildings or the land under the Buildings)</p>
+        <p class="text-sales mt-3">2. Upload proof of income</p>
+        <p class="mt-3">(W-2s or other proof of income)</p>
+        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+
+                <div class="rounded box border-white">
+
+                    <i-bs name="folder-fill" width="50px" height="50px" class="text-sales"
+                        (click)="openFileSelector()"></i-bs>
+                    <p class="m-3">Drag and Drop your files here</p>
+                </div>
+            </ng-template>
+        </ngx-file-drop>
+    </div>
+</div>
+<div class="container1 mt-5" *ngIf="listfiles.length>0">
+    <div class="part2 p-3 mt-3" *ngFor="let file of fileitems">
+        <div class="row align-items-center">
+            <div class="col-1">
+                <i-bs name="file-earmark-fill" width="25px" height="25px" class="text-sales">
+                </i-bs>
+            </div>
+            <div class="col-5">
+                {{file.name.split('.')[0]}}
+            </div>
+            <div class="col-1">
+                <span class="bg-white p-1 rounded text-sales">{{file.name.split('.')[1] | uppercase }}</span>
+            </div>
+            <div class="col-1">
+                {{(file.size / 1024).toFixed(2)}} KB
+            </div>
+            <div class="col-2">
+                {{today}}
+            </div>
+            <div class="col-2 text-right">
+                <i-bs name="download" width="25px" height="25px" class="text-dark">
+                </i-bs>&nbsp;&nbsp;
+                <i-bs name="trash-fill" width="25px" height="25px" class="text-dark">
+                </i-bs>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="part2 p-3 mt-3">
+        <div class="row align-items-center">
+            <div class="col-1">
+                <i-bs name="file-earmark-fill" width="25px" height="25px" class="text-sales">
+                </i-bs>
+            </div>
+            <div class="col-5">
+                Doc_Hunter_Hairway_proof_of_income2
+            </div>
+            <div class="col-1">
+                <span class="bg-white p-1 rounded text-sales">JPEG</span>
+            </div>
+            <div class="col-1">
+                0.7 MB
+            </div>
+            <div class="col-2">
+                11.05.2021
+            </div>
+            <div class="col-2 text-right">
+                <i-bs name="download" width="25px" height="25px" class="text-dark">
+                </i-bs>&nbsp;&nbsp;
+                <i-bs name="trash-fill" width="25px" height="25px" class="text-dark">
+                </i-bs>
+            </div>
+        </div>
+    </div> -->
+    <div class="p-3 mt-3 text-center">
+        <button type="button" class="btn btn-sales" (click)="completed()">Upload</button>
+    </div>
+</div>
+<!-- </div> -->

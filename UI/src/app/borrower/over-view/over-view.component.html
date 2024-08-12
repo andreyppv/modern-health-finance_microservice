@@ -1,0 +1,53 @@
+<section  class="body_content">
+
+      <div *ngIf="data.user_details.length > 0" class="portal_table table_responsive">
+        <table>
+          <tr>
+            <th>Name :</th>
+            <td>
+              {{ data.user_details[0].firstname }}
+              {{ data.user_details[0].lastname }}
+            </td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>{{ data.user_details[0].phonenumber }}</td>
+          </tr>
+
+          <tr>
+            <th>Email</th>
+            <td>{{ data.user_details[0].email }}</td>
+          </tr>
+
+          <tr>
+            <th>Address</th>
+            <td>
+              {{ data.user_details[0].unitapt }}
+              {{ data.user_details[0].street }},
+              {{ data.user_details[0].city }},
+              {{ data.user_details[0].state }},
+              {{ data.user_details[0].zipcode }}
+            </td>
+          </tr>
+          <tr>
+            <th>Loan Amount</th>
+            <td>${{ data.user_details[0].amount }}</td>
+          </tr>
+          <tr>
+            <th>Loan Term</th>
+            <td>
+              Term: {{ data.user_details[0].loanterm }}, APR:
+              {{ data.user_details[0].apr }}%
+            </td>
+          </tr>
+          <tr>
+            <th>Credit Expiration Date</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Monthly Payment</th>
+            <td>${{ data.user_details[0].amount }}</td>
+          </tr>
+        </table>
+      </div>
+</section>

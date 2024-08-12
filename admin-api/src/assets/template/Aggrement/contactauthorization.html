@@ -1,0 +1,154 @@
++<body>
+	<head>
+	<style>
+		body {
+			background-color: white;
+			font-family:"Neo Sans fonts", Verdana, sans-serif;
+		}
+		h5 {
+			color: black;
+			font-family:helvetica;
+			font-weight: 700;
+		}
+
+
+		.SMS-document-layout p, .SMS-document-layout li, .SMS-document-layout p1,  {
+			color: black;
+			font-family: helvetica;
+			margin: 0px;
+		}
+		.SMS-document-layout {
+			padding: 0px 48px 0px 48px;
+		}
+		.SMS-document-layout p{
+			font-size: 14px;
+		}
+		.SMS-document-layout h3{
+			font-size: 24px;
+		}
+
+
+
+		.SMS-help-section-wrapper{
+			display: flex;
+			justify-content: space-around;
+			margin: 0 35px;
+		}
+
+		.SMS-help-section{
+			{# width: 100%; #}
+			padding: 10px;
+		}
+		.SMS-help-section p{
+			font-size: 12px;
+		}
+
+		.SMS-contact-info-section{
+			margin: 60px 0 100px 0;
+		}
+		.SMS-contact-info-section h4{
+			text-align: center;
+			margin-bottom: 30px;
+			font-weight: 700;
+
+		}
+		.SMS-contact-info-section > p{
+			margin: 0 45px;
+		}
+
+		.SMS-address{
+			text-align: left;
+			margin-left: 45px;
+			margin-top: 20px;
+		}
+		.SMS-address p{
+			margin-bottom: 0px;
+			font-size: 12px;
+		}
+
+		.SMS-document-footer{
+			margin: 0 35px;
+			display: flex;
+			justify-content: center;
+		}
+		.SMS-document-footer p1{
+			font-size: 10px;
+		}
+		.SMS-document-footer p1 span{
+			margin-left: 10px;
+		}
+
+		.SMS-document-layout .title{
+			display: block;
+			text-align: center;
+		}
+		.SMS-document-layout .subtitle{
+			display: block;
+			text-align: center;
+			margin-top: 0;
+		}
+
+
+		.SMS-document-layout .document-divider{
+			overflow: visible;
+			padding: 0;
+			border: none;
+			border-top: medium double #333;
+			color: #333;
+			text-align: center;
+		}
+
+		.SMS-document-layout .document-divider:after {
+			content: "§";
+			display: inline-block;
+			position: relative;
+			top: -0.7em;
+			font-size: 1.5em;
+			padding: 0 0.25em;
+			background: white;
+		}
+
+		.SMS-document-layout .document-divider-2 {
+			border: 0;
+			height: 1px;
+			background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+		}
+
+
+		.SMS-document-layout .license-info p{
+			margin:0px;
+			text-align: center;
+			font-size: 10px;
+		}
+
+	</style>
+	</head >
+	<div class="SMS-document-layout">
+		<br><br>
+		{# <h style="margin:0px; text-align: center; font-size: 220%; font-weight:500">  #}
+		<h2 class="title uppercase">{{LenderShortName}}</h2>
+		<h3 class="subtitle">Contact Authorization</h3>
+		<hr class="document-divider">
+		<br>
+		<p style="margin:0px 45px; text-align: left;">
+            <strong>Telephone  Calls—Monitoring,  Voice  Mail,  SMS  and  Email  Messages:</strong>  We,  along  with  our agents, representatives,
+            and service providers (collectively “we” or “us”), may use an automated telephone  dialing  system  and  manual
+            calls  to  provide  live  and  pre-recorded  messages  to  our customers  about  loan  due  dates,  collection  matters
+            and  other  important  information.  These messages are played automatically when the telephone is answered whether
+             answered by you or someone else. They may also be recorded by your answering machine or voice mail. You give us your
+             consent to call any telephone number you have given us, even if the number is a work number, cell number or any other
+             number, and even if you are charged for the call.  You agree that we may play live and pre-recorded messages with information
+             about any loans(s) you have with us.  You agree that we will not be liable to you for any such calls. You also agree
+             that from time  to  time,  we  may  monitor  and  record  telephone  conversations  between  you  and  us.  Additionally,
+             unless you opt out, you agree to receive messages about loan due dates, collection matters  and  important  information
+             from  us  via  SMS  text  messages  on  your  cell  phone  and  by email. You also consent that we - or in the event that
+             your account is turned over to a third party for collections, our collections agents - may contact you via email to any email
+             address associated with your account.   In addition, you consent that we may transmit SMS/Text messages to any wireless
+             telephone number associated with your account. This agreement shall remain in effect until you opt out. To opt out,
+             you may notify us by replying “STOP” to the message you received from your mobile device, or by
+              sending written instructions to us via email ({{LenderEmailAddress}}) or regular mail (at the address {{LenderMailingAddress}}).
+              You may request help by replying “HELP” to the message you received or by calling {{LenderPhone}}.
+        </p>
+		<br />
+	</div>
+</body>

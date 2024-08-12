@@ -1,0 +1,71 @@
+<section class="content-header">
+  <ol class="breadcrumb">
+    <li>
+      <a [routerLink]="['/admin/dashboard']"
+        ><i class="fa fa-dashboard"></i> Dashboard</a
+      >
+    </li>
+    <li class="active">Login Log</li>
+  </ol>
+</section>
+
+<div class="frameshadow">
+  <div class="mainTitle">
+    <div>Login Log</div>
+  </div>
+
+  <div class="p10">
+    <table *ngIf="data.length > 0" datatable class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">User Ref</th>
+          <th scope="col">User</th>
+          <th scope="col">Module</th>
+          <th scope="col">LogIn Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of data; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <a routerLink="/admin/users/{{ d.user_id }}">
+              {{ d.user_ref }}
+            </a>
+          </td>
+          <td>{{ d.user }}</td>
+          <td>{{ d.module }}</td>
+          <td>{{ datePipe.transform(d.createdat, "yyyy/MM/dd HH:mm:ss") }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="data.length == 0" datatable class="table">
+      <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">User ref</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">IP Address</th>
+            <th scope="col">LogIn Time</th>
+          </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">Message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>

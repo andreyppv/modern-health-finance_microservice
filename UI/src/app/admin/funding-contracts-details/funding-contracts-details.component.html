@@ -1,0 +1,1076 @@
+<section class="content-header">
+    <!-- <h1>View Application Details</h1> -->
+    <ol class="breadcrumb">
+      <li class="current">
+        <a [routerLink]="['/admin/dashboard']"
+          ><img src="../../assets/new/dashboard.svg"> Dashboard <i class="fal fa-angle-right"></i></a
+        >
+      </li>
+      <li class="current">
+        <a [routerLink]="['/admin/funding-contracts']"
+          > Funding Contracts Details <i class="fal fa-angle-right"></i></a
+        >
+      </li>
+      <li class="active">View Application Details</li>
+    </ol>
+  </section>
+  
+  <div class="frameshadow">
+    <div class="mainTitle">
+      <div>View Application Details</div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-success btn-user-control"
+          (click)="funded()"
+        >
+          <i class="fa fa-thumbs-up" aria-hidden="true"></i> Funded
+        </button>
+        &nbsp;
+        <button
+          type="button"
+          class="btn btn-danger btn-user-control"
+          (click)="Deny()"
+        >
+          <i class="fa fa-thumbs-down" aria-hidden="true"></i> Deny
+        </button>
+      </div>
+    </div>
+    <div class="p10">
+      <div class="pendingTab" *ngIf="viewApp">
+        <tabset>
+          <tab heading="User Information" *ngIf="data.from_details.length > 0 && tabs['User Information']">
+            <div class="p10px">
+              <div
+                class="displayFlex AlignItemCenter spaceBetween p10px frameshadow"
+              >
+                <div
+                  class="fs22px displayFlex AlignItemCenter spaceBetween flexDirection mr30px"
+                >
+                  <div class="profilePhoto">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                  </div>
+                  <div class="nowrap">{{ data.from_details[0]["firstname"] }}
+                    {{ data.from_details[0]["lastname"] }}</div>
+                </div>              
+              </div>
+              <br /><br />
+              <div class="list">
+                <ul class="h700">
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">User Reference</div>
+                      <div>
+                        <a
+                          routerLink="/admin/users/{{
+                            data.from_details[0]['user_id']
+                          }}"
+                        >
+                          USR_{{ data.from_details[0]["user_ref"] }}
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                  <li> 
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Name</div>
+                      <div *ngIf="!editName">
+                        {{ data.from_details[0]["firstname"] }}
+                        {{ data.from_details[0]["lastname"] }}
+                        <span (click)="editName=true" class="text-danger cursorpointer">
+                          <i class="fa fa-edit" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                      <form 
+                        *ngIf="editName" 
+                        (ngSubmit)="f.form.valid && editUserName()"
+                        #f="ngForm" 
+                        novalidate
+                      >
+                        <div>
+                          <input type="text" name="firstname" [(ngModel)]="editNameFields.firstname" class="form-control" 
+                            placeholder="first name" required #firstname="ngModel"
+                            [class.is-invalid]="f.submitted && firstname.invalid">
+                          <input type="text" name="lastname" [(ngModel)]="editNameFields.lastname" class="form-control" 
+                            placeholder="last name" required #lastname="ngModel"
+                            [class.is-invalid]="f.submitted && lastname.invalid">
+                          <input type="submit" name="submit" class="upperCase">
+                          <input type="button" name="cancel" value="cancel" class="upperCase" (click)="editName=false">
+                        </div>
+                      </form>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Email Address</div>
+                      <div>
+                        {{ data.from_details[0]["email"] }}
+                        <i
+                          class="fa fa-bell text-danger cursorpointer"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Phone Number</div>
+                      <div>
+                        {{ data.from_details[0]["phone"] }}
+                        <i
+                          class="fa fa-bell text-danger cursorpointer"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Date of Birth</div>
+                      <div>{{ data.from_details[0]["birthday"] }}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Latitude</div>
+                      <div>--</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Longitude</div>
+                      <div>--</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Address</div>
+                      <div class="textAlignRight">
+                        <div>
+                          {{ data.from_details[0]["streetaddress"] }},
+                          <i
+                            class="fa fa-edit text-danger cursorpointer"
+                            aria-hidden="true"
+                            (click)="editStreetAddress=true"
+                          ></i>
+                        </div>
+                        <div>
+                          {{ data.from_details[0]["city"] }}
+                          <i
+                            class="fa fa-edit text-danger cursorpointer"
+                            aria-hidden="true"
+                            (click)="editCity=true"
+                          ></i>
+                        </div>
+                        <div>
+                          {{ data.from_details[0]["zipcode"] }}
+                          <i
+                            class="fa fa-edit text-danger cursorpointer"
+                            aria-hidden="true"
+                            (click)="editZipCode=true"
+                          ></i>
+                        </div>
+                      </div>
+                      <form 
+                        *ngIf="editStreetAddress" 
+                        (ngSubmit)="f.form.valid && editUserStreetAddress()"
+                        #f="ngForm" 
+                        novalidate
+                      >
+                        <div>
+                          <input type="text" name="streetaddress" [(ngModel)]="editStreetFields.streetaddress" class="form-control" 
+                            placeholder="Street Address" required #streetaddress="ngModel"
+                            [class.is-invalid]="f.submitted && streetaddress.invalid">                        
+                          <input type="submit" name="submit" class="upperCase">
+                          <input type="button" name="cancel" value="cancel" class="upperCase" (click)="editStreetAddress=false">
+                        </div>
+                      </form>
+                      <form 
+                        *ngIf="editCity" 
+                        (ngSubmit)="f.form.valid && editUserCity()"
+                        #f="ngForm" 
+                        novalidate
+                      >
+                        <div>
+                          <input type="text" name="city" [(ngModel)]="editCityFields.city" class="form-control" 
+                            placeholder="City" required #city="ngModel"
+                            [class.is-invalid]="f.submitted && city.invalid">                        
+                          <input type="submit" name="submit" class="upperCase">
+                          <input type="button" name="cancel" value="cancel" class="upperCase" (click)="editCity=false">
+                        </div>
+                      </form>
+                      <form 
+                        *ngIf="editZipCode" 
+                        (ngSubmit)="f.form.valid && editUserZipCode()"
+                        #f="ngForm" 
+                        novalidate
+                      >
+                        <div>
+                          <input type="text" name="zipcode" [(ngModel)]="editZipCodeFields.zipcode" class="form-control" 
+                            placeholder="ZipCode" required #zipcode="ngModel"
+                            [class.is-invalid]="f.submitted && zipcode.invalid">                        
+                          <input type="submit" name="submit" class="upperCase">
+                          <input type="button" name="cancel" value="cancel" class="upperCase" (click)="editZipCode=false">
+                        </div>
+                      </form>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">State</div>
+                      <div>{{ data.from_details[0]["state"] }}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Financing Exist</div>
+                      <div>
+                        Yes
+                        <i
+                          class="fa fa-bell text-success cursorpointer"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Bank Added</div>
+                      <div>
+                        <i
+                          class="fa fa-bell text-success cursorpointer"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+                  </li>
+  
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Registered Date</div>
+                      <div>{{ data.from_details[0]["createdat"] }}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Last Profile Update Date</div>
+                      <div>{{ data.from_details[0]["updatedat"] }}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Annual Income</div>
+                      <div *ngIf="data.from_details[0]['annualincome']">{{ data.from_details[0]["annualincome"] | currency:'USD':'symbol' }}</div>
+                      <div *ngIf="!data.from_details[0]['annualincome']">{{ (data.from_details[0]["netmonthlyincome"]*12) | currency:'USD':'symbol' }}</div>
+                    </div>
+                  </li>
+  
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Monthly Income</div>
+                      <div>{{ data.from_details[0]["netmonthlyincome"] | currency:'USD':'symbol' }}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Anticipated Financed Amount</div>
+                      <div>{{ data.from_details[0]["loanamount"] | currency:'USD':'symbol' }}</div>
+                    </div>
+                  </li>
+                  <li class="displayNone">
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">PreDTI Debt</div>
+                      <div>--</div>
+                    </div>
+                  </li>
+                  <li class="displayNone">
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Funding Tier</div>
+                      <div>--</div>
+                    </div>
+                  </li>
+  
+                  <li class="displayNone">
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">PreDTI Debt(%)</div>
+                      <div>--</div>
+                    </div>
+                  </li>
+                  <li class="displayNone">
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">PreDTI Debt(%)</div>
+                      <div>--</div>
+                    </div>
+                  </li>
+                  <li class="displayNone">
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Payroll Detected Income</div>
+                      <div>$0.00</div>
+                    </div>
+                  </li>
+                  <li class="displayNone">
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Housing Expense</div>
+                      <div>$0.00</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Income Type</div>
+                      <div>Modified by admin</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Underwriting Rules</div>
+                      <div>--</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Application Reference Number</div>
+                      <div>APP_{{ data.from_details[0]["ref_no"] }}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Financing Status</div>
+                      <div class="text-success">Pending</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Denied Reason</div>
+                      <div class="text-success">--</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Counter offered</div>
+                      <div class="text-success">--</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Application Created By</div>
+                      <div class="text-success">User</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Plaid Re-sent By</div>
+                      <div class="text-success">--</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="displayFlex listdetails">
+                      <div class="fontWeight">Offer Link Send By</div>
+                      <div class="text-success">--</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </tab>
+  
+          <tab heading="Credit Info" *ngIf="data.from_details.length > 0 && tabs['Credit Report']">
+            <div class="p10px">
+              <div class="frameshadow mb20px">
+                <div>
+                  <div class="mainTitle">Credit Report <button class="btn btn-primary" type="button" (click) = "creditReportPull()">Pull Credit</button></div> 
+                </div>
+                <div class="p10px" >
+                  <div *ngIf="creditReportData">
+                    <embed id="embed" [src]="safeResourceUrl(creditReportData.file)" type="application/pdf" width="100%" style="height: 800px;" >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tab>
+  
+          <tab heading="Payment Schedule" *ngIf="data.from_details.length > 0 && tabs['Payment Schedule']">
+            <div class="p10px">
+              <div class="displayFlex">
+                <div class="frameshadow w35per mr30px">
+                  <div>
+                    <div class="mainTitle">Payment</div>
+                    <div class="list2">
+                      <ul>
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">Financing Start Date</div>
+                            <div>{{ payment[0].createdat }}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">Financing Amount</div>
+                            <div>{{ payment[0].loan_advance | currency }}</div>
+                          </div>
+                        </li>
+  
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">Payoff Amount</div>
+                            <div>{{ payment[0].payOffAmount | currency }}</div>
+                          </div>
+                        </li>
+  
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">APR</div>
+                            <div>{{ payment[0].apr }}%</div>
+                          </div>
+                        </li>
+  
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">Financing Term</div>
+                            <div>12</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">Financing Status</div>
+                            <div>{{ payment[0].loantermcount }}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">Maturity Date</div>
+                            <div>{{ payment[0].maturityDate }}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="displayFlex listdetails">
+                            <div class="fontWeight">
+                              Next Payment Schedule Date
+                            </div>
+                            <div>{{ payment[0].nextpaymentschedule }}</div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="frameshadow w65per">
+                  <div class="mainTitle">Payment Schedule Information</div>
+  
+                  <div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Unpaid Principal Balance</th>
+                          <th>Principal</th>
+                          <th>Interest</th>
+                          <th>Fees</th>
+                          <th>Amount</th>
+                          <th>Schedule Date</th>
+                          <th>Paid Date</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="data.paymentScheduleDetails.length > 1">
+                        <tr
+                          *ngFor="
+                            let d of data.paymentScheduleDetails;
+                            let i = index
+                          "
+                        >
+                          <td>{{ i + 1 }}</td>
+                          <td>
+                            {{ d.unpaidprincipal | currency }}
+                          </td>
+                          <td>
+                            {{ d.principal | currency }}
+                          </td>
+                          <td>{{ d.interest | currency }}</td>
+                          <td>{{ d.fees | currency }}</td>
+                          <td>{{ d.amount | currency }}</td>
+                          <td>
+                            {{ datePipe.transform(d.scheduledate, "yyyy/MM/dd") }}
+                          </td>
+                          <td *ngIf="d.paidat">
+                            {{ datePipe.transform(d.paidat, "yyyy/MM/dd") }}
+                          </td>
+                          <td *ngIf="!d.paidat" class="text-center">
+                            -
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tab>
+  
+          <tab heading="Bank Accounts" *ngIf="tabs['Bank Accounts']">
+            <div id="userbankinfo">
+              <div
+                class="bankaccount-btns-wrapper displayFlex flexEnd"
+                style="margin: 10px"
+              >
+                <button
+                  type="button"
+                  class="btn greenBorder"
+                  id="sendaddbankinvitation"
+                  data-toggle="modal"
+                  data-target="#sendaddbankinvitationModal"
+                  (click)="sendbanklogin()"
+                >
+                  <div class="displayFlex">
+                    <div class="sendBank"></div>
+                    <div>Send Bank Login</div>
+                  </div>
+                </button>
+                &nbsp;
+                <button
+                  type="button"
+                  class="btn greenBorder"
+                  (click)="manualBankAddModel(manualBankAddTemp)"
+                >
+                  <div class="displayFlex">
+                    <div class="addBank"></div>
+                    <div>Add Bank Manually</div>
+                  </div>
+                </button>
+              </div>
+  
+              <accordion class="p10 cardSection" *ngIf="data.from_details[0].plaid_access_token!=null"> 
+                <accordion-group heading="Plaid-Chase">
+                  <h4>User Information</h4>
+                  <table class="table table-bordered" *ngIf="ownerInformation.length">
+                    <tbody>
+                    <tr>
+                      <th style="width: 50%">Name</th>
+                      <td>                      
+                        {{ ownerInformation[0].names[0] }}                    
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Email</th>
+                      <td>
+                        {{  ownerInformation[0].emails[0].data }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Phone</th>
+                      <td>
+                        {{ ownerInformation[0].phone_numbers[0].data }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Address</th>
+                      <td>
+                        {{ ownerInformation[0].addresses[0].data.street }},
+                        {{ ownerInformation[0].addresses[0].data.city }},
+                        {{ ownerInformation[0].addresses[0].data.region }},
+                        {{ ownerInformation[0].addresses[0].data.country }},
+                        {{ ownerInformation[0].addresses[0].data.postal_code }}
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <table class="table table-bordered" *ngIf="!ownerInformation.length">
+                    <tbody>
+                    <tr>
+                      <th style="width: 50%">Name</th>
+                      <td>                      
+                        {{ data.from_details[0]["firstname"] }}
+                        {{ data.from_details[0]["lastname"] }}                      
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Email</th>
+                      <td>
+                        {{ data.from_details[0]["email"] }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Phone</th>
+                      <td>
+                        {{ data.from_details[0]["phone"] }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Address</th>
+                      <td>
+                        {{ data.from_details[0]["unit"] }},
+                        {{ data.from_details[0]["streetaddress"] }},
+                        {{ data.from_details[0]["city"] }},
+                        {{ data.from_details[0]["state"] }},
+                        {{ data.from_details[0]["zipcode"] }}
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+               
+                  <div class="text-right">
+                    <button type="button" class="btn btn-primary" id="repullplaid" (click)="rePullBankAccounts()">Update Bank Data</button> &nbsp;&nbsp;&nbsp;
+                  </div>
+                  <accordion class="p10 cardSection" *ngIf="bankaccounts.length>0"> 
+                    <accordion-group heading="Chase-({{ datePipe.transform(bankaccounts[0].createdat, 'MMM dd, yyyy') }})">
+                      <accordion class="p10 cardSection">              
+                        <accordion-group *ngFor="let ac of bankaccounts" heading="{{ac.headername}}">
+                          <table class="table table-bordered">
+                            <tbody>
+                              <tr>
+                                <th>Account Name</th>
+                                <td>
+                                  {{ac.name}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Account Type</th>
+                                <td>{{ac.type}}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Subtype</th>
+                                <td>{{ac.subtype}}</td>
+                              </tr>
+                              
+                              <tr>
+                                <th>Account Number</th>
+                                <td>{{ac.acno}}</td>
+                              </tr>
+                              
+                              <tr>
+                                <th>Account Routing Number</th>
+                                <td>{{ac.routing}}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Wire Routing Number</th>
+                                <td>{{ac.wire_routing}}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Institution Type</th>
+                                <td>{{ac.institution_id}}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Current Balance</th>
+                                <td>
+                                ${{ac.current}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Account Available Balance</th>
+                                <td>
+                                ${{ac.available}}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <hr>
+                          <h2>Transaction Details - last 90 days</h2>
+                          <hr>
+                          <table datatable class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">TransactionName</th>
+                                <th scope="col">Category ID</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let d of ac.transactions; let i = index">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>
+                                  {{ d.name }}
+                                </td>
+                                <td>
+                                  {{ d.category_id }}
+                                </td>
+                                <td>{{ d.category }}</td>
+                                <td>{{ d.amount }}</td>
+                                <td>{{ d.date }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </accordion-group>
+                      </accordion>
+                    </accordion-group>
+                  </accordion>
+  
+                </accordion-group>
+              </accordion>
+            </div>
+          </tab>
+  
+          <tab heading="Document Center" *ngIf="data.document && tabs['Document Center']">
+            <div class="p10px">
+              <div class="frameshadow mb20px">
+                <div>
+                  <div class="mainTitle">Financing Agreement Documents</div>
+                </div>
+                <div class="p10px">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th style="width: 50px">#</th>
+                      <th>Documents</th>
+                      <th>PDF,JPG,JPEG,PNG</th>
+                    </tr>
+                    <tbody *ngIf="data.document">
+                      <tr *ngFor="let d of data.document; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ d.name }}</td>
+                        <td><a (click)="view(d.filepath)" href="javascript:void(0)">View Document</a></td>
+                      </tr>
+                      <tr class="text-center" *ngIf="!data.document || data.document.length==0">
+                        <td colspan="3">No records</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+  
+              <div class="mb20px">
+                <div class="frameshadow">
+                  <div>
+                    <div class="mainTitle">Uploaded Documents</div>
+                  </div>
+                  <div class=" ">
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Document Type</div>
+                      <div>
+                        <select name="docutype" [formControl]="formControls.type" class="form-control">
+                          <option value="">Select Document Type</option>
+                          <option *ngFor="let doc of documentsTypes" [value]="doc.documenttype">{{doc.documenttype}}</option>
+                        </select>
+                        <div *ngIf="!formControls.type.valid && formControls.type.errors" class="invalid-feedback">
+                          <div *ngIf="formControls.type.errors.required">
+                            Document Type is required.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Document</div>
+                      <div>
+                        <ngx-file-drag-drop
+                          [formControl]="formControls.docFile"
+                          activeBorderColor="#3F51B5"
+                          accept="image/png, image/jpeg, application/pdf"
+                        >
+                        </ngx-file-drag-drop>
+                        <div *ngIf="!formControls.docFile.valid && formControls.docFile.errors" class="invalid-feedback">
+                          <div *ngIf="formControls.docFile.errors.required">
+                            File is required.
+                          </div>
+                          <div *ngIf="formControls.docFile.errors.fileExtension">
+                            Unsupported file format.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p10px">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="updocs"
+                        (click)="uploadDoc()"
+                      >
+                        Submit
+                      </button>
+                    </div>
+  
+                    <div class="p10px">
+                      <table class="table table-bordered">
+                        <tr>
+                          <th style="width: 50px">#</th>
+                          <th>Documents</th>
+                          <th>Document Type</th>
+                          <th>PDF,JPG,JPEG,PNG</th>
+                        </tr>
+                        <tbody>
+                          <tr *ngFor="let d of data.userDocument; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ d.orginalfileName }}</td>
+                            <td>{{ d.type }}</td>
+                            <td><a (click)="view(d.fileName)" href="javascript:void(0)">View Document</a></td>
+                          </tr>
+                          <tr class="text-center" *ngIf="!data.userDocument || data.userDocument.length==0">
+                            <td colspan="4">No records</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tab>
+  
+          <tab heading="Comments" *ngIf="data.from_details.length > 0 && tabs['Comments']">
+            <div class="p10px">
+              <div class="mb20px">
+                <div class="frameshadow">
+                  <div>
+                    <div class="mainTitle">Comments Section</div>
+                  </div>
+                  <form name="form" (ngSubmit)="f.form.valid && addcomments(messagebox)" #f="ngForm" novalidate>
+                  <div class=" ">
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Subject</div>
+                      <div class="w100per">
+                        <input type="text" name="subject" [(ngModel)]="cm.subject" #subject="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"/>
+                      </div>
+                    </div>
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Comments</div>
+                      <div class="w100per">
+                        <textarea class="form-control" name="comments" [(ngModel)]="cm.comments" #comments="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"></textarea>
+                      </div>
+                    </div>
+                    <div class="p10px">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="updocs"
+                        value="Validate"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                </div>
+              </div>
+  
+              <div class="frameshadow">
+                <div>
+                  <div class="mainTitle">Comments Details</div>
+                </div>
+                <div class="p10px">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Subject</th>
+                        <th>Comments</th>
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="
+                      let c of res_comments;
+                      let i = index
+                    "
+                    
+                    >
+                        <td>{{i+1}}</td>
+                        <td>{{c.subject}}</td>
+                        <td>{{c.comments}}</td>
+                        <td>{{c.role}}:{{c.firstname}} {{c.lastname}}</td>
+                        <td>{{c.createdat}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </tab>
+  
+          <tab heading="Log" *ngIf="data.from_details.length > 0 && tabs['Log']">
+            <div class="p10px">
+              <div class="mb20px">
+                <div class="frameshadow">
+                  <div>
+                    <div class="mainTitle">Log Activity Details</div>
+                  </div>
+  
+                  <div class="p10px">
+                    <table id="achlogactivity_table" class="table dataTable">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Log Reference</th>
+                          <th>Module Name</th>
+                          <th>User</th>
+                          <th>Created Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let d of screenlogs; let i= index;">
+                          <td>{{i+1}}</td>
+                          <td>{{d.id}}</td>
+                          <td>{{d.module}}</td>
+                          <td>
+                           {{d.user}}
+                          </td>
+                          <td >{{d.createdat}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #messagebox>
+    <div class="modal-body text-center">
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="headtext">message</p>
+      <p *ngFor="let m of message">{{ m }}</p>
+    </div>
+  </ng-template>
+  
+  <!-- Manual Bank Account Modal -->
+  <ng-template #manualBankAddTemp>
+    <div class="modal-body">
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="bankAddFormClose()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5>Bank Account Information For Auto-Pay</h5>
+  
+      <form [formGroup]="bankAddForm" (ngSubmit)="manualBankAdd()">      
+        <label for="bankname">Bank Name</label><br />
+        <input
+          type="text"
+          id="bankname"
+          formControlName="bankname"
+          class="form-control"
+          [class.is-invalid]="f.bankname.invalid && (f.bankname.touched || fSubmitted)"
+        />
+        <small *ngIf="f.bankname.invalid && (f.bankname.touched || fSubmitted)" class="text-danger">Bank name is required</small>
+        <br /> 
+        <label for="holdername">Primary Account Holder</label><br />
+        <input
+          type="text"
+          id="holdername"
+          formControlName="holdername"
+          class="form-control"
+          [class.is-invalid]="f.holdername.invalid && (f.holdername.touched || fSubmitted)"
+        />
+        <small *ngIf="f.holdername.invalid && (f.holdername.touched || fSubmitted)" class="text-danger">Account holder name is required</small>
+        <br />
+        <label for="holdername">Routing Number</label><br />
+        <input
+          type="number"
+          id="routingnumber"
+          formControlName="routingnumber"
+          class="form-control"
+          [class.is-invalid]="f.routingnumber.invalid && (f.routingnumber.touched || fSubmitted)"
+        />
+        <div *ngIf="f.routingnumber.invalid && (f.routingnumber.touched || fSubmitted)">
+          <small *ngIf="f.routingnumber.errors?.required" class="text-danger">Routing number is required</small>
+          <small *ngIf="f.routingnumber.errors?.min" class="text-danger">Enter min. of 5 numbers</small>
+        </div>
+        <br />
+        <label for="holdername">Account Number</label><br />
+        <input
+          type="number"
+          id="accountnumber"
+          formControlName="accountnumber"
+          class="form-control"
+          [class.is-invalid]="f.accountnumber.invalid && (f.accountnumber.touched || fSubmitted)"
+        />
+        <div *ngIf="f.accountnumber.invalid && (f.accountnumber.touched || fSubmitted)">
+          <small *ngIf="f.accountnumber.errors?.required" class="text-danger">Account number is required</small>
+          <small *ngIf="f.accountnumber.errors?.min" class="text-danger">Enter min. of 10 numbers</small>
+        </div>
+        <br />
+        <label for="holdername">Confirm Account Number</label><br />
+        <input
+          type="number"
+          id="confmAccountNumber"
+          formControlName="confmAccountNumber"
+          class="form-control"
+          [class.is-invalid]="f.confmAccountNumber.invalid && (f.confmAccountNumber.touched || fSubmitted)"
+        />
+        <div *ngIf="(f.confmAccountNumber.touched || fSubmitted)">
+          <small *ngIf="f.confmAccountNumber.errors?.required" class="text-danger">Confirm account number is required</small>
+          <small *ngIf="bankAddForm.errors?.misMatch" class="text-danger">Account number not matched</small>
+        </div>
+        <br />
+        <button type="button" class="brw-btn closebutton mr30px w200px" (click)="bankAddFormClose()">CANCEL</button>
+        <button type="submit" class="greenbutton upperCase w200px">Save</button>
+      </form>
+      <!-- <form
+        id="manualBankAddForm"
+        name="manualBankAddForm"
+        (ngSubmit)="f.form.valid && manualBankAdd()"
+        #f="ngForm"
+        novalidate
+      >
+        <label>Bank Name</label><br />
+        <input
+          type="text"
+          name="bankname"
+          [(ngModel)]="manualBankAddFields.bankname"
+          class="form-control"
+          required #bankname="ngModel"
+          [class.is-invalid]="(bankname.touched || f.submitted) && bankname.invalid"
+        /><br />
+        <label>Primary Account Holder</label><br />
+        <input
+          type="text"
+          name="holdername"
+          [(ngModel)]="manualBankAddFields.holdername"
+          class="form-control"
+          required #holdername="ngModel"
+          [class.is-invalid]="(holdername.touched || f.submitted) && holdername.invalid"
+        /><br />
+        <label>Routing Number</label><br />
+        <input
+          type="number"
+          name="routingnumber"
+          [(ngModel)]="manualBankAddFields.routingnumber"
+          class="form-control"
+          required pattern="^\d{5}$"
+          #routingnumber="ngModel" [class.is-invalid]="(routingnumber.touched || f.submitted) && routingnumber.invalid"
+        /><br />
+        <label>Account Number</label><br />
+        <input
+          type="number"
+          name="accountnumber"
+          [(ngModel)]="manualBankAddFields.accountnumber"
+          class="form-control"
+          required pattern="^\d{12}$"
+          #accountnumber="ngModel" [class.is-invalid]="(accountnumber.touched || f.submitted) && accountnumber.invalid"
+        /><br />
+        <label>Confirm Account Number</label><br />
+        <input
+          type="number"
+          name="confmAccountNumber"
+          [(ngModel)]="manualBankAddFields.confmAccountNumber"
+          class="form-control"
+          required pattern="^\d{12}$"
+          #confmAccountNumber="ngModel" [class.is-invalid]="((confmAccountNumber.touched || f.submitted) && confmAccountNumber.invalid) || (accountnumber.value!==confmAccountNumber.value)"
+        /><br />
+        <button type="button" class="brw-btn closebutton mr30px w200px" (click)="close()">CANCEL</button>
+        <button type="submit" class="greenbutton upperCase w200px">Save</button>
+      </form> -->
+    </div>
+  </ng-template>
+  

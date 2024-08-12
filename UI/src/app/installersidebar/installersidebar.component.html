@@ -1,0 +1,84 @@
+<section class="installer_sidebar">
+  <div class="sidebar1 p20">
+    <div class="mt50px">
+      <form class="form-inline">
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Search by id, name etc."
+          aria-label="Search"
+        />
+      </form>
+    </div>
+    <div class="leftmenulist text-center mt50px">
+      <div
+        [routerLinkActive]="['lightGreen']"
+        [routerLink]="['/installer/main']"
+        class="mb20px"
+        *ngIf="pages['Dashboard']"
+      >
+        <a class="btn"
+          ><i-bs
+            [routerLinkActive]="['textgreen']"
+            name="grid-fill"
+            class="text-installer1"
+          ></i-bs
+          ><br />Dashboard</a
+        >
+      </div>
+      <div
+        [routerLinkActive]="['lightGreen']"
+        [routerLink]="['/installer/customers']"
+        class="mb20px"
+        *ngIf="pages['Customers']"
+      >
+        <a class="btn"
+          ><i-bs
+            [routerLinkActive]="['textgreen']"
+            name="card-text"
+            class="text-installer1"
+          ></i-bs
+          ><br />Customers</a
+        >
+      </div>
+      <div
+        [routerLinkActive]="['lightGreen']"
+        [routerLink]="['/installer/profile']"
+        class="mb20px"
+        *ngIf="pages['Profile']"
+      >
+        <a class="btn"
+          ><i-bs
+            [routerLinkActive]="['textgreen']"
+            name="person"
+            class="text-installer1"
+          ></i-bs
+          ><br />Profile</a
+        >
+      </div>
+      <!-- <div
+      [routerLinkActive]="['lightGreen']"
+      [routerLink]="['/installer/transaction']"
+      class="mb20px"
+    >
+      <a class="btn"
+        ><i-bs
+          [routerLinkActive]="['textgreen']"
+          name="card-text"
+          class="text-installer1"
+        ></i-bs
+        ><br />Transaction</a
+      >
+    </div> -->
+      <!-- <div
+      [routerLinkActive]="['lightGreen']"
+      class="mb20px"
+      (click)="logout()"
+    >
+      <a class="btn">
+        <i class="fa fa-fw fa-sign-out"></i><br />Logout
+      </a>
+    </div> -->
+    </div>
+  </div>
+</section>

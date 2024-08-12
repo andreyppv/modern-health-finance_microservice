@@ -1,0 +1,4243 @@
+<section class="content-header ptb_20 plr_25">
+  <div class="displayFlex spaceBetween AlignItemCenter mb_48">
+    <div>
+      <h1>Applications Details</h1>
+      <ol class="breadcrumb">
+        <li class="current">
+          <a [routerLink]="['/admin/dashboard']"
+            ><img src="../../assets/new/breadcrumb_dash.svg" /> Dashboard
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="current">
+          <a routerLink="/admin/loan-stages/{{ stage }}"
+            ><img src="../../assets/new/folder-checked.svg" /> {{ pageTitle }}
+            <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li class="active">
+          <img src="../../assets/new/visibility.svg" /> Applications Details
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="Phase_Tab table_responsive" id="menuBase">
+    <ul>
+      <li>
+        <a class="{{ isActive1 }}" (click)="div1Function('user info')"
+          >User Information</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive2 }}" (click)="div1Function('credit report')"
+          >Credit Report</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive3 }}" (click)="div1Function('bank account')"
+          >Bank Accounts</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive4 }}" (click)="div1Function('employment')"
+          >Employment</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive5 }}" (click)="div1Function('payment schedule')"
+          >Payment Schedule</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive6 }}" (click)="div1Function('document center')"
+          >Document Center</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive7 }}" (click)="div1Function('counter offer')"
+          >Counter Offer</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive8 }}" (click)="div1Function('comments')"
+          >Comments</a
+        >
+      </li>
+      <li>
+        <a class="{{ isActive9 }}" (click)="div1Function('log')">Log</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="Phase_dropdown">
+    <select
+      class="mobile_dropDown"
+      (change)="div1Function($event.target.value)"
+    >
+      <option value="user info">User Information</option>
+      <option value="bank account">Bank Accounts</option>
+      <option value="employment">Employment</option>
+      <option value="payment schedule">Payment Schedule</option>
+      <option value="document center">Document Center</option>
+      <option value="counter offer">Counter Offer</option>
+      <option value="comments">Comments</option>
+      <option value="log">Log</option>
+    </select>
+  </div>
+</section>
+
+<div class="Subcategorie">
+  <div class="displayFlex spaceBetween AlignItemCenter">
+    <div>
+      <h3 class="headingthree_bold Primary_Green">{{ titleval }}</h3>
+    </div>
+    <div class="Action_button_Mobile_hide">
+      <div *ngIf="stage == 'waiting'">
+        <button type="button" class="btn main_btn mr_12" (click)="delete()">
+          <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+          Delete
+        </button>
+        <button type="button" class="btn main_btn mr_12" (click)="Archive()">
+          <!-- <i class="fa fa-archive" aria-hidden="true"></i>  -->
+          Archive
+        </button>
+      </div>
+      <div *ngIf="stage == 'pending'">
+        <button
+          *ngIf="div1"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="Approve(template1)"
+        >
+          <!-- <i class="fa fa-thumbs-up" aria-hidden="true"></i> -->
+          Approve
+        </button>
+        <button
+          *ngIf="div1"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="Archive()"
+        >
+          <!-- <i class="fa fa-archive" aria-hidden="true"></i> -->
+          Archive
+        </button>
+        <button
+          *ngIf="div1"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="Deny()"
+        >
+          <!-- <i class="fa fa-thumbs-down" aria-hidden="true"></i> -->
+          Deny
+        </button>
+        <button
+          *ngIf="div2"
+          class="btn main_btn mr_12"
+          type="button"
+          (click)="creditReportPull()"
+        >
+          Pull Credit
+        </button>
+        <button
+          *ngIf="div3"
+          type="button"
+          class="btn main_btn mr_12"
+          id="sendaddbankinvitation"
+          data-toggle="modal"
+          data-target="#sendaddbankinvitationModal"
+          (click)="sendbanklogin()"
+        >
+          Send Bank Login
+        </button>
+        <button
+          *ngIf="div3"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="modelopen(manualBankAddTemp)"
+        >
+          Add Bank Manually
+        </button>
+        <button
+          *ngIf="div4 && !editEmpdata"
+          class="btn Edit_btn mr_12"
+          (click)="editEmpdata = true"
+        >
+          <img src="../../../assets/new/Edit_btn.svg" /></button
+        ><!--(click)="empeditbutton()"-->
+        <button
+          *ngIf="div4 && editEmpdata"
+          _ngcontent-wiv-c156=""
+          (click)="editEmpdata = false"
+          type="button"
+          class="btn main_hover_btn mr_12"
+        >
+          Cancel
+        </button>
+        <button
+          *ngIf="div4 && editEmpdata"
+          _ngcontent-wiv-c156=""
+          type="submit"
+          class="btn main_btn"
+          (click)="updateEmpdetails()"
+        >
+          Save
+        </button>
+        <button
+          *ngIf="div8"
+          class="btn main_btn mr_12"
+          (click)="modelopen(comment_modal)"
+        >
+          Add New Comment
+        </button>
+      </div>
+      <div *ngIf="stage == 'approved'">
+        <button
+          *ngIf="div1"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="updateProcedureDate(uploadproceduredate)"
+        >
+          <!-- <i class="fa fa-thumbs-up" aria-hidden="true"></i> -->
+          Update Procedure Date
+        </button>
+
+        <button
+          *ngIf="div1"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="Pending()"
+        >
+          <!-- <i class="fa fa-thumbs-up" aria-hidden="true"></i> -->
+          Pending
+        </button>
+
+        <button
+          *ngIf="div1"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="Archive()"
+        >
+          <!-- <i class="fa fa-archive" aria-hidden="true"></i> -->
+          Archive
+        </button>
+
+        <button
+          *ngIf="div1"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="confirmProcedure(confimedate)"
+        >
+          <!-- <i class="fa fa-archive" aria-hidden="true"></i> -->
+          Confirm Procedure
+        </button>
+        <button
+          *ngIf="div2"
+          class="btn main_btn mr_12"
+          type="button"
+          (click)="creditReportPull()"
+        >
+          Pull Credit
+        </button>
+        <button
+          *ngIf="div3"
+          type="button"
+          class="btn main_btn mr_12"
+          id="sendaddbankinvitation"
+          data-toggle="modal"
+          data-target="#sendaddbankinvitationModal"
+          (click)="sendbanklogin()"
+        >
+          Send Bank Login
+        </button>
+        <button
+          *ngIf="div3"
+          type="button"
+          class="btn main_btn mr_12"
+          (click)="modelopen(manualBankAddTemp)"
+        >
+          Add Bank Manually
+        </button>
+        <button
+          *ngIf="div8"
+          class="btn main_btn mr_12"
+          (click)="modelopen(comment_modal)"
+        >
+          Add New Comment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="Phase_Tab_Content" *ngIf="viewApp">
+  <!-- <tabset> -->
+  <div
+    class="user_info_Tab"
+    *ngIf="data.from_details.length > 0 && div1"
+  >
+    <!-- User information  -->
+
+    <div class="UserInfo_Table table_responsive">
+      <table class="plr_25 ptb_9">
+        <tr>
+          <th>User Reference</th>
+          <td>
+            <a routerLink="/admin/users/{{ data.from_details[0]['user_id'] }}"
+              >{{ data.from_details[0]["userreference"] }}
+            </a>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td
+            class="displayFlex spaceBetween AlignItemCenter"
+            *ngIf="!editName"
+          >
+            <div>
+              <p class="tableData">
+                {{ data.from_details[0]["firstname"] }}
+                {{ data.from_details[0]["lastname"] }}
+              </p>
+            </div>
+            <div>
+              <span (click)="editName = true" class="text-danger cursorpointer"
+                ><img src="../../../assets/new/EditIcon.svg"
+              /></span>
+            </div>
+          </td>
+          <td *ngIf="editName">
+            <form
+              class="edit_user_info"
+              (ngSubmit)="f.form.valid && editUserName()"
+              #f="ngForm"
+              novalidate
+            >
+              <div class="row">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    name="firstname"
+                    [(ngModel)]="editNameFields.firstname"
+                    class="form-control tableData"
+                    placeholder="first name"
+                    required
+                    #firstname="ngModel"
+                    [class.is-invalid]="f.submitted && firstname.invalid"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    name="lastname"
+                    [(ngModel)]="editNameFields.lastname"
+                    class="form-control tableData"
+                    placeholder="last name"
+                    required
+                    #lastname="ngModel"
+                    [class.is-invalid]="f.submitted && lastname.invalid"
+                  />
+                </div>
+              </div>
+              <div class="edit_user_info_btn displayFlex AlignItemCenter">
+                <input type="submit" name="submit" class="btn main_btn mr_12" />
+                <input
+                  type="button"
+                  name="cancel"
+                  value="Cancel"
+                  class="main_hover_btn"
+                  (click)="editName = false"
+                />
+              </div>
+            </form>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Email Address</th>
+          <td>
+            <p class="tableData">{{ data.from_details[0]["email"] }}</p>
+          </td>
+          <td>
+            <a href="javascript:void(0)" class="email_verified">
+              <img src="../../../assets/new/verified_icon.svg" class="mr_13" />
+              <span>Email verified </span>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <th>Phone Number</th>
+          <td>
+            <p class="tableData">{{ data.from_details[0]["phonenumber"] }}</p>
+          </td>
+          <td>
+            <a href="javascript:void(0)" class="email_verified">
+              <img src="../../../assets/new/verified_icon.svg" class="mr_13" />
+              <span>Phone verified </span>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <th>Date of Birth</th>
+          <td>
+            <p class="tableData">{{ data.from_details[0]["dateofbirth"] }}</p>
+          </td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <th>Address</th>
+          <td>
+            <div class="displayFlex spaceBetween AlignItemCenter mb_8">
+              <div>
+                <p class="tableData">
+                  {{ data.from_details[0]["streetaddress"] }},
+                </p>
+              </div>
+              <div>
+                <span
+                  class="text-danger cursorpointer"
+                  (click)="editStreetAddress = true"
+                  ><img src="../../../assets/new/EditIcon.svg"
+                /></span>
+              </div>
+            </div>
+            <div class="displayFlex spaceBetween AlignItemCenter mb_8">
+              <div>
+                <p class="tableData">{{ data.from_details[0]["city"] }}</p>
+              </div>
+              <div>
+                <span
+                  class="text-danger cursorpointer"
+                  (click)="editCity = true"
+                  ><img src="../../../assets/new/EditIcon.svg"
+                /></span>
+              </div>
+            </div>
+            <div class="displayFlex spaceBetween AlignItemCenter">
+              <div>
+                <p class="tableData">{{ data.from_details[0]["zipcode"] }}</p>
+              </div>
+              <div>
+                <span
+                  class="text-danger cursorpointer"
+                  (click)="editZipCode = true"
+                  ><img src="../../../assets/new/EditIcon.svg"
+                /></span>
+              </div>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td *ngIf="editStreetAddress">
+            <form
+              class="edit_user_info"
+              (ngSubmit)="f.form.valid && editUserStreetAddress()"
+              #f="ngForm"
+              novalidate
+            >
+              <!-- <div class="row"> -->
+              <input
+                type="text"
+                name="streetaddress"
+                [(ngModel)]="editStreetFields.streetaddress"
+                class="form-control tableData"
+                placeholder="Street Address"
+                required
+                #streetaddress="ngModel"
+                [class.is-invalid]="f.submitted && streetaddress.invalid"
+              />
+              <div class="edit_user_info_btn displayFlex AlignItemCenter">
+                <input type="Submit" name="submit" class="main_btn mr_12" />
+                <input
+                  type="button"
+                  name="cancel"
+                  value="cancel"
+                  class="main_hover_btn"
+                  (click)="editStreetAddress = false"
+                />
+              </div>
+              <!-- </div> -->
+            </form>
+          </td>
+          <td *ngIf="editCity">
+            <form
+              class="edit_user_info"
+              (ngSubmit)="f.form.valid && editUserCity()"
+              #f="ngForm"
+              novalidate
+            >
+              <!-- <div class="row"> -->
+              <input
+                type="text"
+                name="city"
+                onkeydown="return /[a-z ]/i.test(event.key)"
+                [(ngModel)]="editCityFields.city"
+                class="form-control tableData"
+                placeholder="City"
+                required
+                #city="ngModel"
+                [class.is-invalid]="f.submitted && city.invalid"
+              />
+              <div class="edit_user_info_btn displayFlex AlignItemCenter">
+                <input type="submit" name="submit" class="main_btn mr_12" />
+                <input
+                  type="button"
+                  name="cancel"
+                  value="cancel"
+                  class="main_hover_btn"
+                  (click)="editCity = false"
+                />
+              </div>
+              <!-- </div> -->
+            </form>
+          </td>
+          <td *ngIf="editZipCode">
+            <form
+              class="edit_user_info"
+              (ngSubmit)="f.form.valid && editUserZipCode()"
+              #f="ngForm"
+              novalidate
+            >
+              
+              <input
+                type="text"
+                name="zipcode"
+                mask="00000"
+                maxlength="5"
+                [(ngModel)]="editZipCodeFields.zipcode"
+                class="form-control tableData"
+                placeholder="ZipCode"
+                required
+                #zipcode="ngModel"
+                [class.is-invalid]="f.submitted && zipcode.invalid"
+              />
+              <div class="edit_user_info_btn displayFlex AlignItemCenter">
+                <input type="submit" name="submit" class="main_btn mr_12" />
+                <input
+                  type="button"
+                  name="cancel"
+                  value="cancel"
+                  class="main_hover_btn"
+                  (click)="editZipCode = false"
+                />
+              </div>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <th>State</th>
+          <td>
+            <p class="tableData">{{ data.from_details[0]["state"] }}</p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Financing Exist</th>
+          <td><p class="tableData">Yes</p></td>
+          <td>
+            <a href="javascript:void(0)" class="email_verified">
+              <img src="../../../assets/new/verified_icon.svg" class="mr_13" />
+              <span>Financing Exists </span>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <th>Bank Added</th>
+          <td><p class="tableData"></p></td>
+          <td>
+            <a href="javascript:void(0)" class="email_verified">
+              <img src="../../../assets/new/verified_icon.svg" class="mr_13" />
+              <span>Bank Added</span>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <th>Registered Date</th>
+          <td>
+            <p class="tableData">{{ data.from_details[0]["createdat"] }}</p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Last Profile Update Date</th>
+          <td>
+            <p class="tableData">{{ data.from_details[0]["updatedat"] }}</p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Annual Income</th>
+          <td>
+            <p class="tableData" *ngIf="data.from_details[0]['annualincome']">
+              {{
+                data.from_details[0]["annualincome"] | currency: "USD":"symbol"
+              }}
+            </p>
+            <p class="tableData" *ngIf="!data.from_details[0]['annualincome']">
+              {{
+                data.from_details[0]["netmonthlyincome"] * 12
+                  | currency: "USD":"symbol"
+              }}
+            </p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Monthly Income</th>
+          <td>
+            <p class="tableData">
+              {{
+                data.from_details[0]["netmonthlyincome"]
+                  | currency: "USD":"symbol"
+              }}
+            </p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Anticipated Financed Amount</th>
+          <td>
+            <p class="tableData">
+              {{
+                data.from_details[0]["loanamount"] | currency: "USD":"symbol"
+              }}
+            </p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>PreDTI Debt</th>
+          <td><p class="tableData">--</p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Funding Tier</th>
+          <td><p class="tableData">--</p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>PreDTI Debt(%)</th>
+          <td><p class="tableData">--</p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Payroll Detected Income</th>
+          <td><p class="tableData">$0.00</p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Housing Expense</th>
+          <td>
+            <p class="tableData">
+              {{
+                data.from_details[0]["housingexpense"]
+                  | currency: "USD":"symbol"
+              }}
+            </p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Housing Status</th>
+          <td>
+            <p class="tableData">
+              {{ data.from_details[0]["typeofresidence"] }}
+            </p>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Income Type</th>
+          <td><p class="tableData">Entered Manually</p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>
+            Underwriting Rules
+            <span class="smallSpanText mt_10"
+              >(Version: {{ data.from_details[0]["practicename"] }})</span
+            >
+          </th>
+          <td>
+            <span
+              *ngIf="
+                transUnionCreditReport != null &&
+                transUnionCreditReport.passRules != undefined &&
+                transUnionCreditReport.passRules != undefined &&
+                transUnionCreditReport.passRules.length > 0
+              "
+            >
+              <div
+                class="displayFlex spaceBetween AlignItemCenter mb_8"
+                *ngFor="let transRule of transUnionCreditReport.passRules"
+              >
+                <div>
+                  <p class="tableData">{{ transRule }}</p>
+                </div>
+                <div><button class="btn Status_positive">Passed</button></div>
+              </div>
+            </span>
+            <span
+              *ngIf="
+                transUnionCreditReport != null &&
+                transUnionCreditReport.failRules != undefined &&
+                transUnionCreditReport.failRules != undefined &&
+                transUnionCreditReport.failRules.length > 0
+              "
+            >
+              <div
+                class="displayFlex spaceBetween AlignItemCenter mb_8"
+                *ngFor="let transRule of transUnionCreditReport.failRules"
+              >
+                <div>
+                  <p class="tableData">{{ transRule }}</p>
+                </div>
+                <div><button class="btn status_negative">Failed</button></div>
+              </div>
+            </span>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <!--Bank transaction rule-->
+          <th>User Rule Values</th>
+          <td>
+            <span
+              *ngIf="
+                transUnionCreditReport != null &&
+                transUnionCreditReport.bankPassRules != undefined &&
+                transUnionCreditReport.bankPassRules != undefined &&
+                transUnionCreditReport.bankPassRules.length > 0
+              "
+            >
+              <p
+                class="tableData mb_8"
+                *ngFor="let bankRule of transUnionCreditReport.bankPassRules"
+              >
+                {{ bankRule }}
+              </p>
+            </span>
+            <!--Failed rules-->
+            <span
+              *ngIf="
+                transUnionCreditReport != null &&
+                transUnionCreditReport.bankFailRules != undefined &&
+                transUnionCreditReport.bankFailRules != undefined &&
+                transUnionCreditReport.bankFailRules.length > 0
+              "
+            >
+              <p
+                class="tableData mb_8"
+                *ngFor="let bankRule of transUnionCreditReport.bankFailRules"
+              >
+                {{ bankRule }}
+              </p>
+            </span>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Financing Reference Number</th>
+          <td><p class="tableData">--</p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Financing Status</th>
+
+          <td>
+            <div class="displayFlex spaceBetween AlignItemCenter">
+              <div>
+                <p class="tableData">{{ data.stage[0]["status_flag"] }}</p>
+              </div>
+              <div *ngIf="data.stage[0]['status_flag'] == 'approvedcontract'">
+                <a href="javascript:void(0)"
+                  ><img src="../../../assets/new/greenColor.svg"
+                /></a>
+              </div>
+              <div
+                *ngIf="
+                  data.stage[0]['status_flag'] == 'pending' ||
+                  data.stage[0]['status_flag'] == 'waiting' ||
+                  data.stage[0]['status_flag'] == 'archived'
+                "
+              >
+                <a href="javascript:void(0)"
+                  ><img src="../../../assets/new/yellow_color.svg"
+                /></a>
+              </div>
+              <div *ngIf="data.stage[0]['status_flag'] == 'canceled'">
+                <a href="javascript:void(0)"
+                  ><img src="../../../assets/new/red_circle.svg"
+                /></a>
+              </div>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Denied Reason</th>
+          <td><p class="tableData"></p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Counter offered</th>
+          <td><p class="tableData"></p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Сredit Score</th>
+          <td><p class="tableData">--</p></td>
+          <td></td>
+        </tr>
+       
+        <tr>
+          <th>Application Created By</th>
+          <td><p class="tableData">user</p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Plaid Re-sent By</th>
+          <td><p class="tableData"></p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Offer Link Send By</th>
+          <td><p class="tableData"></p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Latitude</th>
+          <td><p class="tableData"></p></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Longitude</th>
+          <td><p class="tableData"></p></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div
+    class="Credit_Report_Tab"
+    *ngIf="data.from_details.length > 0 && div2"
+  >
+    <!-- <div class="p10px" > -->
+    <!-- <tab
+          heading="Credit Info"
+          
+        > -->
+    <div class="p30px">
+      <div class="frameshadow mb20px">
+        <div>
+          <div class="mainTitle">Credit Report</div>
+        </div>
+      </div>
+
+      <h3 class="headingthree_bold Primary_mainblack mb_12">
+        All Debt Obligations from Credit Report
+      </h3>
+      <div class="commonTable mb_24 table_responsive">
+        <table
+          class="plr_24 ptb_8"
+          *ngIf="tradeDebt != null && tradeDebt.monthlyPayments != undefined"
+        >
+          <tr>
+            <th>PreDTI Debt</th>
+            <td>{{ tradeDebt.monthlyPayments }}</td>
+          </tr>
+          <tr *ngFor="let trade of tradeDebt.trades">
+            <th>{{ trade.subscriber.name.unparsed }}</th>
+            <td>
+              {{
+                trade.terms.scheduledMonthlyPayment
+                  | currency: "USD":"symbol":"1.0-0"
+              }}
+            </td>
+          </tr>
+        </table>
+
+        <!-- <div
+              *ngIf="
+                tradeDebt != null && tradeDebt.monthlyPayments != undefined
+              "
+            >
+              <span
+                ><b>PreDTI Debt &ensp;</b> -
+                {{ tradeDebt.monthlyPayments }}</span
+              >
+              <br />
+              <span *ngFor="let trade of tradeDebt.trades">
+                {{ trade.subscriber.name.unparsed }} -
+                {{
+                  trade.terms.scheduledMonthlyPayment
+                    | currency: "USD":"symbol":"1.0-0"
+                }}
+                &ensp; <br />
+              </span>
+            </div> -->
+      </div>
+    </div>
+    <h3 class="headingthree_bold Primary_mainblack mb_12">Credit Report</h3>
+
+    <div class="WhiteFrame BRadius_10 p12">
+      <accordion *ngIf="creditDataRes != null">
+        <accordion-group #group class="accordianGrp mb_8">
+          <div
+            class="displayFlex spaceBetween AlignItemCenter"
+            accordion-heading
+          >
+            <div class="media AlignItemCenter">
+              <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+              <div class="media-body">
+                <h5 class="accordion_heading">User Information</h5>
+              </div>
+            </div>
+            <div>
+              <img src="../../../assets/new/CircleArrow_Down.svg" />
+            </div>
+          </div>
+
+          <div class="commonTable table_responsive">
+            <table class="plr_16">
+              <tbody>
+                <tr>
+                  <th>First Name</th>
+                  <td>
+                    {{ creditData.firstname ? creditData.firstname : "--" }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Last Name</th>
+                  <td>
+                    {{ creditData.lastname ? creditData.lastname : "--" }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Middle Name</th>
+                  <td>
+                    {{ creditData.middlename ? creditData.middlename : "--" }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Social Security Number</th>
+                  <td>
+                    {{
+                      creditData.socialSecurity
+                        ? creditData.socialSecurity
+                        : "--"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Credit score</th>
+                  <td>
+                    {{ creditData.score ? creditData.score : "--" }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>User Ref Number</th>
+                  <td>
+                    {{
+                      creditData.response.transactionControl.userRefNumber
+                        ? creditData.response.transactionControl.userRefNumber
+                        : "--"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Product Code</th>
+                  <td>
+                    {{
+                      creditData.response.product.code
+                        ? creditData.response.product.code
+                        : "--"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Subscriber Industry Code</th>
+                  <td>
+                    {{
+                      creditData.response.transactionControl.subscriber
+                        .industryCode
+                        ? creditData.response.transactionControl.subscriber
+                            .industryCode
+                        : "--"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Subscriber Member Code</th>
+                  <td>
+                    {{
+                      creditData.response.transactionControl.subscriber
+                        .memberCode
+                        ? creditData.response.transactionControl.subscriber
+                            .memberCode
+                        : "--"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Subscriber Inquiry PrefixCode</th>
+                  <td>
+                    {{
+                      creditData.response.transactionControl.subscriber
+                        .inquirySubscriberPrefixCode
+                        ? creditData.response.transactionControl.subscriber
+                            .inquirySubscriberPrefixCode
+                        : "--"
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </accordion-group>
+        <accordion-group #group class="accordianGrp mb_8">
+          <div
+            class="displayFlex spaceBetween AlignItemCenter"
+            accordion-heading
+          >
+            <div class="media AlignItemCenter">
+              <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+              <div class="media-body">
+                <h5 class="accordion_heading">Credit Information</h5>
+              </div>
+            </div>
+            <div>
+              <img src="../../../assets/new/CircleArrow_Down.svg" />
+            </div>
+          </div>
+
+          <accordion>
+            <accordion-group
+              #group
+              creditData.trade
+              class="SubaccordianGrp mb_8"
+            >
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Trade Information</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div
+                *ngIf="creditData.trade"
+                class="commonTable table_responsive"
+              >
+                <table
+                  class="p10 mb_24"
+                  *ngFor="let tradeData of creditData.trade"
+                >
+                  <tbody>
+                    <tr>
+                      <th>Subscriber Industry Code</th>
+                      <td>
+                        {{
+                          tradeData.subscriber.industryCode
+                            ? tradeData.subscriber.industryCode
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Subscriber Member Code</th>
+                      <td>
+                        {{
+                          tradeData.subscriber.memberCode
+                            ? tradeData.subscriber.memberCode
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Subscriber Name</th>
+                      <td>
+                        {{
+                          tradeData.subscriber.name.unparsed
+                            ? tradeData.subscriber.name.unparsed
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Portfolio Type</th>
+                      <td>
+                        {{
+                          tradeData.portfolioType
+                            ? tradeData.portfolioType
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Account Number</th>
+                      <td>
+                        {{
+                          tradeData.subscriber.accountnumber
+                            ? tradeData.subscriber.accountnumber
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>ECOA Designator</th>
+                      <td>
+                        {{
+                          tradeData.ecoaDesignator
+                            ? tradeData.ecoaDesignator
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date Opened</th>
+                      <td>
+                        {{
+                          tradeData.dateOpened.value
+                            ? tradeData.dateOpened.value
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Current Balance</th>
+                      <td>
+                        {{
+                          tradeData.currentBalance
+                            ? tradeData.currentBalance
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>High Credit</th>
+                      <td>
+                        {{ tradeData.highCredit ? tradeData.highCredit : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Credit Limit</th>
+                      <td>
+                        {{
+                          tradeData.creditLimit ? tradeData.creditLimit : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Account Rating</th>
+                      <td>
+                        {{
+                          tradeData.accountRating
+                            ? tradeData.accountRating
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Remark Code</th>
+                      <td>
+                        {{
+                          tradeData.remark?.code ? tradeData.remark?.code : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Remark Type</th>
+                      <td>
+                        {{
+                          tradeData.remark?.type ? tradeData.remark?.type : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Past Due</th>
+                      <td>
+                        {{ tradeData.pastDue ? tradeData.pastDue : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Most Recent Payment</th>
+                      <td>
+                        {{
+                          tradeData.mostRecentPayment?.date._
+                            ? tradeData.mostRecentPayment?.date._
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+              </div>
+            </accordion-group>
+            <accordion-group #group class="SubaccordianGrp mb_8">
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Collection Information</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div *ngIf="creditData.creditCollection">
+                <table
+                  class="table table-bordered"
+                  *ngFor="let cc of creditData.creditCollection"
+                >
+                  <tbody>
+                    <tr>
+                      <th style="width: 50%">Name</th>
+                      <td>
+                        {{
+                          cc.subscriber.name.unparsed
+                            ? cc.subscriber.name.unparsed
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Portfolio Type</th>
+                      <td>
+                        {{ cc.portfolioType ? cc.portfolioType : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Account Number</th>
+                      <td>
+                        {{ cc.accountnumber ? cc.accountnumber : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>ECOA Designator</th>
+                      <td>
+                        {{ cc.ECOADesignator ? cc.ECOADesignator : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date Opened</th>
+                      <td>
+                        {{ cc.dateOpened ? cc.dateOpened : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date Effective</th>
+                      <td>
+                        {{ cc.dateEffective ? cc.dateEffective : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Current Balance</th>
+                      <td>
+                        {{ cc.currentBalance ? cc.currentBalance : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Account Rating</th>
+                      <td>
+                        {{ cc.accountRating ? cc.accountRating : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Remark Code</th>
+                      <td>
+                        {{ cc.remark?.code ? cc.remark?.code : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Remark Type</th>
+                      <td>
+                        {{ cc.remark?.type ? cc.remark?.type : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Past Due</th>
+                      <td>
+                        {{ cc.pastDue ? cc.pastDue : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Most Recent Payment</th>
+                      <td>
+                        {{
+                          cc.mostRecentPayment?.date._
+                            ? cc.mostRecentPayment?.date._
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </accordion-group>
+            <accordion-group #group class="SubaccordianGrp mb_8">
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Inquiry Information</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div
+                *ngIf="creditData.inquiry"
+                class="commonTable table_responsive"
+              >
+                <table
+                  class="plr_16"
+                  *ngFor="let inquiryData of creditData.inquiry"
+                >
+                  <tbody>
+                    <tr>
+                      <th style="width: 50%">Name</th>
+                      <td>
+                        {{
+                          inquiryData.subscriber.name.unparsed
+                            ? inquiryData.subscriber.name.unparsed
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>ECOA Designator</th>
+                      <td>
+                        {{
+                          inquiryData.ECOADesignator
+                            ? inquiryData.ECOADesignator
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Industry Code</th>
+                      <td>
+                        {{
+                          inquiryData.subscriber.industryCode
+                            ? inquiryData.subscriber.industryCode
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Member Code</th>
+                      <td>
+                        {{
+                          inquiryData.subscriber.memberCode
+                            ? inquiryData.subscriber.memberCode
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Prefix Code</th>
+                      <td>
+                        {{
+                          inquiryData.subscriber.inquirySubscriberPrefixCode
+                            ? inquiryData.subscriber.inquirySubscriberPrefixCode
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date</th>
+                      <td>
+                        {{ inquiryData.date._ ? inquiryData.date._ : "--" }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </accordion-group>
+            <accordion-group #group class="SubaccordianGrp">
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Public Record Information</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div *ngIf="creditData.publicrecord">
+                <table
+                  class="table table-bordered"
+                  *ngFor="let publicrecordData of creditData.publicrecord"
+                >
+                  <tbody>
+                    <tr>
+                      <th style="width: 50%">Type</th>
+                      <td>
+                        {{
+                          publicrecordData.type ? publicrecordData.type : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%">Industry Code</th>
+                      <td>
+                        {{
+                          publicrecordData.subscriber.industryCode
+                            ? publicrecordData.subscriber.industryCode
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Member Code</th>
+                      <td>
+                        {{
+                          publicrecordData.subscriber.memberCode
+                            ? publicrecordData.subscriber.memberCode
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Docket Number</th>
+                      <td>
+                        {{
+                          publicrecordData.docketNumber
+                            ? publicrecordData.docketNumber
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Attorney</th>
+                      <td>
+                        {{
+                          publicrecordData.attorney
+                            ? publicrecordData.attorney
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>ECOA Designator</th>
+                      <td>
+                        {{
+                          publicrecordData.ECOADesignator
+                            ? publicrecordData.ECOADesignator
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Source</th>
+                      <td>
+                        {{
+                          publicrecordData.source.type
+                            ? publicrecordData.source.type
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date Filed</th>
+                      <td>
+                        {{
+                          publicrecordData.dateFiled._
+                            ? publicrecordData.dateFiled._
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date Paid</th>
+                      <td>
+                        {{
+                          publicrecordData.datePaid._
+                            ? publicrecordData.datePaid._
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </accordion-group>
+          </accordion>
+        </accordion-group>
+        <accordion-group #group class="accordianGrp mb_8">
+          <div
+            class="displayFlex spaceBetween AlignItemCenter"
+            accordion-heading
+          >
+            <div class="media AlignItemCenter">
+              <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+              <div class="media-body">
+                <h5 class="accordion_heading">Product Information</h5>
+              </div>
+            </div>
+            <div>
+              <img src="../../../assets/new/CircleArrow_Down.svg" />
+            </div>
+          </div>
+
+          <accordion>
+            <accordion-group #group class="Sub_product_accordianGrp mb_8">
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Add on Product</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div
+                *ngIf="creditData.addOnProduct"
+                class="commonTable table_responsive"
+              >
+                <table
+                  class="plr_16"
+                  *ngFor="let productData of creditData.addOnProduct"
+                >
+                  <tbody>
+                    <tr>
+                      <th align="left" style="width: 50%">code</th>
+                      <td>
+                        {{ productData.code ? productData.code : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th align="left">status</th>
+                      <td>
+                        {{ productData.status ? productData.status : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" bgcolor="lightcyan" align="center">
+                        <b>scoreModel</b>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="2">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td
+                                colspan="2"
+                                bgcolor="lightcyan"
+                                align="center"
+                              >
+                                <b>score</b>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <table>
+                                  <tbody>
+                                    <tr>
+                                      <th align="left" style="width: 50%">
+                                        results
+                                      </th>
+                                      <td
+                                        *ngIf="
+                                          productData.scoreModel != null &&
+                                          productData.scoreModel
+                                        "
+                                      >
+                                        <span
+                                          *ngIf="productData.scoreModel.score"
+                                        >
+                                          {{
+                                            productData.scoreModel.score.results
+                                              ? productData.scoreModel.score
+                                                  .results
+                                              : "--"
+                                          }}
+                                        </span>
+                                        <span
+                                          *ngIf="!productData.scoreModel.score"
+                                        >
+                                          --
+                                        </span>
+                                      </td>
+                                      <td *ngIf="!productData.scoreModel">
+                                        --
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <th align="left">derogatoryAlert</th>
+                                      <td
+                                        *ngIf="
+                                          productData.scoreModel != null &&
+                                          productData.scoreModel
+                                        "
+                                      >
+                                        <span
+                                          *ngIf="productData.scoreModel.score"
+                                        >
+                                          {{
+                                            productData.scoreModel.score
+                                              .derogatoryAlert
+                                              ? productData.scoreModel.score
+                                                  .derogatoryAlert
+                                              : "--"
+                                          }}
+                                        </span>
+                                        <span
+                                          *ngIf="!productData.scoreModel.score"
+                                        >
+                                          --
+                                        </span>
+                                      </td>
+                                      <td *ngIf="!productData.scoreModel">
+                                        --
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <th align="left">
+                                        fileInquiriesImpactedScore
+                                      </th>
+                                      <td
+                                        *ngIf="
+                                          productData.scoreModel != null &&
+                                          productData.scoreModel
+                                        "
+                                      >
+                                        <span
+                                          *ngIf="productData.scoreModel.score"
+                                        >
+                                          {{
+                                            productData.scoreModel.score
+                                              .fileInquiriesImpactedScore
+                                              ? productData.scoreModel.score
+                                                  .fileInquiriesImpactedScore
+                                              : "--"
+                                          }}
+                                        </span>
+                                        <span
+                                          *ngIf="!productData.scoreModel.score"
+                                        >
+                                          --
+                                        </span>
+                                      </td>
+                                      <td *ngIf="!productData.scoreModel">
+                                        --
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td
+                                        colspan="2"
+                                        bgcolor="lightcyan"
+                                        align="center"
+                                      >
+                                        <b>factors</b>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="2">
+                                        <table>
+                                          <tbody>
+                                            <tr>
+                                              <td
+                                                colspan="2"
+                                                bgcolor="lightcyan"
+                                                align="center"
+                                              >
+                                                <b>factor</b>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td
+                                                colspan="2"
+                                                *ngIf="
+                                                  productData.scoreModel !=
+                                                    null &&
+                                                  productData.scoreModel
+                                                "
+                                              >
+                                                <div
+                                                  *ngIf="
+                                                    productData.scoreModel
+                                                      .score != null &&
+                                                      productData.scoreModel
+                                                        .score;
+                                                    else noFactorData
+                                                  "
+                                                >
+                                                  <div
+                                                    *ngIf="
+                                                      productData.scoreModel
+                                                        .score.factors !=
+                                                        null &&
+                                                        productData.scoreModel
+                                                          .score.factors.factor;
+                                                      else noFactorData
+                                                    "
+                                                  >
+                                                    <table
+                                                      class="mb_24"
+                                                      *ngFor="
+                                                        let factorData of productData
+                                                          .scoreModel.score
+                                                          .factors.factor
+                                                      "
+                                                    >
+                                                      <tbody>
+                                                        <tr>
+                                                          <th
+                                                            style="width: 50%"
+                                                          >
+                                                            Rank
+                                                          </th>
+                                                          <td>
+                                                            {{
+                                                              factorData.rank
+                                                                ? factorData.rank
+                                                                : "--"
+                                                            }}
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <th>Code</th>
+                                                          <td>
+                                                            {{
+                                                              factorData.code
+                                                                ? factorData.code
+                                                                : "--"
+                                                            }}
+                                                          </td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                  </div>
+                                                </div>
+
+                                                <ng-template #noFactorData
+                                                  >No Data Received
+                                                </ng-template>
+                                              </td>
+                                              <td
+                                                *ngIf="!productData.scoreModel"
+                                              >
+                                                No Data Received
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </accordion-group>
+          </accordion>
+        </accordion-group>
+        <accordion-group #group class="accordianGrp mb_8">
+          <div
+            class="displayFlex spaceBetween AlignItemCenter"
+            accordion-heading
+          >
+            <div class="media AlignItemCenter">
+              <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+              <div class="media-body">
+                <h5 class="accordion_heading">Other Information</h5>
+              </div>
+            </div>
+            <div>
+              <img src="../../../assets/new/CircleArrow_Down.svg" />
+            </div>
+          </div>
+
+          <accordion>
+            <accordion-group #group class="SubaccordianGrp mb_8">
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Address Information</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div
+                *ngIf="creditData.houseNumber; else noAddrData"
+                class="commonTable table_responsive"
+              >
+                <table
+                  class="plr_16"
+                  *ngFor="let houseData of creditData.houseNumber"
+                >
+                  <tbody>
+                    <tr>
+                      <th style="width: 50%">Status</th>
+                      <td>
+                        {{ houseData.status ? houseData.status : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Qualifier</th>
+                      <td>
+                        {{ houseData.qualifier ? houseData.qualifier : "--" }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Address</th>
+                      <td align="center">
+                        <table class="table table-bordered">
+                          <tr>
+                            <td style="width: 50%">Number</td>
+                            <td>
+                              {{
+                                houseData.street.number
+                                  ? houseData.street.number
+                                  : "--"
+                              }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Street Name</td>
+                            <td>
+                              {{
+                                houseData.street.name
+                                  ? houseData.street.name
+                                  : "--"
+                              }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Type</td>
+                            <td>
+                              {{
+                                houseData.street.type
+                                  ? houseData.street.type
+                                  : "--"
+                              }}
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <ng-template #noAddrData>No Data Received</ng-template>
+            </accordion-group>
+            <accordion-group #group class="SubaccordianGrp mb_8">
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img class="mr-3" src="../../../assets/new/info_Icon.svg" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Employment Information</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div
+                *ngIf="creditData.employment; else noEmpData"
+                class="commonTable table_responsive"
+              >
+                <table
+                  class="mb_24 plr_16"
+                  *ngFor="let employeeData of creditData.employment"
+                >
+                  <tbody>
+                    <tr>
+                      <th style="width: 50%">Employer</th>
+                      <td>
+                        {{
+                          employeeData.employer.unparsed
+                            ? employeeData.employer.unparsed
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Occupation</th>
+                      <td>
+                        {{
+                          employeeData.occupation
+                            ? employeeData.occupation
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date Hired</th>
+                      <td>
+                        {{
+                          employeeData.dateHired ? employeeData.dateHired : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date On File Since</th>
+                      <td>
+                        {{
+                          employeeData.dateOnFileSince._
+                            ? employeeData.dateOnFileSince._
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Date Effective</th>
+                      <td>
+                        {{
+                          employeeData.dateEffective._
+                            ? employeeData.dateEffective._
+                            : "--"
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <ng-template #noEmpData>No Data Received</ng-template>
+            </accordion-group>
+          </accordion>
+        </accordion-group>
+      </accordion>
+    </div>
+    <!-- </tab> -->
+  </div>
+  <div
+    class="Bank_Accounts_Tab height_100per"
+    *ngIf="div3"
+  >
+    <!-- <tab heading="Bank Accounts" > -->
+
+    <div class="DesktopFlex_MobileBlock minHeight_100per">
+      <!-- <div> -->
+      <div class="WhiteFrame ptb_15 plr_25 m_1 width_340">
+        <div class="phase_search mb_24">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <img src="../../../assets/new/SearchICon.svg" />
+              </span>
+            </div>
+            <input
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="hrBorderLine mb_24"></div>
+        <div id="myDIV">
+          <div
+            class="bank_Menu mb_8"
+            (click)="getActiveclass(i)"
+            *ngFor="let bank of bankaccounts; let i = index"
+            (click)="plaidfunction(i)"
+          >
+            <div class="media AlignItemCenter">
+              <img src="../../../assets/new/plaidIcon.svg" class="normalBank" />
+              <img
+                src="../../../assets/new/activebank.svg"
+                class="activeBank"
+              />
+              <div class="media-body">
+                <h5 class="accordion_heading">
+                  Plaid - {{ bank.bankname }}-({{
+                    datePipe.transform(
+                      bank.bankAccounts[0].createdat.split("T")[0],
+                      "MMM dd, yyyy"
+                    )
+                  }})
+                </h5>
+              </div>
+            </div>
+            <div>
+              <img src="../../../assets/new/CirclePlus.svg" class="normalImg" />
+              <img
+                src="../../../assets/new/angle_right.svg"
+                class="activeImg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p25 bank_calc_100per">
+        <div class="WhiteFrame BRadius_10 p12" *ngIf="pdiv1">
+          <div class="BankAccount_Tab mb_24">
+            <ul>
+              <li>
+                <a class="{{ Bactive1 }}" (click)="Bankaccountfun('user info')"
+                  >User Information</a
+                >
+              </li>
+              <li>
+                <a
+                  class="{{ Bactive2 }}"
+                  (click)="Bankaccountfun('caccount info')"
+                  >Current Account Information</a
+                >
+              </li>
+              <li>
+                <a
+                  class="{{ Bactive3 }}"
+                  (click)="Bankaccountfun('haccount info')"
+                  >Historical Account Information</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div id="userbankinfo" *ngIf="bdiv1">
+            <div class="commonTable table_responsive">
+              <table class="plr_16">
+                <tr>
+                  <th>Name</th>
+                  <td>
+                    {{ accountholderdet[0]["bankholdername"] }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Email</th>
+                  <td>{{ accountholderdet[0]["bankholderemail"] }}</td>
+                </tr>
+                <tr>
+                  <th>Phone</th>
+                  <td>{{ accountholderdet[0]["bankholderphone"] }}</td>
+                </tr>
+                <tr>
+                  <th>Address</th>
+                  <td>
+                    {{ accountholderdet[0]["bankholderaddress"] }}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="bdiv2">
+            <div class="displayFlex spaceBetween AlignItemCenter mb_12">
+              <div>
+                <!-- *ngFor="let bank of bankaccounts; let i = index" <div *ngIf="activehistindex == i" >
+                    <h5 class="accordion_heading">{{ bank.bankname }}-({{
+                      datePipe.transform(
+                        bank.bankAccounts[0].createdat.split("T")[0],
+                        'MMM dd, yyyy'
+                      )
+                    }})</h5>
+                  </div> -->
+              </div>
+              <!-- <div>
+                <button
+                  type="button"
+                  class="btn main_btn"
+                  id="sendaddbankinvitation"
+                  data-toggle="modal"
+                  data-target="#sendaddbankinvitationModal"
+                  (click)="sendbanklogin()"
+                >
+                  Send Bank Login
+                </button>
+              </div> -->
+            </div>
+            <accordion>
+              <div>
+                <!-- <div *ngFor="let bank of bankaccounts; let i = index"> -->
+
+                <accordion class="p10">
+                  <accordion-group
+                    class="accordian_phase mb_8"
+                    *ngFor="let ac of bankaccounts[iterableval].bankAccounts"
+                    #group
+                  >
+                    <div
+                      class="displayFlex spaceBetween AlignItemCenter"
+                      accordion-heading
+                    >
+                      <div class="media AlignItemCenter">
+                        <img
+                          class="mr-3"
+                          src="../../../assets/new/Currentaccount_info_icon.svg"
+                        />
+                        <div class="media-body">
+                          <h5 class="accordion_heading">
+                            {{ ac.headername }}-({{
+                              datePipe.transform(
+                                ac.createdat.split("T")[0],
+                                "MMM dd, yyyy"
+                              )
+                            }})
+                          </h5>
+                        </div>
+                      </div>
+                      <div>
+                        <img src="../../../assets/new/angle_right.svg" />
+                      </div>
+                    </div>
+
+                    <div class="GrayTable table_responsive mb_8">
+                      <table class="plr_16">
+                        <tbody>
+                          <tr>
+                            <th>Account Name</th>
+                            <td>
+                              {{ ac.name }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Account Type</th>
+                            <td>{{ ac.type }}</td>
+                          </tr>
+                          <tr>
+                            <th>Account Subtype</th>
+                            <td>{{ ac.subtype }}</td>
+                          </tr>
+
+                          <tr>
+                            <th>Account Number</th>
+                            <td>{{ ac.acno }}</td>
+                          </tr>
+
+                          <tr>
+                            <th>Account Routing Number</th>
+                            <td>{{ ac.routing }}</td>
+                          </tr>
+                          <tr>
+                            <th>Account Wire Routing Number</th>
+                            <td>{{ ac.wire_routing }}</td>
+                          </tr>
+                          <tr>
+                            <th>Account Institution Type</th>
+                            <td>{{ ac.institution_id }}</td>
+                          </tr>
+                          <tr>
+                            <th>Account Current Balance</th>
+                            <td>${{ ac.current }}</td>
+                          </tr>
+                          <tr>
+                            <th>Account Available Balance</th>
+                            <td>${{ ac.available }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- <hr /> -->
+                    <!-- <h2>Transaction Details - last 365 days</h2> -->
+                    <!-- <hr /> -->
+
+                    <div class="TransactionDetailBox">
+                      <div class="TransactionHeader mb_12">
+                        <h2 class="TransactionDetail_heading">
+                          Transaction Details - last 365 days
+                        </h2>
+                      </div>
+                      <div
+                        class="Table_item overflowScroll table_responsive"
+                        *ngIf="ac.transactions != ''"
+                      >
+                        <table datatable>
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">TransactionName</th>
+                              <th scope="col">Category ID</th>
+                              <th scope="col">Category</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col">Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="let d of ac.transactions; let i = index"
+                            >
+                              <td scope="row">{{ i + 1 }}</td>
+                              <td>
+                                {{ d.name }}
+                              </td>
+                              <td>
+                                {{ d.category_id }}
+                              </td>
+                              <td>{{ d.category }}</td>
+                              <td *ngIf="d.amount < 0">{{ d.amount * -1 }}</td>
+                              <td *ngIf="d.amount > 0">{{ -d.amount }}</td>
+                              <td>{{ d.date }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </accordion-group>
+                </accordion>
+                <!-- </accordion-group> -->
+                <!-- </accordion> -->
+                <!-- </div> -->
+              </div>
+              <!-- </accordion-group> -->
+            </accordion>
+          </div>
+          <div *ngIf="bdiv3">
+            <div *ngFor="let bank of bankaccounts; let i = index">
+              <accordion class="p10" *ngIf="activehistindex == i">
+                <accordion-group class="accordian_phase mb_8" #group>
+                  <div
+                    class="displayFlex spaceBetween AlignItemCenter"
+                    accordion-heading
+                  >
+                    <div class="media AlignItemCenter">
+                      <img
+                        class="mr-3"
+                        src="../../../assets/new/plaidIcon.svg"
+                      />
+                      <div class="media-body">
+                        <h5 class="accordion_heading">
+                          {{ bank.bankname }}-({{
+                            datePipe.transform(
+                              bank.bankAccounts[0].createdat.split("T")[0],
+                              "MMM dd, yyyy"
+                            )
+                          }})
+                        </h5>
+                      </div>
+                    </div>
+                    <div>
+                      <img src="../../../assets/new/angle_right.svg" />
+                    </div>
+                  </div>
+                  <!-- <accordion
+                      class="p10 cardSection"
+                      *ngIf="bankaccounts != null && bankaccounts.length > 0"
+                    >
+                    <accordion-group
+                      heading="Chase-({{
+                        datePipe.transform(
+                          bankaccounts[0].createdat,
+                          'MMM dd, yyyy'
+                        )
+                      }})"
+                    > -->
+                  <!-- <div *ngFor="let bank of bankaccounts; let i = index">
+                    <h5 class="accordion_heading">{{ bank.bankname }}-({{
+                      datePipe.transform(
+                        bank.bankAccounts[0].createdat,
+                        'MMM dd, yyyy'
+                      )
+                    }})</h5>
+                    <h5 class="accordion_heading">Chase - ( August 12, 2021 )</h5>
+                  </div> -->
+                  <accordion>
+                    <div>
+                      <!-- <div *ngFor="let bank of bankaccounts; let i = index"> -->
+                      <accordion class="p10">
+                        <accordion-group
+                          class="accordian_phase mb_8"
+                          *ngFor="
+                            let ac of bankaccounts[iterableval].bankAccounts;
+                            let j = index
+                          "
+                          #group
+                        >
+                          <div
+                            class="displayFlex spaceBetween AlignItemCenter"
+                            accordion-heading
+                          >
+                            <div class="media AlignItemCenter">
+                              <img
+                                class="mr-3"
+                                src="../../../assets/new/Currentaccount_info_icon.svg"
+                              />
+                              <div class="media-body">
+                                <h5 class="accordion_heading">
+                                  {{ ac.headername }}
+                                </h5>
+                              </div>
+                            </div>
+                            <div>
+                              <img src="../../../assets/new/angle_right.svg" />
+                            </div>
+                          </div>
+                          <!-- <div class="GrayTable table_responsive mb_8">
+                          <table class="plr_16">
+                            <tbody>
+                              <tr>
+                                <th>Account Name</th>
+                                <td>
+                                  {{ ac.name }}
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Account Type</th>
+                                <td>{{ ac.type }}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Subtype</th>
+                                <td>{{ ac.subtype }}</td>
+                              </tr>
+
+                              <tr>
+                                <th>Account Number</th>
+                                <td>{{ ac.acno }}</td>
+                              </tr>
+
+                              <tr>
+                                <th>Account Routing Number</th>
+                                <td>{{ ac.routing }}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Wire Routing Number</th>
+                                <td>{{ ac.wire_routing }}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Institution Type</th>
+                                <td>{{ ac.institution_id }}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Current Balance</th>
+                                <td>${{ ac.current }}</td>
+                              </tr>
+                              <tr>
+                                <th>Account Available Balance</th>
+                                <td>${{ ac.available }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div> -->
+                          <div class="TransactionDetailBox">
+                            <div class="TransactionHeader mb_12">
+                              <h2 class="TransactionDetail_heading">
+                                Transaction Details - last 365 days
+                              </h2>
+                            </div>
+                            <div
+                              class="Table_item overflowScroll table_responsive"
+                              *ngIf="historybalance != ''"
+                            >
+                              <table datatable>
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Account No</th>
+                                    <th scope="col">Routing</th>
+                                    <th scope="col">Currency</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Date</th>
+                                  </tr>
+                                </thead>
+                                <tbody *ngIf="ac.acno == historyacno[j].acno">
+                                  <tr
+                                    *ngFor="
+                                      let d of historybalance[ac.acno];
+                                      let ii = index
+                                    "
+                                  >
+                                    <th scope="row">{{ ii + 1 }}</th>
+                                    <td>
+                                      {{ d.acno }}
+                                    </td>
+                                    <td>
+                                      {{ d.wire_routing }}
+                                    </td>
+                                    <td>{{ d.currency }}</td>
+                                    <td>{{ d.amount }}</td>
+                                    <td>{{ d.date.split("T")[0] }}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </accordion-group>
+                      </accordion>
+                      <!-- </div> -->
+                    </div>
+                  </accordion>
+                </accordion-group>
+              </accordion>
+            </div>
+            <!--<div class="commonTable overflowScroll table_responsive">
+                  <table datatable class="plr_16">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Account No</th>
+                        <th scope="col">Routing</th>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="historybalance">
+                      <tr
+                        *ngFor="let d of historybalance; let i = index"
+                      >
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>
+                          {{ d.acno }}
+                        </td>
+                        <td>
+                          {{ d.wire_routing }}
+                        </td>
+                        <td>{{ d.currency }}</td>
+                        <td>{{ d.amount }}</td>
+                        <td>{{ d.date }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- </tab>  -->
+  </div>
+  <div class="Employment_Tab" *ngIf="div4">
+    <div class="row">
+      <div class="col-md-6 mobile_mb32">
+        <h3 class="headingthree_bold Primary_mainblack mb_12">
+          Current Employer Info
+        </h3>
+        <div class="WhiteFrame BRadius_10 p24" *ngIf="editEmpdata">
+          <form
+            autocomplete="on"
+            class="formclass signupForm"
+            style="width: 100%"
+            [formGroup]="employInfo"
+            method="POST"
+          >
+            <div class="mb_24">
+              <input
+                type="text"
+                class="adminInput"
+                formControlName="employer"
+                placeholder="Employer Name"
+              />
+            </div>
+            <div class="mb_24">
+              <input
+                type="text"
+                class="adminInput"
+                formControlName="employerphone"
+                placeholder="Employer Phone"
+              />
+            </div>
+            <!-- <div class="mb_24">
+          <input type="text" class="adminInput" formControlName="streetaddress" placeholder="Employer Address">
+        </div> -->
+            <div class="row mb_24">
+              <div class="col-md-4 mobile_space_mb_24">
+                <div>
+                  <input
+                    type="text"
+                    class="adminInput"
+                    formControlName="city"
+                    placeholder="Employer City"
+                  />
+                  <!-- <select class="adminInput">
+                <option>Employer City</option>
+                <option>1</option>
+              </select> -->
+                </div>
+              </div>
+              <div class="col-md-4 mobile_space_mb_24">
+                <div>
+                  <select class="adminInput" formControlName="state">
+                    <option value="" selected="selected" disabled="disabled">
+                      State
+                    </option>
+                    <option [value]="stat.id" *ngFor="let stat of stateList">
+                      {{ stat.displayName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 mobile_space_mb_24">
+                <div>
+                  <input
+                    type="text"
+                    class="adminInput"
+                    formControlName="zipcode"
+                    placeholder="Employer Zip"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!--<div class="mb_24">
+                <label class="mb_16 adminLabel">Type of Income</label>
+
+              <div class="tagsinput_group">
+                <span class="tagsinput mr_8">Item</span>
+                <span class="tagsinput mr_8">Item</span>
+                <span class="tagsinput">Item</span>
+                </div>
+                </div>
+
+                        <div>
+                <label class="mb_16 adminLabel">Type of Payroll</label>
+
+              <div class="tagsinput_group">
+
+                <span class="tagsinput mr_8">Item</span>
+                <span class="tagsinput mr_8">Item</span>
+                <span class="tagsinput">Item</span>
+                </div>
+                </div>-->
+          </form>
+        </div>
+
+        <div class="commonTable table_responsive" *ngIf="!editEmpdata">
+          <table class="plr_24 ptb_8">
+            <tr>
+              <th>Employer Name</th>
+              <td>{{ empdata[0].employer }}</td>
+            </tr>
+            <tr>
+              <th>Employer Phone</th>
+              <td>{{ empdata[0].employerphone }}</td>
+            </tr>
+            <!-- <tr>
+            <th>Employer Address</th>
+            <td>{{empdata[0].streetaddress}},{{empdata[0].city}},{{empdata[0].state}}-{{empdata[0].zipcode}}</td>
+          </tr>
+          <tr>
+            <th>Employer Status</th>
+            <td>-</td>
+          </tr> 
+          <tr>
+            <th>Supervisor Name</th>
+            <td>-</td>
+          </tr>-->
+            <tr>
+              <th>Job Title</th>
+              <td>{{ empdata[0].jobtitle }}</td>
+            </tr>
+            <tr>
+              <th>Employment Status</th>
+              <td>{{ empdata[0].workstatus }}</td>
+            </tr>
+            <tr>
+              <th>Job Start Date</th>
+              <td>
+                {{ datePipe.transform(empdata[0].dateofhired, "MMM dd, YYYY") }}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3 class="headingthree_bold Primary_mainblack mb_12">
+          Income Information
+        </h3>
+        <form
+          autocomplete="on"
+          class="formclass signupForm"
+          style="width: 100%"
+          [formGroup]="employInfo"
+          method="POST"
+        >
+          <div class="WhiteFrame BRadius_10 p24" *ngIf="editEmpdata">
+            <div class="mb_24">
+              <input
+                type="text"
+                class="adminInput"
+                formControlName="annualincome"
+                placeholder="Current Annual Income"
+              />
+            </div>
+            <div class="mb_24">
+              <label class="mb_16 adminLabel">Periodicity</label>
+              <div class="tagsinput_group">
+                <span class="tagsinput mr_8">Daily</span>
+                <span class="tagsinput mr_8">Weekly</span>
+                <span class="tagsinput">Monthly</span>
+              </div>
+            </div>
+            <!-- <div class="mb_24">
+            <input type="date" class="adminInput" placeholder="Last Pay Date">
+          </div>   -->
+            <div class="mb_24">
+              <input
+                type="hidden"
+                class="adminInput"
+                formControlName="createddate"
+              />
+              <select class="adminInput" formControlName="payment_duedate">
+                <option value="null" selected="selected">
+                  Select Payment Due Date
+                </option>
+                <option
+                  *ngFor="let in of counter(31); let i = index"
+                  [value]="i + 1"
+                >
+                  {{ i + 1 }}
+                </option>
+              </select>
+              <!-- <input type="date" class="adminInput" formControlName="payment_duedate" placeholder="Next Pay Date"> -->
+            </div>
+            <!-- <div class="mb_24">
+          <input type="date" class="adminInput" placeholder="Second Pay Date">
+        </div>
+        <div class="mb_24">
+         <label class="mb_16 adminLabel">Pay Frequency</label>
+          <div class="tagsinput_group">
+            <span class="tagsinput mr_8">Daily</span>
+            <span class="tagsinput mr_8">Weekly</span>
+            <span class="tagsinput">Monthly</span>
+          </div>
+        </div>
+        <div>
+          <input type="text" class="adminInput" placeholder="Is After Holiday">
+        </div> -->
+          </div>
+        </form>
+
+        <div class="commonTable table_responsive" *ngIf="!editEmpdata">
+          <table class="plr_24 ptb_8">
+            <tr>
+              <th>Current Annual Income</th>
+              <td>{{ empdata[0].annualincome }}</td>
+            </tr>
+            <tr>
+              <th>Pay Frequency</th>
+              <td>{{ payfrequency }}</td>
+            </tr>
+            <tr>
+              <th>Last Pay Date</th>
+              <td>{{ lastpaydate }}</td>
+            </tr>
+            <tr>
+              <th>Next Pay Date</th>
+              <td>{{ nextpaydate }}</td>
+            </tr>
+            <tr>
+              <th>Second Pay Date</th>
+              <td>{{ secondpaydate }}</td>
+            </tr>
+            <!-- <tr>
+            <th>Bank Holiday (before/after)</th>
+            <td>-</td>
+          </tr> -->
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="Payment_Schedule_Tab height_100per"
+    *ngIf="
+      data.from_details.length > 0 &&
+      div5 &&
+      data.paymentScheduleDetails.length > 0
+    "
+  >
+    <!-- <tab
+  heading="Payment Schedule"
+  
+> -->
+    <!-- DesktopFlex_MobileBlock minHeight_100per -->
+    <div>
+      <!-- <td><a (click)="view(d.filepath)" href="javascript:void(0)" class="ViewDownload">View</a</td> -->
+      <!-- <div class="WhiteFrame ptb_25 plr_25  w400 m_1 minHeight_100per">
+
+            <h3 class="headingthree_bold Primary_mainblack mb_24">Financing Agreement Documents</h3>
+
+            <div class="hrBorderLine mb_24"></div>
+
+<div class="DocumentCenterTable table_responsive">
+                    <table>
+                      <thead>
+          <tr>
+            <th>#</th>
+           <th>Documents</th>
+            <th>PDF</th>
+             
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>
+              Retail Installment Contract
+              </td>
+              <td> <img
+                  src="../../../assets/new/pdfIcon.svg"
+                /></td>
+               
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>
+             Electronic Funds Transfer Authorization
+              </td>
+              <td> <img
+                  src="../../../assets/new/pdfIcon.svg"
+                /></td>
+               
+            </tr>
+              <tr>
+              <td>3</td>
+              <td>
+            Retail Installment Contract
+              </td>
+              <td> <img
+                  src="../../../assets/new/pdfIcon.svg"
+                /></td>
+            </tr>
+          </tbody>
+        </table>
+
+       
+      </div>
+ <button class="btn main_btn w100per mt_24">Uploaded Documents</button>
+        </div> -->
+      <!-- paySch_calc_100per -->
+      <div class="p25">
+        <div class="WhiteFrame BRadius_10 p12">
+          <accordion>
+            <!--<accordion-group class="accordianGrp mb_24"
+         #group
+        (isOpenChange)="paymentAccordinChange($event)"
+      >
+        <h2 accordion-heading>
+          Change Payment Schedules <i class="far fa-chevron-down"></i>
+        </h2>
+
+        <div class="accordion_ans">
+          <div class="row">
+            <div class="col-md-3 offset-md-7">
+              <select
+                class="form-control Weekly"
+                name="paymentfrequency"
+                [formControl]="paymentfrequency"
+                (change)="payamentSchedules.changePaymentfrequency()"
+              >
+                <option
+                  [disabled]="
+                    !payamentSchedules.calendarOptions.selectable
+                  "
+                  value="B"
+                >
+                  Bi-Weekly
+                </option>
+                <option
+                  [disabled]="
+                    !payamentSchedules.calendarOptions.selectable
+                  "
+                  value="M"
+                >
+                  Monthly
+                </option>
+                <option
+                  [disabled]="
+                    !payamentSchedules.calendarOptions.selectable
+                  "
+                  value="S"
+                >
+                  Semi-Monthly
+                </option>
+                <option
+                  [disabled]="
+                    !payamentSchedules.calendarOptions.selectable
+                  "
+                  value="W"
+                >
+                  Weekly
+                </option>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <button
+                type="button"
+                [disabled]="
+                  !payamentSchedules.calendarOptions.selectable
+                "
+                (click)="saveReschedules()"
+                class="btn main_btn"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+
+          <full-calendar
+            #calendar
+            id="calendar"
+            [options]="payamentSchedules.calendarOptions"
+          ></full-calendar>
+        </div>
+      </accordion-group>-->
+            <accordion-group #group class="accordianGrp mb_8" [isOpen]="true">
+              <div
+                class="displayFlex spaceBetween AlignItemCenter"
+                accordion-heading
+              >
+                <div class="media AlignItemCenter">
+                  <img src="../../../assets/new/info_Icon.svg" class="mr-3" />
+                  <div class="media-body">
+                    <h5 class="accordion_heading">Payment Details</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="../../../assets/new/CircleArrow_Down.svg" />
+                </div>
+              </div>
+
+              <div class="paymentdEtails">
+                <!-- <h5>Payment</h5> -->
+                <div class="commonTable table_responsive">
+                  <table class="plr_16 mb_24">
+                    <tr>
+                      <!-- <div class="displayFlex listdetails"> -->
+                      <th>Financing Start Date</th>
+                      <td>{{ payment[0].createdat }}</td>
+                      <!-- </div> -->
+                    </tr>
+                    <tr>
+                      <!-- <div class="displayFlex listdetails"> -->
+                      <th>Financing Amount</th>
+                      <td>{{ payment[0].loan_advance | currency }}</td>
+                      <!-- </div> -->
+                    </tr>
+
+                    <tr>
+                      <!-- <div class="displayFlex listdetails"> -->
+                      <th>Payoff Amount</th>
+                      <td>{{ payment[0].payOffAmount | currency }}</td>
+                      <!-- </div> -->
+                    </tr>
+
+                    <tr>
+                      <!-- <div class="displayFlex listdetails"> -->
+                      <th>Interest</th>
+                      <td>{{ payment[0].apr }}%</td>
+                      <!-- </div> -->
+                    </tr>
+
+                    <tr>
+                      <!-- <div class="displayFlex listdetails"> -->
+                      <th>Financing Term</th>
+                      <td>{{ payment[0].loantermcount }}</td>
+                      <!-- </div> -->
+                    </tr>
+                    <!--<tr>
+                        <td style="font-weight:500;">Financing Status</td>
+                        <td>{{ payment[0].loantermcount }}</td>
+                    </tr>-->
+                    <tr>
+                      <!-- <div class="displayFlex listdetails"> -->
+                      <th>Maturity Date</th>
+                      <td>{{ payment[0].maturityDate }}</td>
+                      <!-- </div> -->
+                    </tr>
+                    <tr>
+                      <!-- <div class="displayFlex listdetails"> -->
+                      <th>Next Payment Schedule Date</th>
+                      <td>{{ payment[0].nextpaymentschedule }}</td>
+                      <!-- </div> -->
+                    </tr>
+                  </table>
+                </div>
+                <h4 class="SemiBold_14 mb_16">Payment Schedule Information</h4>
+                <div
+                  class="Table_item table_responsive overflowScroll WhiteFrame BRadius_10 p24"
+                >
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Unpaid Principal Balance</th>
+                        <th>Principal</th>
+                        <th>Interest</th>
+                        <th>Fees</th>
+                        <th>Amount</th>
+                        <th>Schedule Date</th>
+                        <th>Paid Date</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="data.paymentScheduleDetails.length > 0">
+                      <tr
+                        *ngFor="
+                          let d of data.paymentScheduleDetails;
+                          let i = index
+                        "
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                          {{ d.unpaidprincipal | currency }}
+                        </td>
+                        <td>
+                          {{ d.principal | currency }}
+                        </td>
+                        <td>{{ d.interest | currency }}</td>
+                        <td>{{ d.fees | currency }}</td>
+                        <td>{{ d.amount | currency }}</td>
+                        <td>
+                          {{ datePipe.transform(d.scheduledate, "yyyy/MM/dd") }}
+                        </td>
+                        <td *ngIf="d.paidat">
+                          {{ datePipe.transform(d.paidat, "yyyy/MM/dd") }}
+                        </td>
+                        <td *ngIf="!d.paidat" class="text-center">-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
+    </div>
+    <!-- </tab> -->
+  </div>
+  <div
+    class="Document_Center_Tab height_100per"
+    *ngIf="div6"
+  >
+    <!-- <tab
+          heading="Document Center"
+          
+        > -->
+    <div class="DesktopFlex_MobileBlock minHeight_100per">
+      <div class="WhiteFrame ptb27_plr_25 width_495 m_1">
+        <h3 class="headingthree_bold Primary_mainblack mb_24">
+          Loan Agreement Documents
+        </h3>
+        <div class="hrBorderLine mb_24"></div>
+        <div class="DocumentCenterTable table_responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Documents</th>
+                <th>PDF</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="userConsentDocuments">
+              <tr *ngFor="let d of userConsentDocuments; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  {{ d.name }}
+                </td>
+                <td><img src="../../../assets/new/pdfIcon.svg" /></td>
+                <td>
+                  <a
+                    (click)="viewdoc(d.filepath)"
+                    href="javascript:void(0)"
+                    class="ViewDownload"
+                    >View</a
+                  >
+                </td>
+              </tr>
+              <tr *ngFor="let d of data.userDocument; let j = index">
+                <td>{{ userConsentDocuments.length + 1 + j }}</td>
+                <td>
+                  {{ d.orginalfilename }}
+                </td>
+                <td *ngIf="d.orginalfilename.substr(-3) == 'pdf'">
+                  <img src="../../../assets/new/pdfIcon.svg" />
+                </td>
+                <td *ngIf="d.orginalfilename.substr(-3) != 'pdf'">
+                  <img src="../../../assets/new/upload_type_img.svg" />
+                </td>
+                <td>
+                  <a
+                    (click)="view(d.filename)"
+                    href="javascript:void(0)"
+                    class="ViewDownload"
+                    >View</a
+                  >
+                </td>
+              </tr>
+              <tr
+                class="text-center"
+                *ngIf="
+                  !userConsentDocuments || userConsentDocuments.length == 0
+                "
+              >
+                <td colspan="3">No records</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button
+          class="btn main_btn w100per mt_24"
+          (click)="modelopen(upload_document)"
+        >
+          Upload Document
+        </button>
+      </div>
+      <div class="document_cal_100per Docuemnt_view">
+        <h3 *ngIf="htmlDocview == null">Open the Document</h3>
+        <iframe
+          *ngIf="htmlDocview != null"
+          [src]="htmlDocview"
+          style="width: 100%; min-height: 780px"
+          title="Documents"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="Counter_Offer_Tab" *ngIf="div7">
+    <!-- <tab heading="Offers" > -->
+
+    <div class="DesktopFlex_MobileBlock">
+      <div class="WhiteFrame ptb_25 plr_25 m_1 width_450 height_100vh">
+        <div class="GrayTable table_responsive">
+          <table class="plr_16">
+            <tr>
+              <th>Total Procedure Cost:</th>
+              <td>$ 5,000.00</td>
+            </tr>
+            <tr>
+              <th>Down Payment:</th>
+              <td>$ 1,500.00</td>
+            </tr>
+            <tr>
+              <th>Monthly Income:</th>
+              <td>$ 6,565.00</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="counterOffer_calc_100per ptb27_plr_25">
+        <div class="WhiteFrame BRadius_10 p12">
+          <div class="BankAccount_Tab mb_24" id="BankAccount_Tab">
+            <ul>
+              <li>
+                <a
+                  class="{{ cactive1 }}"
+                  style="cursor: pointer"
+                  (click)="countertoggle('generate')"
+                  >Generate Counter Offer</a
+                >
+              </li>
+              <li>
+                <a
+                  class="{{ cactive2 }}"
+                  style="cursor: pointer"
+                  (click)="countertoggle('create')"
+                  >Create Custom Counter Offer</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="Generate_Counter_Offer" *ngIf="cdiv1">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb_24">
+                  <input
+                    type="text"
+                    class="adminInput"
+                    placeholder="Change Procedure Cost"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb_24">
+                  <input
+                    type="text"
+                    class="adminInput"
+                    placeholder="Change Down Payment"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb_24">
+                  <input
+                    type="text"
+                    class="adminInput"
+                    placeholder="Change Monthly Income"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="Custom_Couter_Offer" *ngIf="cdiv2">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb_24">
+                  <input type="text" class="adminInput" placeholder="APR" />
+                </div>
+                <div class="col-md-6 mb_24">
+                  <input type="text" class="adminInput" placeholder="Term" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb_24">
+                  <input
+                    type="text"
+                    class="adminInput"
+                    placeholder="Change Procedure Cost"
+                  />
+                </div>
+                <div class="col-md-6 mb_24">
+                  <input
+                    type="text"
+                    class="adminInput"
+                    placeholder="Change Monthly Income"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb_24">
+                  <input
+                    type="text"
+                    class="adminInput"
+                    placeholder="Change Down Payment"
+                  />
+                </div>
+                <div class="col-md-6 mb_24">
+                  <input type="text" class="adminInput" placeholder="Tier" />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="displayFlex flexEnd">
+            <button class="btn main_btn">Get Offers</button>
+          </div>
+          <div class="grayBg p12 mt_24" *ngIf="cdiv2">
+            <h4 class="SemiBold_14 mb_12">Offer Information</h4>
+            <form [formGroup]="offer_form">
+              <div class="commonTable table_responsive">
+                <table class="plr_16">
+                  <tr>
+                    <th>Financial Amount</th>
+                    <th>Interest Rate</th>
+                    <th>Term</th>
+                    <th>Origination Fee</th>
+                    <th>Monthly Amount</th>
+                    <th>Created</th>
+                    <th style="width: 70px">
+                      <button
+                        class="btn btn-sm btn-success"
+                        type="button"
+                        (click)="offer_create()"
+                        title="Create offer"
+                      >
+                        <i class="fas fa-plus-square"></i>
+                      </button>
+                    </th>
+                  </tr>
+                  <tr
+                    *ngFor="let d of eligibleOfferDetails; let i = index"
+                    [class]="d.selected_flag == 'Y' ? 'rowSuccess' : ''"
+                    [attr.title]="
+                      d.selected_flag == 'Y' ? 'User selected Offer' : ''
+                    "
+                  >
+                    <td>
+                      <span
+                        class="offer_view"
+                        [style.display]="offer_inputIndex == i ? 'none' : ''"
+                        >{{ d.financialamount | currency }}</span
+                      >
+                      <div
+                        class="form-group offer_edit"
+                        [style.display]="offer_inputIndex == i ? '' : 'none'"
+                      >
+                        <div class="">
+                          <input
+                            placeholder="Financial Amount"
+                            formControlName="financialAmount"
+                            id="financialAmount"
+                            class="form-control form-application"
+                            [ngClass]="{
+                              'is-invalid':
+                                offer_form.controls.financialAmount.errors &&
+                                (offer_form.controls.financialAmount.dirty ||
+                                  offer_form.controls.financialAmount.touched ||
+                                  offer_saveClicked)
+                            }"
+                            (input)="offer_calc(i)"
+                          />
+                          <div
+                            *ngIf="
+                              offer_form.controls.financialAmount.errors &&
+                              (offer_form.controls.financialAmount.dirty ||
+                                offer_form.controls.financialAmount.touched ||
+                                offer_saveClicked)
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                offer_form.controls.financialAmount.errors
+                                  .required
+                              "
+                            >
+                              Financial Amount is required
+                            </div>
+                            <div
+                              *ngIf="
+                                offer_form.controls.financialAmount.errors
+                                  .pattern
+                              "
+                            >
+                              Financial Amount is not vaild
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span
+                        [style.display]="offer_inputIndex == i ? 'none' : ''"
+                        >{{ d.interestrate }} %</span
+                      >
+                      <div
+                        class="form-group"
+                        [style.display]="offer_inputIndex == i ? '' : 'none'"
+                      >
+                        <div class="">
+                          <input
+                            placeholder="Interest Rate"
+                            formControlName="interestRate"
+                            id="interestRate"
+                            class="form-control form-application"
+                            [ngClass]="{
+                              'is-invalid':
+                                offer_form.controls.interestRate.errors &&
+                                (offer_form.controls.interestRate.dirty ||
+                                  offer_form.controls.interestRate.touched ||
+                                  offer_saveClicked)
+                            }"
+                            (input)="offer_calc(i)"
+                          />
+                          <div
+                            *ngIf="
+                              offer_form.controls.interestRate.errors &&
+                              (offer_form.controls.interestRate.dirty ||
+                                offer_form.controls.interestRate.touched ||
+                                offer_saveClicked)
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                offer_form.controls.interestRate.errors.required
+                              "
+                            >
+                              Interest Rate is required
+                            </div>
+                            <div
+                              *ngIf="
+                                offer_form.controls.interestRate.errors.pattern
+                              "
+                            >
+                              Interest Rate is not vaild
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span
+                        [style.display]="offer_inputIndex == i ? 'none' : ''"
+                        >{{ d.duration }} Month</span
+                      >
+                      <div
+                        class="form-group"
+                        [style.display]="offer_inputIndex == i ? '' : 'none'"
+                      >
+                        <div class="">
+                          <select
+                            placeholder="Duration"
+                            formControlName="duration"
+                            id="duration"
+                            class="form-control form-application"
+                            [ngClass]="{
+                              'is-invalid':
+                                offer_form.controls.duration.errors &&
+                                (offer_form.controls.duration.dirty ||
+                                  offer_form.controls.duration.touched ||
+                                  offer_saveClicked)
+                            }"
+                            (change)="offer_calc(i)"
+                          >
+                            <option value="" disabled selected>Duration</option>
+                            <option
+                              *ngFor="let month of durationMonths"
+                              [value]="month"
+                            >
+                              {{ month }}
+                            </option>
+                          </select>
+                          <div
+                            *ngIf="
+                              offer_form.controls.duration.errors &&
+                              (offer_form.controls.duration.dirty ||
+                                offer_form.controls.duration.touched ||
+                                offer_saveClicked)
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                offer_form.controls.duration.errors.required
+                              "
+                            >
+                              Duration is required
+                            </div>
+                            <div
+                              *ngIf="
+                                offer_form.controls.duration.errors.pattern
+                              "
+                            >
+                              Duration is not vaild
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span
+                        [style.display]="offer_inputIndex == i ? 'none' : ''"
+                        >{{ d.originationfee | currency }}</span
+                      >
+                      <div
+                        class="form-group"
+                        [style.display]="offer_inputIndex == i ? '' : 'none'"
+                      >
+                        <div class="">
+                          <input
+                            placeholder="Origination Fee"
+                            formControlName="originationFee"
+                            id="originationFee"
+                            class="form-control form-application"
+                            [ngClass]="{
+                              'is-invalid':
+                                offer_form.controls.originationFee.errors &&
+                                (offer_form.controls.originationFee.dirty ||
+                                  offer_form.controls.originationFee.touched ||
+                                  offer_saveClicked)
+                            }"
+                            (input)="offer_calc(i)"
+                          />
+                          <div
+                            *ngIf="
+                              offer_form.controls.originationFee.errors &&
+                              (offer_form.controls.originationFee.dirty ||
+                                offer_form.controls.originationFee.touched ||
+                                offer_saveClicked)
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                offer_form.controls.originationFee.errors
+                                  .required
+                              "
+                            >
+                              Origination Fee is required
+                            </div>
+                            <div
+                              *ngIf="
+                                offer_form.controls.originationFee.errors
+                                  .pattern
+                              "
+                            >
+                              Origination Fee is not vaild
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span
+                        [style.display]="offer_inputIndex == i ? 'none' : ''"
+                        >{{ d.monthlyamount | currency }}</span
+                      >
+                      <span
+                        [style.display]="offer_inputIndex == i ? '' : 'none'"
+                        >{{ d.dynamicmonthlyamount | currency }}</span
+                      >
+                    </td>
+                    <td>
+                      <span *ngIf="d.offertype == 'GeneratedByAPI'"
+                        >Automatic</span
+                      >
+                      <span *ngIf="d.offertype == 'InitUserSelected'"
+                        >Initstal Automatic</span
+                      >
+                      <span *ngIf="d.offertype == 'GeneratedByAdmin'"
+                        >Manual</span
+                      >
+                    </td>
+                    <td>
+                      <div
+                        [style.display]="offer_inputIndex == i ? 'none' : ''"
+                      >
+                        <button
+                          class="btn btn-sm btn-danger"
+                          type="button"
+                          title="delete"
+                          (click)="offer_delete(i)"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm btn-primary"
+                          type="button"
+                          (click)="offer_edit(i)"
+                          title="edit"
+                        >
+                          <i class="fas fa-pencil-alt"></i>
+                        </button>
+                      </div>
+                      <div
+                        [style.display]="offer_inputIndex == i ? '' : 'none'"
+                      >
+                        <button
+                          class="btn btn-sm btn-success"
+                          type="button"
+                          (click)="offer_save(i)"
+                          title="save"
+                        >
+                          <i class="fas fa-save"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm btn-danger"
+                          type="button"
+                          (click)="offer_colse(i)"
+                          title="colse"
+                        >
+                          <i class="fas fa-window-close"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+            <div
+              class="displayFlex flexEnd mt_12"
+              *ngIf="
+                eligibleOfferDetails &&
+                eligibleOfferDetails.length > 0 &&
+                eligibleOfferDetails[0].id
+              "
+            >
+              <button
+                class="btn main_btn"
+                type="button"
+                (click)="offer_send_mail()"
+                title="Send Offers Email"
+              >
+                Send Counter Offer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+    <div class="grayBg p12" *ngIf="data.from_details.length > 0">
+    </div> -->
+    <!-- </tab> -->
+  </div>
+  <div
+    class="Comments_Tab"
+    *ngIf="data.from_details.length > 0 && div8"
+  >
+    <!-- <tab
+          heading="Comments"
+          
+        > -->
+    <!-- <div class="frameshadow">
+                  <form name="form" (ngSubmit)="f.form.valid && addcomments(messagebox)" #f="ngForm" novalidate>
+                  <div class=" ">
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Subject</div>
+                      <div class="w100per">
+                        <input type="text" name="subject" [(ngModel)]="cm.subject" #subject="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"/>
+                      </div>
+                    </div>
+                    <div
+                      class="displayFlex listdetails AlignItemCenter flexStart"
+                    >
+                      <div class="fontWeight w200px">Comments</div>
+                      <div class="w100per">
+                        <textarea class="form-control" name="comments" [(ngModel)]="cm.comments" #comments="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"></textarea>
+                      </div>
+                    </div>
+                    <div class="p10px">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="updocs"
+                        value="Validate"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                </div> -->
+
+    <div class="Comments_sec">
+      <!-- <h3 class="headingthree_bold Primary_mainblack mb_12">Comments</h3> -->
+      <div class="Table_item table_responsive WhiteFrame BRadius_10 p24">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Subject</th>
+              <th>Comments</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of res_comments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ c.subject }}</td>
+              <td>{{ c.comments }}</td>
+              <td class="font_Weight_bold">
+                {{ c.role }}:{{ c.firstname }} {{ c.lastname }}
+              </td>
+              <td>{{ c.createdat }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="content_footer"> -->
+    <!-- </div> -->
+    <!-- </tab> -->
+  </div>
+  <div
+    class="Log_Tab"
+    *ngIf="data.from_details.length > 0 && div9"
+  >
+    <!-- <tab heading="Log" > -->
+    <div class="log_sec">
+      <!-- <h3 class="headingthree_bold Primary_mainblack mb_24">Log Activity Details</h3> -->
+      <div class="Table_item table_responsive WhiteFrame BRadius_10 p12">
+        <table id="achlogactivity_table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Log Reference</th>
+              <th>Module Name</th>
+              <th>User</th>
+              <th>Created Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of screenlogs; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ d.id }}</td>
+              <td>{{ d.module }}</td>
+              <td>
+                {{ d.user }}
+              </td>
+              <td>{{ d.createdat }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- </tab> -->
+  </div>
+  <!-- </tabset> -->
+</div>
+
+<!--<div class="content_part">
+  <div class="view_content_part">
+    
+    <div class="view_content_part_header">
+      <div *ngIf="data.from_details.length">
+        <h4>
+          <i class="far fa-chevron-left" (click)="goback()"></i>
+          {{ data.from_details[0]["firstname"] }}
+          {{ data.from_details[0]["lastname"] }}
+        </h4>
+      </div>
+      <div>
+      </div>
+    </div>
+    
+  </div>
+</div>-->
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>
+
+<!-- Manual Bank Account Modal -->
+<ng-template #manualBankAddTemp>
+  <div class="modal-body manualBankAddTemp">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="bankAddFormClose()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5>Bank Account Information For Auto-Pay</h5>
+
+    <form [formGroup]="bankAddForm" (ngSubmit)="manualBankAdd()">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="bankname">Bank Name</label><br />
+          <input
+            type="text"
+            id="bankname"
+            formControlName="bankname"
+            class="form-control"
+            [class.is-invalid]="
+              f.bankname.invalid && (f.bankname.touched || fSubmitted)
+            "
+          />
+          <small
+            *ngIf="f.bankname.invalid && (f.bankname.touched || fSubmitted)"
+            class="text-danger"
+            >Bank name is required</small
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="holdername">Primary Account Holder</label><br />
+          <input
+            type="text"
+            id="holdername"
+            formControlName="holdername"
+            class="form-control"
+            [class.is-invalid]="
+              f.holdername.invalid && (f.holdername.touched || fSubmitted)
+            "
+          />
+          <small
+            *ngIf="f.holdername.invalid && (f.holdername.touched || fSubmitted)"
+            class="text-danger"
+            >Account holder name is required</small
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label for="holdername">Routing Number</label><br />
+          <input
+            type="number"
+            id="routingnumber"
+            formControlName="routingnumber"
+            class="form-control"
+            [class.is-invalid]="
+              f.routingnumber.invalid && (f.routingnumber.touched || fSubmitted)
+            "
+          />
+          <div
+            *ngIf="
+              f.routingnumber.invalid && (f.routingnumber.touched || fSubmitted)
+            "
+          >
+            <small *ngIf="f.routingnumber.errors?.required" class="text-danger"
+              >Routing number is required</small
+            >
+            <small *ngIf="f.routingnumber.errors?.min" class="text-danger"
+              >Enter min. of 5 numbers</small
+            >
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="holdername">Account Number</label><br />
+          <input
+            type="number"
+            id="accountnumber"
+            formControlName="accountnumber"
+            class="form-control"
+            [class.is-invalid]="
+              f.accountnumber.invalid && (f.accountnumber.touched || fSubmitted)
+            "
+          />
+          <div
+            *ngIf="
+              f.accountnumber.invalid && (f.accountnumber.touched || fSubmitted)
+            "
+          >
+            <small *ngIf="f.accountnumber.errors?.required" class="text-danger"
+              >Account number is required</small
+            >
+            <small *ngIf="f.accountnumber.errors?.min" class="text-danger"
+              >Enter min. of 10 numbers</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="holdername">Confirm Account Number</label><br />
+          <input
+            type="number"
+            id="confmAccountNumber"
+            formControlName="confmAccountNumber"
+            class="form-control"
+            [class.is-invalid]="
+              f.confmAccountNumber.invalid &&
+              (f.confmAccountNumber.touched || fSubmitted)
+            "
+          />
+          <div *ngIf="f.confmAccountNumber.touched || fSubmitted">
+            <small
+              *ngIf="f.confmAccountNumber.errors?.required"
+              class="text-danger"
+              >Confirm account number is required</small
+            >
+            <small *ngIf="bankAddForm.errors?.misMatch" class="text-danger"
+              >Account number not matched</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="manualBankAddTemp_btn">
+        <button
+          type="button"
+          class="btn main_hover_btn mr30px"
+          (click)="bankAddFormClose()"
+        >
+          Cancel
+        </button>
+        <button type="submit" class="btn main_btn">Save</button>
+      </div>
+    </form>
+    <!-- <form
+        id="manualBankAddForm"
+        name="manualBankAddForm"
+        (ngSubmit)="f.form.valid && manualBankAdd()"
+        #f="ngForm"
+        novalidate
+      >
+        <label>Bank Name</label><br />
+        <input
+          type="text"
+          name="bankname"
+          [(ngModel)]="manualBankAddFields.bankname"
+          class="form-control"
+          required #bankname="ngModel"
+          [class.is-invalid]="(bankname.touched || f.submitted) && bankname.invalid"
+        /><br />
+        <label>Primary Account Holder</label><br />
+        <input
+          type="text"
+          name="holdername"
+          [(ngModel)]="manualBankAddFields.holdername"
+          class="form-control"
+          required #holdername="ngModel"
+          [class.is-invalid]="(holdername.touched || f.submitted) && holdername.invalid"
+        /><br />
+        <label>Routing Number</label><br />
+        <input
+          type="number"
+          name="routingnumber"
+          [(ngModel)]="manualBankAddFields.routingnumber"
+          class="form-control"
+          required pattern="^\d{5}$"
+          #routingnumber="ngModel" [class.is-invalid]="(routingnumber.touched || f.submitted) && routingnumber.invalid"
+        /><br />
+        <label>Account Number</label><br />
+        <input
+          type="number"
+          name="accountnumber"
+          [(ngModel)]="manualBankAddFields.accountnumber"
+          class="form-control"
+          required pattern="^\d{12}$"
+          #accountnumber="ngModel" [class.is-invalid]="(accountnumber.touched || f.submitted) && accountnumber.invalid"
+        /><br />
+        <label>Confirm Account Number</label><br />
+        <input
+          type="number"
+          name="confmAccountNumber"
+          [(ngModel)]="manualBankAddFields.confmAccountNumber"
+          class="form-control"
+          required pattern="^\d{12}$"
+          #confmAccountNumber="ngModel" [class.is-invalid]="((confmAccountNumber.touched || f.submitted) && confmAccountNumber.invalid) || (accountnumber.value!==confmAccountNumber.value)"
+        /><br />
+        <button type="button" class="brw-btn closebutton mr30px w200px" (click)="close()">CANCEL</button>
+        <button type="submit" class="greenbutton upperCase w200px">Save</button>
+      </form> -->
+  </div>
+</ng-template>
+
+<!-- comment popup Modal -->
+<ng-template #comment_modal>
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && addcomments(messagebox)"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="commemt_box modal-body">
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="mb_24">Add New Comment</h5>
+
+      <!-- <div class="row"> -->
+      <!-- <div class="col-md-4"> -->
+      <!-- <label>Subject</label> -->
+      <!-- </div> -->
+      <div class="mb_24">
+        <input
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          [(ngModel)]="cm.subject"
+          #subject="ngModel"
+          required
+          class="adminInput"
+          [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"
+        />
+      </div>
+      <!-- </div> -->
+      <!-- <div class="row"> -->
+      <!-- <div class="col-md-4">
+          <label>Comments</label>
+        </div> -->
+      <div class="mb_24">
+        <textarea
+          class="adminInput"
+          placeholder="Comment"
+          name="comments"
+          [(ngModel)]="cm.comments"
+          #comments="ngModel"
+          required
+          [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }"
+        ></textarea>
+      </div>
+      <!-- </div> -->
+      <div class="displayFlex flexEnd">
+        <button
+          type="button"
+          class="btn main_hover_btn"
+          (click)="close()"
+          style="margin-right: 20px"
+        >
+          Cancel
+        </button>
+        <button type="submit" id="updocs" value="Validate" class="btn main_btn">
+          Add Comment
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<!-- document upload -->
+
+<ng-template #upload_document>
+  <div class="commemt_box modal-body">
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5>Upload Documents</h5>
+
+    <!-- <div class="row"> -->
+    <!-- <div class="col-md-6"><label>Document Type</label></div> -->
+    <!-- <div class="col-md-6"> -->
+    <select
+      name="docutype"
+      [formControl]="formControls.type"
+      class="adminInput"
+    >
+      <option value="">Select Document Type</option>
+      <option *ngFor="let doc of documentsTypes" [value]="doc.documenttype">
+        {{ doc.documenttype }}
+      </option>
+    </select>
+    <div
+      *ngIf="
+        !formControls.type.valid &&
+        formControls.type.errors &&
+        (formControls.type.dirty || formControls.type.touched)
+      "
+      class="text-danger"
+    >
+      <div *ngIf="formControls.type.errors.required">
+        Document Type is required.
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- <div class="row"> -->
+    <!-- <div class="col-md-6"><label>Document</label></div> -->
+    <div>
+      <ngx-file-drag-drop
+        class="upload_docs"
+        [formControl]="formControls.docFile"
+        activeBorderColor="#3F51B5"
+        accept="image/png, image/jpeg, application/pdf"
+      >
+      </ngx-file-drag-drop>
+      <div
+        *ngIf="
+          !formControls.docFile.valid &&
+          formControls.docFile.errors &&
+          (formControls.docFile.dirty || formControls.docFile.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="formControls.docFile.errors.required">
+          File is required.
+        </div>
+        <div *ngIf="formControls.docFile.errors.fileExtension">
+          Unsupported file format.
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn main_hover_btn"
+      (click)="close()"
+      style="margin-right: 20px"
+    >
+      Cancel
+    </button>
+
+    <button
+      type="button"
+      class="btn main_btn"
+      id="updocs"
+      (click)="uploadDoc()"
+    >
+      Upload
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #template1>
+  <form
+    autocomplete="on"
+    name="form"
+    [formGroup]="apForms"
+    (ngSubmit)="onsubmit('template1')"
+    method="POST"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Financing Approval Confirmation</h3>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-center">
+          <div class="modal-title mb20px p10">
+            <b>Are you sure you want to approve this application?</b>
+          </div>
+          <div class="col-12 pb20">
+            <div class="form-group">
+              <label for="Procedure start date">Procedure start date</label>
+              <input
+                type="date"
+                class="inputBox"
+                (bsValueChange)="validateDOB($event)"
+                formControlName="startdate"
+                id="startdate"
+                [min]="todayDate"
+                [ngClass]="{
+                  'is-invalid':
+                    (apiFormvalidation.startdate.dirty ||
+                      apiFormvalidation.startdate.touched ||
+                      apibtn) &&
+                    apiFormvalidation.startdate.errors
+                }"
+              />
+              <div
+                *ngIf="
+                  (apiFormvalidation.startdate.dirty ||
+                    apiFormvalidation.startdate.touched ||
+                    apibtn) &&
+                  apiFormvalidation.startdate.errors
+                "
+                class="invalid-feedback"
+              >
+                <div *ngIf="apiFormvalidation.startdate.errors.required">
+                  Start date is required
+                </div>
+              </div>
+              <div class="date-error" *ngIf="dateval != ''">
+                {{ dateval }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Procedure start date">Payment Due Date</label>
+              <select
+                class="form-control form-application"
+                formControlName="duedate"
+                [ngClass]="{
+                  'is-invalid':
+                    (apiFormvalidation.duedate.dirty ||
+                      apiFormvalidation.duedate.touched ||
+                      apibtn) &&
+                    apiFormvalidation.duedate.errors
+                }"
+              >
+                <option value="null" selected="selected" disabled="disabled">
+                  Select Payment Due Date
+                </option>
+                <option
+                  *ngFor="let in of counter(31); let i = index"
+                  [value]="i + 1"
+                >
+                  {{ i + 1 }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  (apiFormvalidation.duedate.dirty ||
+                    apiFormvalidation.duedate.touched ||
+                    apibtn) &&
+                  apiFormvalidation.duedate.errors
+                "
+                class="invalid-feedback"
+              >
+                <div *ngIf="apiFormvalidation.duedate.errors.required">
+                  Due date is required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #uploadproceduredate>
+  <form
+    autocomplete="on"
+    name="form"
+    [formGroup]="apForms"
+    (ngSubmit)="onsubmit('updateprocedure')"
+    method="POST"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Financing Approval Confirmation</h3>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-center">
+          <div class="modal-title mb20px p10">
+            <b>Are you sure you want to approve this application?</b>
+          </div>
+          <div class="col-12 pb20">
+            <div class="form-group">
+              <label for="Procedure start date">Procedure start date</label>
+              <input
+                type="date"
+                [min]="todayDate"
+                name="startdate"
+                class="form-control"
+                formControlName="startdate"
+                id="startdate"
+                [ngClass]="{
+                  'is-invalid':
+                    (apiFormvalidation.startdate.dirty ||
+                      apiFormvalidation.startdate.touched ||
+                      apibtn) &&
+                    apiFormvalidation.startdate.errors
+                }"
+              />
+              <div
+                *ngIf="
+                  (apiFormvalidation.startdate.dirty ||
+                    apiFormvalidation.startdate.touched ||
+                    apibtn) &&
+                  apiFormvalidation.startdate.errors
+                "
+                class="invalid-feedback"
+              >
+                <div *ngIf="apiFormvalidation.startdate.errors.required">
+                  Start date is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <!-- <label for="Procedure start date">Payment Due Date</label> -->
+              <input type="hidden" formControlName="duedate" name="duedate" />
+              <!-- <select
+                class="form-control form-application"
+                formControlName="duedate"
+                [ngClass]="{
+                  'is-invalid':
+                    (apiFormvalidation.duedate.dirty ||
+                      apiFormvalidation.duedate.touched ||
+                      apibtn) &&
+                    apiFormvalidation.duedate.errors
+                }"
+              >
+                <option value="null" selected="selected" disabled="disabled">
+                  Select Payment Due Date
+                </option>
+                <option
+                  *ngFor="let in of counter(31); let i = index"
+                  [value]="i"
+                >
+                  {{ i + 1 }}
+                </option>
+              </select> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #confimedate>
+  <form
+    autocomplete="on"
+    name="form"
+    [formGroup]="apForms"
+    (ngSubmit)="confirmdateStatus()"
+    method="POST"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Confirm Procedure</h3>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row align-items-center">
+          <div class="modal-title mb20px p10">
+            <b>Are you sure you want to approve this application?</b>
+          </div>
+          <div class="col-12 pb20">
+            <div class="form-group">
+              <label for="Procedure start date">Procedure start date : </label>
+              <span *ngIf="confirmdate != null; else elsecdate">{{
+                confirmdate
+              }}</span>
+              <ng-template #elsecdate>{{
+                data.from_details[0].procedure_startdate | date: "MM-dd-yyyy"
+              }}</ng-template>
+            </div>
+            <div class="form-group">
+              <label for="Procedure start date">Amount : </label>
+              {{
+                data.from_details[0]["loanamount"] | currency: "USD":"symbol"
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-primary">Confirm</button>
+      </div>
+    </div>
+  </form>
+</ng-template>

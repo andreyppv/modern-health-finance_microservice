@@ -1,0 +1,68 @@
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li class="current">
+            <a [routerLink]="['/admin/dashboard']"><i class="fa fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li class="current">
+            <a [routerLink]="['/admin/settings/roles']"><i class="fa fa-dashboard"></i> Roles List</a>
+        </li>
+        <li class="active">Permission</li>
+    </ol>
+        <h1>View Roles Permission</h1>
+
+</section>
+
+<div class="content_part" *ngIf="roles.length>0">
+    <div class="mainTitle">
+        <div>{{roles[0].name | titlecase}}</div>
+    </div>
+    <div class="p10">
+        <div class="pendingTab">
+            <div class="row">
+                <div class="col-12 mt-2">
+                    <angular2-multiselect [data]="itemList" *ngIf="itemList.length>0"
+                        [(ngModel)]="selectedItems" 
+                        [settings]="settings" 
+                        (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" >
+              </angular2-multiselect>
+                </div>
+                <div class="col-12 mt-2">
+                    <angular2-multiselect [data]="itemList1" *ngIf="itemList1.length>0"
+                        [(ngModel)]="selectedItems1" 
+                        [settings]="settings1" 
+                        (onSelect)="onItemSelect1($event)"
+                        (onDeSelect)="OnItemDeSelect1($event)"
+                        (onSelectAll)="onSelectAll($event)" 
+                        (onDeSelectAll)="onDeSelectAll($event)" >
+                    </angular2-multiselect>
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <button
+                    type="button"
+                    class="btn main_btn"
+                    (click)="save()"
+                  >
+                  Save
+                  </button>
+                </div>
+            </div>
+            
+
+            
+            
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #messagebox>
+    <div class="modal-body text-center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <p class="headtext">Message</p>
+        <p *ngFor="let m of message">{{ m }}</p>
+    </div>
+</ng-template>

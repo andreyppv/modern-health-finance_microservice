@@ -1,0 +1,77 @@
+<section class="content-header" style="display: flex; padding: 30px;">
+  <div style="flex: 1">
+    <h1>Admin Security</h1>
+    <ol class="breadcrumb">
+      <li class="current">
+        <a [routerLink]="['/admin/dashboard']"><img src="../../assets/new/breadcrumb_dash.svg"> Dashboard <i
+            class="fal fa-angle-right"></i></a>
+      </li>
+      <li class="active">Admin Security</li>
+    </ol>
+  </div>
+  <div class="search_box">
+
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="far fa-search"></i>
+        </span>
+      </div>
+      <input type="text" placeholder="Search" aria-label="Search" class="form-control">
+    </div>
+    <div>
+      <a><img src="../../assets/new/search.svg"></a>
+    </div>
+    <button class="btn search">Search</button>
+
+  </div>
+</section>
+
+<div class="content_part">
+  <div class="view_content_part">
+
+    <div class="setting_header">
+      <h5>Change password</h5>
+    </div>
+
+    <div class="change_password">
+      <form [formGroup]="changepwForm" (ngSubmit)="changePassword()">
+        <label for="currentpw">Current Password</label><br />
+        <input type="password" id="currentpw" formControlName="currentpw" class="form-control" [class.is-invalid]="
+          f.currentpw.invalid && (f.currentpw.touched || fSubmitted)
+        " />
+        <small *ngIf="f.currentpw.invalid && (f.currentpw.touched || fSubmitted)" class="text-danger">Current Password
+          is required</small>
+        <br />
+        <label for="newpw">New Password</label><br />
+        <input type="password" id="newpw" formControlName="newpw" class="form-control"
+          [class.is-invalid]="f.newpw.invalid && (f.newpw.touched || fSubmitted)" />
+        <small *ngIf="f.newpw.invalid && (f.newpw.touched || fSubmitted)" class="text-danger">New Password is
+          required</small>
+        <br />
+        <label for="cnewpw">Confirm New Password</label><br />
+        <input type="password" id="cnewpw" formControlName="cnewpw" class="form-control" [class.is-invalid]="
+          f.cnewpw.invalid && (f.cnewpw.touched || fSubmitted)
+        " />
+        <div *ngIf="f.cnewpw.touched || fSubmitted">
+          <small *ngIf="f.cnewpw.errors?.required" class="text-danger">Confirm password is required</small>
+          <small *ngIf="changepwForm.errors?.misMatch" class="text-danger">Password not matched</small>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-outline-primary">Save</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #messagebox>
+  <div class="modal-body text-center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="headtext">message</p>
+    <p *ngFor="let m of message">{{ m }}</p>
+  </div>
+</ng-template>
